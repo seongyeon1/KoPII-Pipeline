@@ -133,6 +133,9 @@ class OrgCodedScheme:
     ) -> None:
         if not years or not divisions or not teams:
             raise ValueError("years·divisions·teams는 비어 있을 수 없습니다.")
+        for year in years:
+            if not 0 <= year <= 99:
+                raise ValueError(f"입사연도는 0~99 범위여야 합니다: {year}")
         self._years = years
         self._divisions = divisions
         self._teams = teams
@@ -158,10 +161,12 @@ class OrgCodedScheme:
     def info(self) -> IdSchemeInfo:
         """정답 메타데이터를 돌려줍니다."""
         # 연도 2자 + 본부 1자 + 팀 1자 = 4자리가 구조적 정보다.
+        # (하이픈은 구조 자릿수에 포함하지 않음)
+        structural_digits = len(f"{self._years[0]:02d}") + 1 + 1
         return IdSchemeInfo(
             scheme="org_coded",
             variant_ids=("ORGCODED",),
-            structural_digits={"ORGCODED": 4},
+            structural_digits={"ORGCODED": structural_digits},
         )
 
 

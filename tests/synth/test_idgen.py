@@ -57,10 +57,25 @@ def test_org_coded_format_and_info() -> None:
     assert scheme.info().structural_digits["ORGCODED"] == 4
 
 
+def test_org_coded_rejects_invalid_years() -> None:
+    """범위 밖의 입사연도는 거부한다."""
+    with pytest.raises(ValueError, match="0~99 범위"):
+        OrgCodedScheme(years=(100,), divisions="A", teams="1")
+
+    with pytest.raises(ValueError, match="0~99 범위"):
+        OrgCodedScheme(years=(-1,), divisions="A", teams="1")
+
+
 def test_same_seed_reproduces_same_ids() -> None:
     """같은 시드면 같은 사번 열이 나와야 한다."""
-    first = [SequentialBlockScheme().issue(random.Random(7))[0] for _ in range(1)]
-    second = [SequentialBlockScheme().issue(random.Random(7))[0] for _ in range(1)]
+    scheme1 = SequentialBlockScheme()
+    rng1 = random.Random(7)
+    first = [scheme1.issue(rng1)[0] for _ in range(10)]
+
+    scheme2 = SequentialBlockScheme()
+    rng2 = random.Random(7)
+    second = [scheme2.issue(rng2)[0] for _ in range(10)]
+
     assert first == second
 
 
