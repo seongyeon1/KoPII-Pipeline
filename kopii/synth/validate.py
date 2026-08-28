@@ -29,6 +29,9 @@ class ValidationReport:
         return all(self.checks.values())
 
 
+# 주의: 이 함수는 population.py의 같은 기능을 의도적으로 다시 구현합니다.
+# 생성기의 헬퍼를 공유하면 그 헬퍼의 버그가 검증기를 속일 수 있으므로,
+# 두 모듈의 구현을 완전히 독립적으로 유지해야 합니다. 절대로 병합하지 마세요.
 def _rrn_checksum_valid(rrn: str) -> bool:
     """주민등록번호 체크섬을 검증합니다.
 
