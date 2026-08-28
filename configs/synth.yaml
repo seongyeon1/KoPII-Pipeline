@@ -1,0 +1,33 @@
+# 합성 코퍼스 생성 기본 설정.
+# 실행: python -m kopii.synth --config configs/synth.yaml
+#
+# 산출물은 data/ 아래에 생성되며 gitignore 된다. 같은 시드면 언제든
+# 같은 코퍼스가 재현되므로 파일을 공유할 필요가 없다.
+
+population:
+  size: 2000
+  seed: 42
+  id_scheme: sequential_block   # 또는 org_coded
+  divisions: 5
+  teams_per_division: [3, 8]
+  nickname_ratio: 0.5
+
+corpus:
+  size: 20000
+  seed: 42
+  genres:
+    meeting_note: 0.25
+    email: 0.25
+    hr_notice: 0.15
+    approval_doc: 0.15
+    chat_log: 0.10
+    issue_ticket: 0.10
+  perturb:
+    honorific_variation: 0.3
+    partial_name: 0.2
+    separator_variation: 0.3
+    line_break_split: 0.05
+    typo: 0.02
+    space_insertion: 0.10
+
+output_dir: data
