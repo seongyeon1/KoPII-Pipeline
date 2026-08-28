@@ -1,5 +1,7 @@
 """템플릿 렌더링과 span 기록 테스트."""
 
+from collections import Counter
+
 import pytest
 
 from kopii.synth.document import (
@@ -77,6 +79,73 @@ def test_repeat_emits_one_line_per_person() -> None:
     doc = render_document("d_0", template, list(pop.people), {"date": "2026-01-02"})
     assert doc.text.count("\n") == 2
     assert len(doc.spans) == 3
+
+
+def test_two_separate_repeat_sections_both_render() -> None:
+    """repeat 줄 - 평범한 줄 - repeat 줄 순서면 두 repeat 섹션이 모두 렌더링돼야 한다.
+
+    첫 번째와 두 번째 repeat 구간이 평범한 줄로 갈라져 있으므로 서로 대안
+    관계가 아니다. "이미 낸 인물" 집합이 문서 전체에서 공유되면 두 번째
+    섹션은 아무것도 내지 못한다.
+    """
+    pop = generate_population(size=3, seed=1)
+    template = _template(
+        [
+            TemplateLine(text="- {person.name}님 참석", repeat="person"),
+            TemplateLine(text="---"),
+            TemplateLine(text="- {person.name}님 처리", repeat="person"),
+        ],
+        persons=(3, 3),
+    )
+    doc = render_document("d_0", template, list(pop.people), {"date": "2026-01-02"})
+
+    for person in pop.people:
+        assert f"- {person.name}님 참석" in doc.text
+        assert f"- {person.name}님 처리" in doc.text
+
+
+def test_genre_weights_are_per_genre_not_per_template() -> None:
+    """장르 가중치는 템플릿 개수가 아니라 장르 단위로 적용돼야 한다.
+
+    한 장르에 템플릿 두 개, 다른 장르에 템플릿 하나를 같은 가중치로 등록해도
+    관측된 장르 비율은 설정한 가중치(1:1)에 가까워야 한다 — 템플릿 개수(2:1)로
+    쏠리면 안 된다.
+    """
+    pop = generate_population(size=20, seed=1)
+    template_a1 = DocumentTemplate(
+        id="a1",
+        genre="genreA",
+        persons=(1, 1),
+        lines=[TemplateLine(text="A1 {person0.name}")],
+    )
+    template_a2 = DocumentTemplate(
+        id="a2",
+        genre="genreA",
+        persons=(1, 1),
+        lines=[TemplateLine(text="A2 {person0.name}")],
+    )
+    template_b1 = DocumentTemplate(
+        id="b1",
+        genre="genreB",
+        persons=(1, 1),
+        lines=[TemplateLine(text="B1 {person0.name}")],
+    )
+
+    docs = generate_documents(
+        pop,
+        [template_a1, template_a2, template_b1],
+        count=400,
+        genre_weights={"genreA": 1.0, "genreB": 1.0},
+        seed=3,
+    )
+
+    counts = Counter(doc.genre for doc in docs)
+    proportion_a = counts["genreA"] / len(docs)
+    proportion_b = counts["genreB"] / len(docs)
+
+    # ±10퍼센트포인트 — 몇 백 건 표본에서 흔들리지 않을 만큼 넉넉한 허용치.
+    assert abs(proportion_a - 0.5) < 0.10, counts
+    assert abs(proportion_b - 0.5) < 0.10, counts
 
 
 def test_unknown_slot_raises() -> None:

@@ -7,4 +7,3 @@ lines:
   - text: "{person1.name}: 오후에 나갑니다"
   - text: "{person0.name}: 확인 부탁드려요 {person1.nickname}"
     requires: [nickname]
-  - text: "{person0.name}: 확인 부탁드려요"

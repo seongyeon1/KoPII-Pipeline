@@ -10,6 +10,18 @@ from pathlib import Path
 _RRN_WEIGHTS: tuple[int, ...] = (2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5)
 _MAX_REPORTED_ERRORS = 20
 
+# span 타입 → population.jsonl에서 대조할 person 필드.
+# 여기에 없는 타입(준식별자 등)은 surface_matches_origin 검사에서 건너뛴다.
+_ORIGIN_FIELD_BY_TYPE: dict[str, str] = {
+    "NAME": "name",
+    "NICKNAME": "nickname",
+    "EMPLOYEE_ID": "employee_id",
+    "RRN": "rrn",
+    "PHONE": "phone",
+    "EMAIL": "email",
+    "ADDRESS": "address",
+}
+
 
 @dataclass(frozen=True, slots=True)
 class ValidationReport:
@@ -46,6 +58,42 @@ def _rrn_checksum_valid(rrn: str) -> bool:
         return False
     total = sum(int(d) * w for d, w in zip(digits[:12], _RRN_WEIGHTS, strict=True))
     return (11 - total % 11) % 10 == int(digits[12])
+
+
+def _normalize_surface(surface: str) -> str:
+    """알려진 흔들림(perturbation) 흔적을 지워 원본 필드와 비교할 수 있게 합니다.
+
+    Args:
+        surface: 코퍼스에 기록된 surface
+
+    Returns:
+        줄바꿈 분할과 공백-하이픈 확장을 되돌린 문자열
+    """
+    return surface.replace("\n", "").replace(" - ", "-")
+
+
+def _surface_matches_origin(surface: str, origin: str) -> bool:
+    """정규화한 surface가 person의 origin 필드에서 나올 수 있는 값인지 판정합니다.
+
+    흔들림 파이프라인이 만들 수 있는 변형만 허용한다 — 부분 이름(성 한 글자),
+    한 글자 오타, 부분 이름에 오타가 겹친 경우.
+
+    Args:
+        surface: 알려진 흔들림을 되돌린 surface
+        origin: population.jsonl에 있는 해당 person의 원본 필드 값
+
+    Returns:
+        surface가 origin에서 legitimate하게 파생될 수 있으면 True
+    """
+    if surface == origin:
+        return True
+    if origin and surface == origin[0]:
+        return True
+    if origin and len(surface) == len(origin):
+        diff = sum(1 for a, b in zip(surface, origin, strict=True) if a != b)
+        if diff <= 1:
+            return True
+    return bool(origin) and len(surface) == 1 and surface != origin[0]
 
 
 def validate_corpus(directory: Path) -> ValidationReport:
@@ -96,12 +144,23 @@ def validate_corpus(directory: Path) -> ValidationReport:
                 errors.append(f"{person['person_id']}: 주민번호 체크섬 불일치")
 
     known_keys = {p["person_id"] for p in people}
+    people_by_key = {p["person_id"]: p for p in people}
     span_roundtrip = True
     entity_key_resolvable = True
+    surface_matches_origin = True
     for document in documents:
         text = document["text"]
         for span in document["spans"]:
-            if text[span["start"] : span["end"]] != span["surface"]:
+            start, end = span["start"], span["end"]
+            bounds_ok = 0 <= start < end <= len(text)
+            if not bounds_ok:
+                span_roundtrip = False
+                if len(errors) < _MAX_REPORTED_ERRORS:
+                    errors.append(
+                        f"{document['id']}: span 범위가 텍스트를 벗어납니다 "
+                        f"({start}, {end}, 텍스트 길이 {len(text)})"
+                    )
+            elif text[start:end] != span["surface"]:
                 span_roundtrip = False
                 if len(errors) < _MAX_REPORTED_ERRORS:
                     errors.append(
@@ -113,6 +172,24 @@ def validate_corpus(directory: Path) -> ValidationReport:
                 if len(errors) < _MAX_REPORTED_ERRORS:
                     errors.append(
                         f"{document['id']}: 인구에 없는 entity_key {span['entity_key']}"
+                    )
+
+            entity_key = span["entity_key"]
+            origin_field = _ORIGIN_FIELD_BY_TYPE.get(span["type"])
+            if entity_key is None or origin_field is None:
+                continue
+            person = people_by_key.get(entity_key)
+            if person is None:
+                continue
+            origin = person[origin_field]
+            normalized = _normalize_surface(span["surface"])
+            if not _surface_matches_origin(normalized, origin):
+                surface_matches_origin = False
+                if len(errors) < _MAX_REPORTED_ERRORS:
+                    errors.append(
+                        f"{document['id']}: surface가 원본 person 필드와 불일치 "
+                        f"(type={span['type']}, surface={span['surface']!r}, "
+                        f"origin={origin!r})"
                     )
 
     counts_match = manifest["counts"]["people"] == len(people) and manifest["counts"][
@@ -128,6 +205,7 @@ def validate_corpus(directory: Path) -> ValidationReport:
             "span_roundtrip": span_roundtrip,
             "entity_key_resolvable": entity_key_resolvable,
             "manifest_counts_match": counts_match,
+            "surface_matches_origin": surface_matches_origin,
         },
         errors=errors,
     )

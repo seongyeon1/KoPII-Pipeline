@@ -121,6 +121,11 @@ def _build_org(
 ) -> tuple[tuple[OrgUnit, ...], list[tuple[str, str]]]:
     """조직 트리를 만들고 (본부명, 팀명) 배치 후보를 함께 돌려줍니다.
 
+    팀 이름 풀이 필요한 팀 수보다 적어 순환(재사용)이 일어나도, 두 번째부터
+    쓰이는 이름에는 번호를 붙여("인프라팀 2") 조직 전체에서 팀 이름이
+    유일하도록 한다. 팀→본부는 일반화 계층이 의존하는 트리 구조이므로,
+    이름이 겹치면 서로 다른 본부의 사람들이 같은 팀으로 뒤섞여 보인다.
+
     Args:
         rng: 난수 생성기
         divisions: 본부 수
@@ -139,6 +144,7 @@ def _build_org(
     team_pool = list(names.TEAM_NAMES)
     rng.shuffle(team_pool)
     cursor = 0
+    usage_count: dict[str, int] = {}
 
     low, high = teams_per_division
     for index in range(divisions):
@@ -153,8 +159,11 @@ def _build_org(
         for offset in range(team_count):
             if cursor >= len(team_pool):
                 cursor = 0  # 팀 이름이 모자라면 순환한다
-            team_name = f"{team_pool[cursor]}"
+            base_name = team_pool[cursor]
             cursor += 1
+            usage_count[base_name] = usage_count.get(base_name, 0) + 1
+            count = usage_count[base_name]
+            team_name = base_name if count == 1 else f"{base_name} {count}"
             team_code = f"{division_code}T{offset}"
             units.append(
                 OrgUnit(

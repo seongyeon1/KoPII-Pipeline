@@ -188,23 +188,28 @@ def _render_line(
 def _line_is_renderable(line: TemplateLine, actors: dict[str, Person]) -> bool:
     """requires 조건을 만족해 이 줄을 낼 수 있는지 판정합니다.
 
+    requires에 든 각 필드는, 그 줄 안에서 실제로 그 필드를 참조하는 슬롯의
+    주인에게만 요구한다. 줄에 등장하는 다른 인물이 우연히 그 필드를 갖고
+    있지 않다고 해서(예: person0.name만 쓰는데 person1.nickname을 요구하는
+    줄에서 person0에게도 nickname을 요구하는 식으로) 줄을 건너뛰면 안 된다.
+
     Args:
         line: 대상 줄
         actors: 별칭 → Person
 
     Returns:
-        줄에서 참조하는 모든 인물이 requires 필드를 갖고 있으면 True
+        requires의 각 필드를 실제로 참조하는 인물이 모두 그 필드를 갖고 있으면 True
     """
     if not line.requires:
         return True
-    referenced = {
-        actors[obj] for obj, _field in _SLOT_RE.findall(line.text) if obj in actors
-    }
-    return all(
-        getattr(person, field, None) is not None
-        for person in referenced
-        for field in line.requires
-    )
+    slots = _SLOT_RE.findall(line.text)
+    for required_field in line.requires:
+        for obj, field in slots:
+            if field != required_field or obj not in actors:
+                continue
+            if getattr(actors[obj], field, None) is None:
+                return False
+    return True
 
 
 def render_document(
@@ -235,10 +240,15 @@ def render_document(
     spans: list[Span] = []
     offset = 0
     emitted_repeat_keys: set[str] = set()
+    previous_was_repeat = False
 
     for line in template.lines:
         if line.repeat == "person":
-            # repeat 줄은 인물마다 한 번씩, "person" 별칭으로 낸다.
+            # 연속된 repeat 줄끼리만 "이미 낸 인물" 집합을 공유한다(대안 줄
+            # 취급). 평범한 줄을 거쳐 새로 시작하는 repeat 구간은 빈 집합에서
+            # 다시 시작해야 두 번째 repeat 섹션도 정상적으로 렌더링된다.
+            if not previous_was_repeat:
+                emitted_repeat_keys = set()
             for person in people:
                 scoped = dict(actors)
                 scoped["person"] = person
@@ -251,8 +261,10 @@ def render_document(
                 rendered.append(text)
                 spans.extend(line_spans)
                 offset += len(text) + 1  # 줄바꿈 한 글자
+            previous_was_repeat = True
             continue
 
+        previous_was_repeat = False
         if not _line_is_renderable(line, actors):
             continue
         text, line_spans = _render_line(line.text, actors, doc_ctx, offset)
@@ -291,18 +303,30 @@ def generate_documents(
         생성된 문서 목록
 
     Raises:
-        ValueError: 가중치가 걸린 장르의 템플릿이 하나도 없는 경우
+        ValueError: 가중치가 0보다 큰 장르가 하나도 없거나, 그런 장르에
+            해당하는 템플릿이 없는 경우
     """
-    usable = [t for t in templates if genre_weights.get(t.genre, 0.0) > 0.0]
-    if not usable:
-        raise ValueError("가중치가 0보다 큰 장르에 해당하는 템플릿이 없습니다.")
+    templates_by_genre: dict[str, list[DocumentTemplate]] = {}
+    for template in templates:
+        templates_by_genre.setdefault(template.genre, []).append(template)
 
-    weights = [genre_weights[t.genre] for t in usable]
+    # 장르를 먼저 뽑고 그 장르 안에서 템플릿을 균등하게 고른다. 템플릿 단위로
+    # 가중치를 적용하면 같은 장르를 여러 템플릿이 나눠 가질 때 그 장르의
+    # 실제 비중이 템플릿 개수만큼 부풀려진다.
+    genres = [genre for genre, weight in genre_weights.items() if weight > 0.0]
+    if not genres:
+        raise ValueError("가중치가 0보다 큰 장르가 없습니다.")
+    for genre in genres:
+        if genre not in templates_by_genre:
+            raise ValueError(f"장르 '{genre}'에 해당하는 템플릿이 없습니다.")
+
+    weights = [genre_weights[genre] for genre in genres]
     rng = random.Random(seed)
     documents: list[Document] = []
 
     for index in range(count):
-        template = rng.choices(usable, weights=weights, k=1)[0]
+        genre = rng.choices(genres, weights=weights, k=1)[0]
+        template = rng.choice(templates_by_genre[genre])
         low, high = template.persons
         actor_count = min(rng.randint(low, high), len(population.people))
         actors = rng.sample(population.people, actor_count)

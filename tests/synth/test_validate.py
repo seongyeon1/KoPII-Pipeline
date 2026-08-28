@@ -98,6 +98,58 @@ def test_detects_invalid_rrn_checksum(tmp_path: Path) -> None:
     assert report.checks["span_roundtrip"] is True
 
 
+def test_detects_span_pointing_at_wrong_text(tmp_path: Path) -> None:
+    """text와 span은 서로 일치해도 실제 인물 데이터를 가리키지 않으면 잡아내야 한다.
+
+    리뷰어가 재현한 실패 형태를 그대로 만든다: span의 start/end를 한 칸씩
+    왼쪽으로 밀면서 surface도 함께 새 위치의 텍스트로 갱신한다. 그러면
+    text[start:end] == surface는 여전히 성립하므로 span_roundtrip은 통과하지만,
+    surface는 더 이상 그 person의 실제 사번을 가리키지 않는다.
+    """
+    _generate(tmp_path)
+    corpus = tmp_path / "corpus.jsonl"
+    lines = corpus.read_text(encoding="utf-8").splitlines()
+
+    corrupted_index: int | None = None
+    corrupted_record: dict | None = None
+    for index, line in enumerate(lines):
+        record = json.loads(line)
+        text = record["text"]
+        found = False
+        for span in record["spans"]:
+            if span["type"] != "EMPLOYEE_ID" or span["entity_key"] is None:
+                continue
+            start, end = span["start"], span["end"]
+            if start < 1:
+                continue
+            new_start, new_end = start - 1, end - 1
+            new_surface = text[new_start:new_end]
+            if new_surface == span["surface"]:
+                continue
+            span["start"] = new_start
+            span["end"] = new_end
+            span["surface"] = new_surface
+            found = True
+            break
+        if found:
+            corrupted_index = index
+            corrupted_record = record
+            break
+
+    assert corrupted_record is not None, "손상시킬 EMPLOYEE_ID span을 찾지 못했습니다"
+    lines[corrupted_index] = json.dumps(
+        corrupted_record, ensure_ascii=False, sort_keys=True
+    )
+    corpus.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    report = validate_corpus(tmp_path)
+    # text와 span은 여전히 서로 맞으므로 기존 검사는 통과한다 — 바로 이 대비가
+    # 새 검사(surface_matches_origin)가 옛 검사가 구조적으로 볼 수 없는 것을
+    # 본다는 증거다.
+    assert report.checks["span_roundtrip"] is True
+    assert report.checks["surface_matches_origin"] is False
+
+
 def test_detects_manifest_count_mismatch(tmp_path: Path) -> None:
     """manifest 개수 불일치를 잡아내야 한다."""
     _generate(tmp_path)

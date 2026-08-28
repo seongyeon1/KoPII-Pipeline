@@ -101,13 +101,22 @@ def test_overlapping_edits_are_rejected() -> None:
 
 
 def test_zero_rates_leave_document_unchanged() -> None:
-    """확률이 0이면 문서가 그대로여야 한다."""
+    """확률이 0이면 문서가 그대로여야 한다.
+
+    perturb_document는 편집이 없으면 입력 객체를 그대로 반환하므로
+    객체 동일성(==) 비교만으로는 "편집 없음" 경로가 무너져도 우연히
+    통과할 수 있다. text와 spans의 값 동일성도 함께 확인해, 이 경로가
+    문서를 잘못 재구성하기 시작하면 실제로 실패하게 한다.
+    """
     pop = generate_population(size=20, seed=1)
     docs = generate_documents(
         pop, load_templates(), count=10, genre_weights={"meeting_note": 1.0}, seed=3
     )
     for doc in docs:
-        assert perturb_document(doc, _NO_PERTURB, random.Random(0)) == doc
+        perturbed = perturb_document(doc, _NO_PERTURB, random.Random(0))
+        assert perturbed == doc
+        assert perturbed.text == doc.text
+        assert perturbed.spans == doc.spans
 
 
 def test_all_spans_survive_full_perturbation() -> None:

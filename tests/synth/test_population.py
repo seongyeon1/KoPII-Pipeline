@@ -2,6 +2,7 @@
 
 import re
 
+from kopii.synth import names
 from kopii.synth.population import generate_population
 
 
@@ -80,6 +81,23 @@ def test_same_seed_is_reproducible() -> None:
     second = generate_population(size=40, seed=9)
     assert first.people == second.people
     assert first.org == second.org
+
+
+def test_team_names_are_unique_across_divisions() -> None:
+    """팀 이름 풀보다 필요한 팀 수가 많아 순환이 일어나도 팀 이름이 두 본부에 걸쳐 겹치면 안 된다."""
+    pop = generate_population(size=200, seed=1, divisions=5, teams_per_division=(8, 8))
+    teams = [u for u in pop.org if u.level == "team"]
+    # 5 * 8 = 40이 팀 이름 풀(20개)보다 많아 순환을 강제한다.
+    assert len(teams) > len(names.TEAM_NAMES)
+
+    divisions_by_name: dict[str, set[str]] = {}
+    for team in teams:
+        divisions_by_name.setdefault(team.name, set()).add(team.parent)
+
+    for team_name, division_set in divisions_by_name.items():
+        assert len(division_set) == 1, (
+            f"팀 이름 '{team_name}'이 서로 다른 본부에 걸쳐 나타납니다: {division_set}"
+        )
 
 
 def test_different_seed_differs() -> None:

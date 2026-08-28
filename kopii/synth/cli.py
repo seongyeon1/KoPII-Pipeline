@@ -88,7 +88,10 @@ def run(config: SynthConfig, output_dir: Path) -> dict[str, int]:
     )
 
     rates = PerturbRates(**config.corpus.perturb.model_dump())
-    rng = random.Random(config.corpus.seed + 1)
+    # 문서 생성용 RNG와 완전히 다른 스트림을 쓴다. 단순히 seed+1을 쓰면
+    # seed=S의 흔들림 스트림이 seed=S+1의 문서 스트림과 같아져, 설정이
+    # 하나 다른 두 코퍼스가 스트림을 공유하게 된다.
+    rng = random.Random(f"perturb:{config.corpus.seed}")
     documents = [perturb_document(doc, rates, rng) for doc in documents]
 
     _write_jsonl(
