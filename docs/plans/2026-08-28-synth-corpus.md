@@ -1170,6 +1170,13 @@ git commit -m "feat(synth): 가상 조직과 구성원 생성 (Stage 1)
   - `kopii.synth.document.TemplateLine` — pydantic 모델: `text: str`, `repeat: str | None = None`, `requires: list[str] = []`
   - `kopii.synth.document.generate_documents(population: Population, templates: list[DocumentTemplate], count: int, genre_weights: dict[str, float], seed: int) -> list[Document]`
 
+> **실행 중 개정** — 템플릿의 `persons` 범위는 그 템플릿이 실제로 참조하는 `personN`
+> 슬롯 개수와 일치해야 한다. 어긋나면 (a) 참조보다 적게 뽑힐 때 렌더링이 예외로 죽고,
+> (b) 많이 뽑힐 때 본문에 등장하지 않는 사람이 `person_ids`에 실려 메타가 사실과
+> 달라진다. `repeat: person` 줄이 있는 템플릿은 모든 actor가 등장하므로 상한이 자유롭다.
+> 위 YAML은 개정된 값이며, `test_every_template_renders_at_min_and_max_persons`가
+> 이 규칙을 강제한다.
+
 **핵심:** 렌더러는 슬롯을 치환하는 **그 순간에** 오프셋을 기록한다. 다 만들고 나서 텍스트를 되짚어 찾지 않는다 — 같은 이름이 두 번 나오면 되짚기는 틀린 위치를 잡는다.
 
 - [ ] **Step 1: 실패하는 테스트를 쓴다**
@@ -1372,7 +1379,7 @@ lines:
 ```yaml
 id: approval_doc_v1
 genre: approval_doc
-persons: [1, 2]
+persons: [1, 1]
 lines:
   - text: "결재 문서 번호: 2026-{doc.serial}"
   - text: "기안일: {doc.date}"
@@ -1393,7 +1400,7 @@ lines:
 ```yaml
 id: chat_log_v1
 genre: chat_log
-persons: [2, 3]
+persons: [2, 2]
 lines:
   - text: "[{doc.date}]"
   - text: "{person0.name}: 배포 언제 나가나요?"
@@ -1410,7 +1417,7 @@ lines:
 ```yaml
 id: issue_ticket_v1
 genre: issue_ticket
-persons: [1, 2]
+persons: [2, 2]
 lines:
   - text: "## ISSUE-{doc.serial}"
   - text: "보고자: {person0.name} ({person0.email})"
