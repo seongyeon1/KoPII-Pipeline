@@ -130,3 +130,52 @@ def test_generate_documents_roundtrip_and_reproducible() -> None:
     for doc in first:
         for span in doc.spans:
             assert span.verify(doc.text), f"{doc.doc_id}: {span}"
+
+
+def test_every_template_renders_at_min_and_max_persons() -> None:
+    """모든 템플릿이 최소·최대 인원 수에서 렌더링되고 person_ids가 모두 텍스트에 나타나야 한다.
+
+    템플릿의 persons 범위가 실제로 참조하는 personN 슬롯과 일치하는지 검증한다.
+    특히 person_ids에 있는 모든 인물이 적어도 하나의 span entity_key로 나타나야 한다.
+    이는 템플릿이 샘플된 인물을 모두 사용하도록 강제한다.
+    """
+    pop = generate_population(size=8, seed=1)
+    templates = load_templates()
+    doc_ctx = {"date": "2026-01-02", "serial": "0001"}
+
+    for template in templates:
+        min_persons, max_persons = template.persons
+
+        # 최소 인원으로 렌더링
+        people_min = list(pop.people[:min_persons])
+        doc_min = render_document(f"min_{template.id}", template, people_min, doc_ctx)
+
+        # 모든 span이 텍스트와 일치
+        for span in doc_min.spans:
+            assert span.verify(doc_min.text), (
+                f"{template.id}: min span {span} does not verify"
+            )
+
+        # person_ids의 모든 인물이 최소 하나의 span에 나타남
+        entity_keys_in_spans = {span.entity_key for span in doc_min.spans}
+        for person_id in doc_min.person_ids:
+            assert person_id in entity_keys_in_spans, (
+                f"{template.id}: person {person_id} in person_ids but not in any span"
+            )
+
+        # 최대 인원으로 렌더링
+        people_max = list(pop.people[:max_persons])
+        doc_max = render_document(f"max_{template.id}", template, people_max, doc_ctx)
+
+        # 모든 span이 텍스트와 일치
+        for span in doc_max.spans:
+            assert span.verify(doc_max.text), (
+                f"{template.id}: max span {span} does not verify"
+            )
+
+        # person_ids의 모든 인물이 최소 하나의 span에 나타남
+        entity_keys_in_spans = {span.entity_key for span in doc_max.spans}
+        for person_id in doc_max.person_ids:
+            assert person_id in entity_keys_in_spans, (
+                f"{template.id}: person {person_id} in person_ids but not in any span"
+            )

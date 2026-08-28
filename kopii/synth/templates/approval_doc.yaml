@@ -1,6 +1,6 @@
 id: approval_doc_v1
 genre: approval_doc
-persons: [1, 2]
+persons: [1, 1]
 lines:
   - text: "결재 문서 번호: 2026-{doc.serial}"
   - text: "기안일: {doc.date}"

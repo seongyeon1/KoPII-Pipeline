@@ -1,6 +1,6 @@
 id: chat_log_v1
 genre: chat_log
-persons: [2, 3]
+persons: [2, 2]
 lines:
   - text: "[{doc.date}]"
   - text: "{person0.name}: 배포 언제 나가나요?"
