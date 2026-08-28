@@ -1,0 +1,43 @@
+name: pii-scan
+
+# 공개 레포에 실 개인정보가 들어오는 것을 막는다.
+# 이 프로젝트의 탐지 로직을 이 프로젝트 자신에게 적용하는 dogfooding이며,
+# kopii.detect 가 구현되면 이 워크플로가 그 회귀 테스트로 승격된다.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 변경 파일에 PII 스캔
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            files=$(git diff --name-only --diff-filter=ACMR \
+              "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}")
+          else
+            files=$(git ls-files)
+          fi
+          if [ -z "$files" ]; then
+            echo "검사할 파일이 없습니다."
+            exit 0
+          fi
+          echo "$files" | tr '\n' ' '
+          echo
+          python scripts/pii_scan.py $files
+
+      - name: 시크릿 스캔 (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

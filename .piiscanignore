@@ -1,0 +1,3 @@
+# pii_scan 이 건너뛸 경로 (glob). 스캐너 자신과 테스트 픽스처만 제외한다.
+scripts/pii_scan.py
+tests/fixtures/*
