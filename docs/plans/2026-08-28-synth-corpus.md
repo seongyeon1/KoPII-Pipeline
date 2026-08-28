@@ -1266,8 +1266,12 @@ def test_unknown_slot_raises() -> None:
         render_document("d_0", template, [pop.people[0]], {"date": "2026-01-02"})
 
 
-def test_shipped_templates_load_and_render() -> None:
-    """레포에 포함된 템플릿 6종이 전부 로드·렌더링돼야 한다."""
+def test_shipped_templates_load_with_expected_genres() -> None:
+    """레포에 포함된 템플릿 6종이 전부 로드되고 장르가 맞아야 한다.
+
+    렌더링 검증은 test_generate_documents_roundtrip_and_reproducible가
+    전 템플릿에 대해 수행한다.
+    """
     templates = load_templates()
     assert len(templates) == 6
     genres = {t.genre for t in templates}
