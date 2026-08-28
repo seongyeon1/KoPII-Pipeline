@@ -1,0 +1,10 @@
+id: issue_ticket_v1
+genre: issue_ticket
+persons: [2, 2]
+lines:
+  - text: "## ISSUE-{doc.serial}"
+  - text: "보고자: {person0.name} ({person0.email})"
+  - text: "담당: {person1.name}"
+  - text: ""
+  - text: "재현 환경에서 로그인 후 500이 발생합니다."
+  - text: "연락처: {person0.phone}"

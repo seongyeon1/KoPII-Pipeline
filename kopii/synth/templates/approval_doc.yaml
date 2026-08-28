@@ -1,0 +1,14 @@
+id: approval_doc_v1
+genre: approval_doc
+persons: [1, 2]
+lines:
+  - text: "결재 문서 번호: 2026-{doc.serial}"
+  - text: "기안일: {doc.date}"
+  - text: ""
+  - text: "| 항목 | 값 |"
+  - text: "| --- | --- |"
+  - text: "| 기안자 | {person0.name} |"
+  - text: "| 사번 | {person0.employee_id} |"
+  - text: "| 소속 | {person0.team} |"
+  - text: "| 집행 금액 | 1250000 |"
+  - text: "| 처리 건수 | 3401277 |"
