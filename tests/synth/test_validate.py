@@ -150,6 +150,73 @@ def test_detects_span_pointing_at_wrong_text(tmp_path: Path) -> None:
     assert report.checks["surface_matches_origin"] is False
 
 
+def test_detects_span_resolved_to_wrong_person(tmp_path: Path) -> None:
+    """근접 순번 사번을 가진 다른 사람으로 잘못 귀속된 span을 잡아내야 한다.
+
+    사번은 거의 순차로 발급되므로, 길이가 같고 한 글자만 다른 사번을 가진
+    두 사람이 실제로 존재한다. 그런 span의 entity_key를 그 "이웃" 사람의
+    person_id로 바꿔치기하면 text와 surface는 여전히 일치하고 entity_key도
+    실존 인물을 가리키지만, 그 사람의 실제 사번과는 다르다 — 이 미묘한
+    오귀속을 surface_matches_origin만 잡아낼 수 있어야 한다.
+    """
+    _generate(tmp_path)
+    population = tmp_path / "population.jsonl"
+    people = [
+        json.loads(line) for line in population.read_text(encoding="utf-8").splitlines()
+    ]
+    employee_id_by_person = {p["person_id"]: p["employee_id"] for p in people}
+
+    corpus = tmp_path / "corpus.jsonl"
+    lines = corpus.read_text(encoding="utf-8").splitlines()
+
+    corrupted_index: int | None = None
+    corrupted_record: dict | None = None
+    neighbor_person_id: str | None = None
+    for index, line in enumerate(lines):
+        record = json.loads(line)
+        for span in record["spans"]:
+            if span["type"] != "EMPLOYEE_ID" or span["entity_key"] is None:
+                continue
+            origin_person_id = span["entity_key"]
+            origin_employee_id = employee_id_by_person[origin_person_id]
+            for candidate_id, candidate_employee_id in employee_id_by_person.items():
+                if candidate_id == origin_person_id:
+                    continue
+                if len(candidate_employee_id) != len(origin_employee_id):
+                    continue
+                diff = sum(
+                    1
+                    for a, b in zip(
+                        candidate_employee_id, origin_employee_id, strict=True
+                    )
+                    if a != b
+                )
+                if diff == 1:
+                    neighbor_person_id = candidate_id
+                    break
+            if neighbor_person_id is not None:
+                span["entity_key"] = neighbor_person_id
+                break
+        if neighbor_person_id is not None:
+            corrupted_index = index
+            corrupted_record = record
+            break
+
+    assert corrupted_record is not None, "근접 순번 사번을 가진 이웃을 찾지 못했습니다"
+    lines[corrupted_index] = json.dumps(
+        corrupted_record, ensure_ascii=False, sort_keys=True
+    )
+    corpus.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    report = validate_corpus(tmp_path)
+    # text와 surface는 여전히 일치하고(span_roundtrip) entity_key도 실존 인물을
+    # 가리키므로(entity_key_resolvable) 두 검사는 통과한다. 오직
+    # surface_matches_origin만 이 span이 잘못된 사람에게 귀속됐다는 것을 본다.
+    assert report.checks["span_roundtrip"] is True
+    assert report.checks["entity_key_resolvable"] is True
+    assert report.checks["surface_matches_origin"] is False
+
+
 def test_detects_manifest_count_mismatch(tmp_path: Path) -> None:
     """manifest 개수 불일치를 잡아내야 한다."""
     _generate(tmp_path)

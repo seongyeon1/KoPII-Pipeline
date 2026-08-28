@@ -72,28 +72,40 @@ def _normalize_surface(surface: str) -> str:
     return surface.replace("\n", "").replace(" - ", "-")
 
 
-def _surface_matches_origin(surface: str, origin: str) -> bool:
+# perturb.py의 _TYPO_POOL(오타가 대체할 수 있는 문자 집합)을 그대로 옮겨 적은 값.
+# validate.py는 perturb.py에 의존하지 않는 독립 검증기이므로 import하지 않고
+# 값만 복제한다 — perturb.py의 _TYPO_POOL이 바뀌면 이 상수도 함께 갱신해야 한다.
+_NAME_TYPO_CHARS: str = "가나다라마바사아자차카타파하"
+
+
+def _surface_matches_origin(surface: str, origin: str, span_type: str) -> bool:
     """정규화한 surface가 person의 origin 필드에서 나올 수 있는 값인지 판정합니다.
 
-    흔들림 파이프라인이 만들 수 있는 변형만 허용한다 — 부분 이름(성 한 글자),
-    한 글자 오타, 부분 이름에 오타가 겹친 경우.
+    NAME 타입에만 흔들림 파이프라인이 만들 수 있는 변형(부분 이름=성 한 글자,
+    한 글자 오타, 부분 이름에 오타가 겹친 경우)을 허용한다. 그 밖의 타입은
+    정규화 후 완전 일치만 인정한다 — EMPLOYEE_ID처럼 근접 순번으로 발급되는
+    값은 같은 길이에 한 글자만 달라도 실제로는 다른 사람을 가리킬 수 있어,
+    느슨한 규칙을 쓰면 그런 오귀속을 못 잡아낸다.
 
     Args:
         surface: 알려진 흔들림을 되돌린 surface
         origin: population.jsonl에 있는 해당 person의 원본 필드 값
+        span_type: span의 PII 타입 (예: "NAME", "EMPLOYEE_ID")
 
     Returns:
         surface가 origin에서 legitimate하게 파생될 수 있으면 True
     """
     if surface == origin:
         return True
-    if origin and surface == origin[0]:
+    if span_type != "NAME" or not origin:
+        return False
+    if surface == origin[0]:
         return True
-    if origin and len(surface) == len(origin):
+    if len(surface) == len(origin):
         diff = sum(1 for a, b in zip(surface, origin, strict=True) if a != b)
         if diff <= 1:
             return True
-    return bool(origin) and len(surface) == 1 and surface != origin[0]
+    return len(surface) == 1 and surface in _NAME_TYPO_CHARS
 
 
 def validate_corpus(directory: Path) -> ValidationReport:
@@ -183,7 +195,7 @@ def validate_corpus(directory: Path) -> ValidationReport:
                 continue
             origin = person[origin_field]
             normalized = _normalize_surface(span["surface"])
-            if not _surface_matches_origin(normalized, origin):
+            if not _surface_matches_origin(normalized, origin, span["type"]):
                 surface_matches_origin = False
                 if len(errors) < _MAX_REPORTED_ERRORS:
                     errors.append(

@@ -78,6 +78,11 @@ python -m kopii.synth.validate --dir data/
 | `corpus.jsonl` | 문서 — 본문과 정답 PII span (`entity_key` 포함) |
 | `manifest.json` | 시드·설정·개수, 그리고 사번 채번의 **정답 메타데이터** |
 
+현재 생성되는 코퍼스에는 `NAME`, `NICKNAME`, `EMPLOYEE_ID`, `RRN`, `PHONE`,
+`EMAIL`, `ADDRESS` 타입만 실제로 심겨 있습니다. `ACCOUNT`, `CARD`, `DOB`,
+`URL`, `USERNAME`은 라벨 스키마에는 정의돼 있지만 아직 어떤 템플릿도 심지
+않으므로, 이 코퍼스만 보고 해당 타입까지 커버된다고 가정하지 마세요.
+
 `manifest.json`의 채번 정답은 나중에 ID 스키마 추론기를 채점하는 데 쓰입니다.
 시드가 같으면 언제든 같은 코퍼스가 재현되므로 파일을 공유할 필요가 없습니다.
 
