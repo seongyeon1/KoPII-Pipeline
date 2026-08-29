@@ -35,12 +35,10 @@ BINARY_SUFFIXES = {
     ".pyc",
 }
 
-RRN_RE = re.compile(r"(?<![0-9])(\d{6})[-\s]?([1-4]\d{6})(?![0-9])")
-PHONE_RE = re.compile(r"(?<![0-9])(01[016789])[-\s.]?(\d{3,4})[-\s.]?(\d{4})(?![0-9])")
-CARD_RE = re.compile(
-    r"(?<![0-9])(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})(?![0-9])"
-)
-BIZNO_RE = re.compile(r"(?<![0-9])(\d{3})-?(\d{2})-?(\d{5})(?![0-9])")
+RRN_RE = re.compile(r"(?<!\d)(\d{6})[-\s]?([1-4]\d{6})(?!\d)")
+PHONE_RE = re.compile(r"(?<!\d)(01[016789])[-\s.]?(\d{3,4})[-\s.]?(\d{4})(?!\d)")
+CARD_RE = re.compile(r"(?<!\d)(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})(?!\d)")
+BIZNO_RE = re.compile(r"(?<!\d)(\d{3})-?(\d{2})-?(\d{5})(?!\d)")
 
 
 def _is_placeholder(digits: str) -> bool:

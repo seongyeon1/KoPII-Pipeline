@@ -9,7 +9,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from kopii import __version__
-from kopii.config.schema import SynthConfig, load_synth_config
+from kopii.config.schema import SynthConfig, load_synth_config, resolve_user_path
 from kopii.synth.document import Document, generate_documents, load_templates
 from kopii.synth.perturb import PerturbRates, perturb_document
 from kopii.synth.population import Population, generate_population
@@ -68,6 +68,9 @@ def run(config: SynthConfig, output_dir: Path) -> dict[str, int]:
     Returns:
         {"people": 인원 수, "documents": 문서 수}
     """
+    output_dir = resolve_user_path(output_dir)
+    if output_dir.exists() and not output_dir.is_dir():
+        raise ValueError(f"산출물 경로가 디렉터리가 아닙니다: {output_dir}")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     population: Population = generate_population(
@@ -144,8 +147,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    config = load_synth_config(args.config) if args.config else SynthConfig()
-    output_dir = args.out or Path(config.output_dir)
+    config_path = resolve_user_path(args.config) if args.config else None
+    config = load_synth_config(config_path) if config_path else SynthConfig()
+    output_dir = resolve_user_path(args.out or Path(config.output_dir))
 
     counts = run(config, output_dir)
     print(

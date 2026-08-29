@@ -87,17 +87,17 @@ def test_partial_overlap_is_rejected() -> None:
     """span 경계를 반만 덮는 편집은 조용히 넘기지 않고 실패시킨다."""
     text = "담당 김민수 확인"
     spans = [Span(start=3, end=6, type="NAME", surface="김민수")]
+    edits = [Edit(start=2, end=5, text="X")]
     with pytest.raises(ValueError, match="부분적으로"):
-        apply_edits(text, spans, [Edit(start=2, end=5, text="X")])
+        apply_edits(text, spans, edits)
 
 
 def test_overlapping_edits_are_rejected() -> None:
     """편집끼리 겹치면 실패시킨다."""
     text = "abcdef"
+    edits = [Edit(start=0, end=3, text="X"), Edit(start=2, end=4, text="Y")]
     with pytest.raises(ValueError, match="겹칩니다"):
-        apply_edits(
-            text, [], [Edit(start=0, end=3, text="X"), Edit(start=2, end=4, text="Y")]
-        )
+        apply_edits(text, [], edits)
 
 
 def test_zero_rates_leave_document_unchanged() -> None:
