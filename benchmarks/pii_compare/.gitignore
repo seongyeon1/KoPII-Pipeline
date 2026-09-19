@@ -1,0 +1,5 @@
+.venv/
+output/
+*.log
+# Local report generator contains deployment-specific context.
+report.py

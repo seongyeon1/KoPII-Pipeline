@@ -1,0 +1,1651 @@
+{
+  "metrics": {
+    "roberta": {
+      "completed": 2586,
+      "expected": 2586,
+      "holdout": {
+        "n": 2006,
+        "exact": {
+          "tp": 1746,
+          "fp": 209,
+          "fn": 132,
+          "precision": 0.893095,
+          "recall": 0.929712,
+          "f1": 0.911036,
+          "f5": 0.928249
+        },
+        "characters": {
+          "tp": 19743,
+          "fp": 311,
+          "fn": 151,
+          "precision": 0.984492,
+          "recall": 0.99241,
+          "f1": 0.988435,
+          "f5": 0.992103
+        },
+        "fully_covered_spans": 1818,
+        "gold_spans": 1878,
+        "full_span_coverage": 0.968051,
+        "false_positive_documents": 1
+      },
+      "operational": {
+        "n": 2006,
+        "exact": {
+          "tp": 1170,
+          "fp": 82,
+          "fn": 28,
+          "precision": 0.934505,
+          "recall": 0.976628,
+          "f1": 0.955102,
+          "f5": 0.974938
+        },
+        "characters": {
+          "tp": 15119,
+          "fp": 112,
+          "fn": 15,
+          "precision": 0.992647,
+          "recall": 0.999009,
+          "f1": 0.995818,
+          "f5": 0.998763
+        },
+        "fully_covered_spans": 1191,
+        "gold_spans": 1198,
+        "full_span_coverage": 0.994157,
+        "false_positive_documents": 1
+      },
+      "negative": {
+        "n": 580,
+        "exact": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "f5": 0.0
+        },
+        "characters": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "f5": 0.0
+        },
+        "fully_covered_spans": 0,
+        "gold_spans": 0,
+        "full_span_coverage": null,
+        "false_positive_documents": 0
+      },
+      "per_label": {
+        "PERSON_NAME": {
+          "n": 2006,
+          "exact": {
+            "tp": 340,
+            "fp": 48,
+            "fn": 14,
+            "precision": 0.876289,
+            "recall": 0.960452,
+            "f1": 0.916442,
+            "f5": 0.956917
+          },
+          "characters": {
+            "tp": 884,
+            "fp": 80,
+            "fn": 12,
+            "precision": 0.917012,
+            "recall": 0.986607,
+            "f1": 0.950538,
+            "f5": 0.983736
+          },
+          "fully_covered_spans": 348,
+          "gold_spans": 354,
+          "full_span_coverage": 0.983051,
+          "false_positive_documents": 1
+        },
+        "PHONE_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 244,
+            "fp": 6,
+            "fn": 4,
+            "precision": 0.976,
+            "recall": 0.983871,
+            "f1": 0.97992,
+            "f5": 0.983566
+          },
+          "characters": {
+            "tp": 3060,
+            "fp": 2,
+            "fn": 10,
+            "precision": 0.999347,
+            "recall": 0.996743,
+            "f1": 0.998043,
+            "f5": 0.996843
+          },
+          "fully_covered_spans": 246,
+          "gold_spans": 248,
+          "full_span_coverage": 0.991935,
+          "false_positive_documents": 0
+        },
+        "EMAIL": {
+          "n": 2006,
+          "exact": {
+            "tp": 162,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.993865,
+            "recall": 1.0,
+            "f1": 0.996923,
+            "f5": 0.999763
+          },
+          "characters": {
+            "tp": 3418,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.999708,
+            "recall": 1.0,
+            "f1": 0.999854,
+            "f5": 0.999989
+          },
+          "fully_covered_spans": 162,
+          "gold_spans": 162,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "ADDRESS": {
+          "n": 2006,
+          "exact": {
+            "tp": 166,
+            "fp": 34,
+            "fn": 36,
+            "precision": 0.83,
+            "recall": 0.821782,
+            "f1": 0.825871,
+            "f5": 0.822095
+          },
+          "characters": {
+            "tp": 914,
+            "fp": 56,
+            "fn": 34,
+            "precision": 0.942268,
+            "recall": 0.964135,
+            "f1": 0.953076,
+            "f5": 0.963275
+          },
+          "fully_covered_spans": 189,
+          "gold_spans": 202,
+          "full_span_coverage": 0.935644,
+          "false_positive_documents": 0
+        },
+        "ACCOUNT_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 148,
+            "fp": 14,
+            "fn": 6,
+            "precision": 0.91358,
+            "recall": 0.961039,
+            "f1": 0.936709,
+            "f5": 0.959123
+          },
+          "characters": {
+            "tp": 3016,
+            "fp": 33,
+            "fn": 0,
+            "precision": 0.989177,
+            "recall": 1.0,
+            "f1": 0.994559,
+            "f5": 0.999579
+          },
+          "fully_covered_spans": 154,
+          "gold_spans": 154,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "CARD_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 155,
+            "fp": 1,
+            "fn": 1,
+            "precision": 0.99359,
+            "recall": 0.99359,
+            "f1": 0.99359,
+            "f5": 0.99359
+          },
+          "characters": {
+            "tp": 3137,
+            "fp": 0,
+            "fn": 3,
+            "precision": 1.0,
+            "recall": 0.999045,
+            "f1": 0.999522,
+            "f5": 0.999081
+          },
+          "fully_covered_spans": 155,
+          "gold_spans": 156,
+          "full_span_coverage": 0.99359,
+          "false_positive_documents": 0
+        },
+        "GOV_ID": {
+          "n": 2006,
+          "exact": {
+            "tp": 51,
+            "fp": 12,
+            "fn": 3,
+            "precision": 0.809524,
+            "recall": 0.944444,
+            "f1": 0.871795,
+            "f5": 0.938429
+          },
+          "characters": {
+            "tp": 756,
+            "fp": 6,
+            "fn": 0,
+            "precision": 0.992126,
+            "recall": 1.0,
+            "f1": 0.996047,
+            "f5": 0.999695
+          },
+          "fully_covered_spans": 54,
+          "gold_spans": 54,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "PASSPORT_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 36,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "f5": 1.0
+          },
+          "characters": {
+            "tp": 330,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "f5": 1.0
+          },
+          "fully_covered_spans": 36,
+          "gold_spans": 36,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "DRIVER_LICENSE_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 34,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "f5": 1.0
+          },
+          "characters": {
+            "tp": 508,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "f5": 1.0
+          },
+          "fully_covered_spans": 34,
+          "gold_spans": 34,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "BIZ_REG_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "characters": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "fully_covered_spans": 0,
+          "gold_spans": 0,
+          "full_span_coverage": null,
+          "false_positive_documents": 0
+        },
+        "USER_ID": {
+          "n": 2006,
+          "exact": {
+            "tp": 252,
+            "fp": 82,
+            "fn": 64,
+            "precision": 0.754491,
+            "recall": 0.797468,
+            "f1": 0.775385,
+            "f5": 0.795725
+          },
+          "characters": {
+            "tp": 1904,
+            "fp": 148,
+            "fn": 126,
+            "precision": 0.927875,
+            "recall": 0.937931,
+            "f1": 0.932876,
+            "f5": 0.93754
+          },
+          "fully_covered_spans": 258,
+          "gold_spans": 316,
+          "full_span_coverage": 0.816456,
+          "false_positive_documents": 0
+        },
+        "IP_ADDRESS": {
+          "n": 2006,
+          "exact": {
+            "tp": 22,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "f5": 1.0
+          },
+          "characters": {
+            "tp": 278,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "f5": 1.0
+          },
+          "fully_covered_spans": 22,
+          "gold_spans": 22,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "DOB": {
+          "n": 2006,
+          "exact": {
+            "tp": 136,
+            "fp": 11,
+            "fn": 4,
+            "precision": 0.92517,
+            "recall": 0.971429,
+            "f1": 0.947735,
+            "f5": 0.969564
+          },
+          "characters": {
+            "tp": 1478,
+            "fp": 45,
+            "fn": 26,
+            "precision": 0.970453,
+            "recall": 0.982713,
+            "f1": 0.976544,
+            "f5": 0.982236
+          },
+          "fully_covered_spans": 136,
+          "gold_spans": 140,
+          "full_span_coverage": 0.971429,
+          "false_positive_documents": 0
+        }
+      },
+      "by_layer": {
+        "L1": {
+          "n": 458,
+          "exact": {
+            "tp": 870,
+            "fp": 124,
+            "fn": 69,
+            "precision": 0.875252,
+            "recall": 0.926518,
+            "f1": 0.900155,
+            "f5": 0.924435
+          },
+          "characters": {
+            "tp": 9873,
+            "fp": 197,
+            "fn": 74,
+            "precision": 0.980437,
+            "recall": 0.992561,
+            "f1": 0.986462,
+            "f5": 0.992089
+          },
+          "fully_covered_spans": 909,
+          "gold_spans": 939,
+          "full_span_coverage": 0.968051,
+          "false_positive_documents": 1
+        },
+        "L1b": {
+          "n": 1548,
+          "exact": {
+            "tp": 876,
+            "fp": 85,
+            "fn": 63,
+            "precision": 0.91155,
+            "recall": 0.932907,
+            "f1": 0.922105,
+            "f5": 0.932067
+          },
+          "characters": {
+            "tp": 9870,
+            "fp": 114,
+            "fn": 77,
+            "precision": 0.988582,
+            "recall": 0.992259,
+            "f1": 0.990417,
+            "f5": 0.992117
+          },
+          "fully_covered_spans": 909,
+          "gold_spans": 939,
+          "full_span_coverage": 0.968051,
+          "false_positive_documents": 0
+        }
+      },
+      "run": {
+        "model": [
+          "seongyeon1/ko-pii-ner-roberta-base",
+          "95a3af685dccf4bb3f7fff6fc81146fed71500bb"
+        ],
+        "threshold": null,
+        "device": "mps",
+        "platform": "macOS-15.7.3-arm64-arm-64bit",
+        "torch": "2.14.0",
+        "batch_size": 4,
+        "load_sec": 0.234612,
+        "new_records": 2586,
+        "new_chunks": 3179,
+        "inference_sec": 12.08891,
+        "latency_seconds": [
+          0.034871,
+          0.025431,
+          0.137347,
+          0.045491,
+          0.0125,
+          0.021417,
+          0.01167,
+          0.047389,
+          0.139881,
+          0.012668,
+          0.011057,
+          0.007972,
+          0.096657,
+          0.040742,
+          0.010135,
+          0.009197,
+          0.132131,
+          0.018258,
+          0.020021,
+          0.008139,
+          0.009093,
+          0.008628,
+          0.009276,
+          0.009231,
+          0.008174,
+          0.008123,
+          0.008592,
+          0.007075,
+          0.134487,
+          0.007837,
+          0.007207,
+          0.126378
+        ],
+        "labels": {
+          "PERSON_NAME": "person",
+          "PHONE_NUM": "phone_number",
+          "EMAIL": "email",
+          "ADDRESS": "address",
+          "ACCOUNT_NUM": "account_number",
+          "CARD_NUM": "card_number",
+          "GOV_ID": "national_id_number",
+          "PASSPORT_NUM": "passport_number",
+          "DRIVER_LICENSE_NUM": "drivers_license_number",
+          "BIZ_REG_NUM": "tax_id",
+          "USER_ID": "username",
+          "IP_ADDRESS": "ip_address",
+          "DOB": "date_of_birth"
+        },
+        "window_chars": 180,
+        "overlap_chars": 48,
+        "data_hashes": {
+          "test_kdpii.jsonl": "2bde2d83474a2d43aef33eef0b606b0acf3ac9270e6e67bc56e13b19c17ca379",
+          "test.jsonl": "2ca9f92cee0c2ce1cd15fee9993584d927c6e533ba66f941d8b1d72ff800c87c"
+        }
+      },
+      "latency_median_ms": 12.084855,
+      "latency_p95_ms": 137.346792
+    },
+    "nvidia": {
+      "completed": 2586,
+      "expected": 2586,
+      "holdout": {
+        "n": 2006,
+        "exact": {
+          "tp": 272,
+          "fp": 4082,
+          "fn": 1606,
+          "precision": 0.062471,
+          "recall": 0.144835,
+          "f1": 0.087291,
+          "f5": 0.137845
+        },
+        "characters": {
+          "tp": 17613,
+          "fp": 11511,
+          "fn": 2281,
+          "precision": 0.604759,
+          "recall": 0.885342,
+          "f1": 0.718634,
+          "f5": 0.869821
+        },
+        "fully_covered_spans": 1422,
+        "gold_spans": 1878,
+        "full_span_coverage": 0.757188,
+        "false_positive_documents": 1
+      },
+      "operational": {
+        "n": 2006,
+        "exact": {
+          "tp": 185,
+          "fp": 3388,
+          "fn": 1013,
+          "precision": 0.051777,
+          "recall": 0.154424,
+          "f1": 0.077552,
+          "f5": 0.143484
+        },
+        "characters": {
+          "tp": 13138,
+          "fp": 9419,
+          "fn": 1996,
+          "precision": 0.582436,
+          "recall": 0.868112,
+          "f1": 0.697143,
+          "f5": 0.852038
+        },
+        "fully_covered_spans": 808,
+        "gold_spans": 1198,
+        "full_span_coverage": 0.674457,
+        "false_positive_documents": 1
+      },
+      "negative": {
+        "n": 580,
+        "exact": {
+          "tp": 0,
+          "fp": 830,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "f5": 0.0
+        },
+        "characters": {
+          "tp": 0,
+          "fp": 8289,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "f5": 0.0
+        },
+        "fully_covered_spans": 0,
+        "gold_spans": 0,
+        "full_span_coverage": null,
+        "false_positive_documents": 559
+      },
+      "per_label": {
+        "PERSON_NAME": {
+          "n": 2006,
+          "exact": {
+            "tp": 44,
+            "fp": 2653,
+            "fn": 310,
+            "precision": 0.016314,
+            "recall": 0.124294,
+            "f1": 0.028843,
+            "f5": 0.099073
+          },
+          "characters": {
+            "tp": 485,
+            "fp": 7859,
+            "fn": 411,
+            "precision": 0.058126,
+            "recall": 0.541295,
+            "f1": 0.104978,
+            "f5": 0.410161
+          },
+          "fully_covered_spans": 192,
+          "gold_spans": 354,
+          "full_span_coverage": 0.542373,
+          "false_positive_documents": 1
+        },
+        "PHONE_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 55,
+            "fp": 278,
+            "fn": 193,
+            "precision": 0.165165,
+            "recall": 0.221774,
+            "f1": 0.189329,
+            "f5": 0.218889
+          },
+          "characters": {
+            "tp": 2688,
+            "fp": 1738,
+            "fn": 382,
+            "precision": 0.60732,
+            "recall": 0.87557,
+            "f1": 0.717182,
+            "f5": 0.860944
+          },
+          "fully_covered_spans": 216,
+          "gold_spans": 248,
+          "full_span_coverage": 0.870968,
+          "false_positive_documents": 0
+        },
+        "EMAIL": {
+          "n": 2006,
+          "exact": {
+            "tp": 49,
+            "fp": 112,
+            "fn": 113,
+            "precision": 0.304348,
+            "recall": 0.302469,
+            "f1": 0.303406,
+            "f5": 0.302541
+          },
+          "characters": {
+            "tp": 3377,
+            "fp": 218,
+            "fn": 41,
+            "precision": 0.93936,
+            "recall": 0.988005,
+            "f1": 0.963069,
+            "f5": 0.986041
+          },
+          "fully_covered_spans": 160,
+          "gold_spans": 162,
+          "full_span_coverage": 0.987654,
+          "false_positive_documents": 0
+        },
+        "ADDRESS": {
+          "n": 2006,
+          "exact": {
+            "tp": 26,
+            "fp": 150,
+            "fn": 176,
+            "precision": 0.147727,
+            "recall": 0.128713,
+            "f1": 0.137566,
+            "f5": 0.129353
+          },
+          "characters": {
+            "tp": 735,
+            "fp": 758,
+            "fn": 213,
+            "precision": 0.492297,
+            "recall": 0.775316,
+            "f1": 0.602212,
+            "f5": 0.758544
+          },
+          "fully_covered_spans": 132,
+          "gold_spans": 202,
+          "full_span_coverage": 0.653465,
+          "false_positive_documents": 0
+        },
+        "ACCOUNT_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 0,
+            "fp": 13,
+            "fn": 154,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "characters": {
+            "tp": 81,
+            "fp": 158,
+            "fn": 2935,
+            "precision": 0.338912,
+            "recall": 0.026857,
+            "f1": 0.04977,
+            "f5": 0.027843
+          },
+          "fully_covered_spans": 0,
+          "gold_spans": 154,
+          "full_span_coverage": 0.0,
+          "false_positive_documents": 0
+        },
+        "CARD_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 28,
+            "fp": 173,
+            "fn": 128,
+            "precision": 0.139303,
+            "recall": 0.179487,
+            "f1": 0.156863,
+            "f5": 0.177518
+          },
+          "characters": {
+            "tp": 2114,
+            "fp": 1350,
+            "fn": 1026,
+            "precision": 0.610277,
+            "recall": 0.673248,
+            "f1": 0.640218,
+            "f5": 0.670587
+          },
+          "fully_covered_spans": 89,
+          "gold_spans": 156,
+          "full_span_coverage": 0.570513,
+          "false_positive_documents": 0
+        },
+        "GOV_ID": {
+          "n": 2006,
+          "exact": {
+            "tp": 9,
+            "fp": 153,
+            "fn": 45,
+            "precision": 0.055556,
+            "recall": 0.166667,
+            "f1": 0.083333,
+            "f5": 0.154762
+          },
+          "characters": {
+            "tp": 448,
+            "fp": 1974,
+            "fn": 308,
+            "precision": 0.184971,
+            "recall": 0.592593,
+            "f1": 0.281938,
+            "f5": 0.54629
+          },
+          "fully_covered_spans": 32,
+          "gold_spans": 54,
+          "full_span_coverage": 0.592593,
+          "false_positive_documents": 0
+        },
+        "PASSPORT_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 36,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "characters": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 330,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "fully_covered_spans": 0,
+          "gold_spans": 36,
+          "full_span_coverage": 0.0,
+          "false_positive_documents": 0
+        },
+        "DRIVER_LICENSE_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 0,
+            "fp": 6,
+            "fn": 34,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "characters": {
+            "tp": 27,
+            "fp": 40,
+            "fn": 481,
+            "precision": 0.402985,
+            "recall": 0.05315,
+            "f1": 0.093913,
+            "f5": 0.054986
+          },
+          "fully_covered_spans": 1,
+          "gold_spans": 34,
+          "full_span_coverage": 0.029412,
+          "false_positive_documents": 0
+        },
+        "BIZ_REG_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "characters": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "fully_covered_spans": 0,
+          "gold_spans": 0,
+          "full_span_coverage": null,
+          "false_positive_documents": 0
+        },
+        "USER_ID": {
+          "n": 2006,
+          "exact": {
+            "tp": 41,
+            "fp": 411,
+            "fn": 275,
+            "precision": 0.090708,
+            "recall": 0.129747,
+            "f1": 0.106771,
+            "f5": 0.127634
+          },
+          "characters": {
+            "tp": 1493,
+            "fp": 1625,
+            "fn": 537,
+            "precision": 0.478833,
+            "recall": 0.735468,
+            "f1": 0.580031,
+            "f5": 0.720613
+          },
+          "fully_covered_spans": 138,
+          "gold_spans": 316,
+          "full_span_coverage": 0.436709,
+          "false_positive_documents": 0
+        },
+        "IP_ADDRESS": {
+          "n": 2006,
+          "exact": {
+            "tp": 6,
+            "fp": 19,
+            "fn": 16,
+            "precision": 0.24,
+            "recall": 0.272727,
+            "f1": 0.255319,
+            "f5": 0.271304
+          },
+          "characters": {
+            "tp": 254,
+            "fp": 98,
+            "fn": 24,
+            "precision": 0.721591,
+            "recall": 0.913669,
+            "f1": 0.806349,
+            "f5": 0.90441
+          },
+          "fully_covered_spans": 20,
+          "gold_spans": 22,
+          "full_span_coverage": 0.909091,
+          "false_positive_documents": 0
+        },
+        "DOB": {
+          "n": 2006,
+          "exact": {
+            "tp": 14,
+            "fp": 114,
+            "fn": 126,
+            "precision": 0.109375,
+            "recall": 0.1,
+            "f1": 0.104478,
+            "f5": 0.100331
+          },
+          "characters": {
+            "tp": 1241,
+            "fp": 363,
+            "fn": 263,
+            "precision": 0.773691,
+            "recall": 0.825133,
+            "f1": 0.798584,
+            "f5": 0.823028
+          },
+          "fully_covered_spans": 109,
+          "gold_spans": 140,
+          "full_span_coverage": 0.778571,
+          "false_positive_documents": 0
+        }
+      },
+      "by_layer": {
+        "L1": {
+          "n": 458,
+          "exact": {
+            "tp": 132,
+            "fp": 2092,
+            "fn": 807,
+            "precision": 0.059353,
+            "recall": 0.140575,
+            "f1": 0.083465,
+            "f5": 0.133546
+          },
+          "characters": {
+            "tp": 8650,
+            "fp": 5428,
+            "fn": 1297,
+            "precision": 0.614434,
+            "recall": 0.869609,
+            "f1": 0.720083,
+            "f5": 0.855937
+          },
+          "fully_covered_spans": 682,
+          "gold_spans": 939,
+          "full_span_coverage": 0.726305,
+          "false_positive_documents": 1
+        },
+        "L1b": {
+          "n": 1548,
+          "exact": {
+            "tp": 140,
+            "fp": 1990,
+            "fn": 799,
+            "precision": 0.065728,
+            "recall": 0.149095,
+            "f1": 0.091235,
+            "f5": 0.14216
+          },
+          "characters": {
+            "tp": 8963,
+            "fp": 6083,
+            "fn": 984,
+            "precision": 0.595707,
+            "recall": 0.901076,
+            "f1": 0.717241,
+            "f5": 0.883654
+          },
+          "fully_covered_spans": 740,
+          "gold_spans": 939,
+          "full_span_coverage": 0.788072,
+          "false_positive_documents": 0
+        }
+      },
+      "run": {
+        "model": [
+          "nvidia/gliner-PII",
+          "bd23e8ef4425fd04e34c5204ab49ffaa706eae79"
+        ],
+        "threshold": 0.3,
+        "device": "mps",
+        "platform": "macOS-15.7.3-arm64-arm-64bit",
+        "torch": "2.14.0",
+        "batch_size": 4,
+        "load_sec": 5.617354,
+        "new_records": 2586,
+        "new_chunks": 3179,
+        "inference_sec": 122.831802,
+        "latency_seconds": [
+          0.167369,
+          0.172951,
+          0.199278,
+          0.258052,
+          0.055239,
+          0.08884,
+          0.105761,
+          0.046498,
+          0.204379,
+          0.054952,
+          0.046276,
+          0.111105,
+          0.257688,
+          0.266282,
+          0.056413,
+          0.053025,
+          0.158543,
+          0.056407,
+          0.149254,
+          0.043949,
+          0.048272,
+          0.045434,
+          0.055513,
+          0.199111,
+          0.206028,
+          0.062864,
+          0.10482,
+          0.057037,
+          0.044989,
+          0.108599,
+          0.058292,
+          0.043116
+        ],
+        "labels": {
+          "PERSON_NAME": "person",
+          "PHONE_NUM": "phone_number",
+          "EMAIL": "email",
+          "ADDRESS": "address",
+          "ACCOUNT_NUM": "account_number",
+          "CARD_NUM": "card_number",
+          "GOV_ID": "national_id_number",
+          "PASSPORT_NUM": "passport_number",
+          "DRIVER_LICENSE_NUM": "drivers_license_number",
+          "BIZ_REG_NUM": "tax_id",
+          "USER_ID": "username",
+          "IP_ADDRESS": "ip_address",
+          "DOB": "date_of_birth"
+        },
+        "window_chars": 180,
+        "overlap_chars": 48,
+        "data_hashes": {
+          "test_kdpii.jsonl": "2bde2d83474a2d43aef33eef0b606b0acf3ac9270e6e67bc56e13b19c17ca379",
+          "test.jsonl": "2ca9f92cee0c2ce1cd15fee9993584d927c6e533ba66f941d8b1d72ff800c87c"
+        }
+      },
+      "latency_median_ms": 75.851584,
+      "latency_p95_ms": 258.052333
+    },
+    "fastino": {
+      "completed": 2586,
+      "expected": 2586,
+      "holdout": {
+        "n": 2006,
+        "exact": {
+          "tp": 390,
+          "fp": 1658,
+          "fn": 1488,
+          "precision": 0.19043,
+          "recall": 0.207668,
+          "f1": 0.198675,
+          "f5": 0.206947
+        },
+        "characters": {
+          "tp": 16204,
+          "fp": 4242,
+          "fn": 3690,
+          "precision": 0.792527,
+          "recall": 0.814517,
+          "f1": 0.803371,
+          "f5": 0.813649
+        },
+        "fully_covered_spans": 1198,
+        "gold_spans": 1878,
+        "full_span_coverage": 0.637913,
+        "false_positive_documents": 1
+      },
+      "operational": {
+        "n": 2006,
+        "exact": {
+          "tp": 320,
+          "fp": 1320,
+          "fn": 878,
+          "precision": 0.195122,
+          "recall": 0.267112,
+          "f1": 0.225511,
+          "f5": 0.263374
+        },
+        "characters": {
+          "tp": 12590,
+          "fp": 3373,
+          "fn": 2544,
+          "precision": 0.788699,
+          "recall": 0.831902,
+          "f1": 0.809724,
+          "f5": 0.830153
+        },
+        "fully_covered_spans": 827,
+        "gold_spans": 1198,
+        "full_span_coverage": 0.690317,
+        "false_positive_documents": 1
+      },
+      "negative": {
+        "n": 580,
+        "exact": {
+          "tp": 0,
+          "fp": 196,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "f5": 0.0
+        },
+        "characters": {
+          "tp": 0,
+          "fp": 2161,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "f5": 0.0
+        },
+        "fully_covered_spans": 0,
+        "gold_spans": 0,
+        "full_span_coverage": null,
+        "false_positive_documents": 182
+      },
+      "per_label": {
+        "PERSON_NAME": {
+          "n": 2006,
+          "exact": {
+            "tp": 65,
+            "fp": 760,
+            "fn": 289,
+            "precision": 0.078788,
+            "recall": 0.183616,
+            "f1": 0.110263,
+            "f5": 0.174677
+          },
+          "characters": {
+            "tp": 672,
+            "fp": 2369,
+            "fn": 224,
+            "precision": 0.22098,
+            "recall": 0.75,
+            "f1": 0.341377,
+            "f5": 0.686765
+          },
+          "fully_covered_spans": 261,
+          "gold_spans": 354,
+          "full_span_coverage": 0.737288,
+          "false_positive_documents": 1
+        },
+        "PHONE_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 60,
+            "fp": 342,
+            "fn": 188,
+            "precision": 0.149254,
+            "recall": 0.241935,
+            "f1": 0.184615,
+            "f5": 0.236292
+          },
+          "characters": {
+            "tp": 3037,
+            "fp": 2668,
+            "fn": 33,
+            "precision": 0.53234,
+            "recall": 0.989251,
+            "f1": 0.692194,
+            "f5": 0.957637
+          },
+          "fully_covered_spans": 245,
+          "gold_spans": 248,
+          "full_span_coverage": 0.987903,
+          "false_positive_documents": 0
+        },
+        "EMAIL": {
+          "n": 2006,
+          "exact": {
+            "tp": 162,
+            "fp": 21,
+            "fn": 0,
+            "precision": 0.885246,
+            "recall": 1.0,
+            "f1": 0.93913,
+            "f5": 0.995039
+          },
+          "characters": {
+            "tp": 3418,
+            "fp": 102,
+            "fn": 0,
+            "precision": 0.971023,
+            "recall": 1.0,
+            "f1": 0.985298,
+            "f5": 0.998854
+          },
+          "fully_covered_spans": 162,
+          "gold_spans": 162,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "ADDRESS": {
+          "n": 2006,
+          "exact": {
+            "tp": 9,
+            "fp": 15,
+            "fn": 193,
+            "precision": 0.375,
+            "recall": 0.044554,
+            "f1": 0.079646,
+            "f5": 0.046117
+          },
+          "characters": {
+            "tp": 163,
+            "fp": 104,
+            "fn": 785,
+            "precision": 0.610487,
+            "recall": 0.171941,
+            "f1": 0.268313,
+            "f5": 0.176826
+          },
+          "fully_covered_spans": 21,
+          "gold_spans": 202,
+          "full_span_coverage": 0.10396,
+          "false_positive_documents": 0
+        },
+        "ACCOUNT_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 0,
+            "fp": 42,
+            "fn": 154,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "characters": {
+            "tp": 603,
+            "fp": 56,
+            "fn": 2413,
+            "precision": 0.915023,
+            "recall": 0.199934,
+            "f1": 0.328163,
+            "f5": 0.206129
+          },
+          "fully_covered_spans": 0,
+          "gold_spans": 154,
+          "full_span_coverage": 0.0,
+          "false_positive_documents": 0
+        },
+        "CARD_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 25,
+            "fp": 96,
+            "fn": 131,
+            "precision": 0.206612,
+            "recall": 0.160256,
+            "f1": 0.180505,
+            "f5": 0.161651
+          },
+          "characters": {
+            "tp": 1941,
+            "fp": 256,
+            "fn": 1199,
+            "precision": 0.883477,
+            "recall": 0.618153,
+            "f1": 0.727375,
+            "f5": 0.625376
+          },
+          "fully_covered_spans": 65,
+          "gold_spans": 156,
+          "full_span_coverage": 0.416667,
+          "false_positive_documents": 0
+        },
+        "GOV_ID": {
+          "n": 2006,
+          "exact": {
+            "tp": 4,
+            "fp": 32,
+            "fn": 50,
+            "precision": 0.111111,
+            "recall": 0.074074,
+            "f1": 0.088889,
+            "f5": 0.075036
+          },
+          "characters": {
+            "tp": 182,
+            "fp": 291,
+            "fn": 574,
+            "precision": 0.384778,
+            "recall": 0.240741,
+            "f1": 0.296176,
+            "f5": 0.244257
+          },
+          "fully_covered_spans": 13,
+          "gold_spans": 54,
+          "full_span_coverage": 0.240741,
+          "false_positive_documents": 1
+        },
+        "PASSPORT_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 35,
+            "precision": 1.0,
+            "recall": 0.027778,
+            "f1": 0.054054,
+            "f5": 0.028857
+          },
+          "characters": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 321,
+            "precision": 1.0,
+            "recall": 0.027273,
+            "f1": 0.053097,
+            "f5": 0.028333
+          },
+          "fully_covered_spans": 1,
+          "gold_spans": 36,
+          "full_span_coverage": 0.027778,
+          "false_positive_documents": 0
+        },
+        "DRIVER_LICENSE_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 3,
+            "fp": 16,
+            "fn": 31,
+            "precision": 0.157895,
+            "recall": 0.088235,
+            "f1": 0.113208,
+            "f5": 0.089758
+          },
+          "characters": {
+            "tp": 60,
+            "fp": 123,
+            "fn": 448,
+            "precision": 0.327869,
+            "recall": 0.11811,
+            "f1": 0.173661,
+            "f5": 0.12109
+          },
+          "fully_covered_spans": 4,
+          "gold_spans": 34,
+          "full_span_coverage": 0.117647,
+          "false_positive_documents": 0
+        },
+        "BIZ_REG_NUM": {
+          "n": 2006,
+          "exact": {
+            "tp": 0,
+            "fp": 11,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "characters": {
+            "tp": 0,
+            "fp": 176,
+            "fn": 0,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "f5": 0.0
+          },
+          "fully_covered_spans": 0,
+          "gold_spans": 0,
+          "full_span_coverage": null,
+          "false_positive_documents": 0
+        },
+        "USER_ID": {
+          "n": 2006,
+          "exact": {
+            "tp": 38,
+            "fp": 147,
+            "fn": 278,
+            "precision": 0.205405,
+            "recall": 0.120253,
+            "f1": 0.151697,
+            "f5": 0.122202
+          },
+          "characters": {
+            "tp": 1547,
+            "fp": 433,
+            "fn": 483,
+            "precision": 0.781313,
+            "recall": 0.762069,
+            "f1": 0.771571,
+            "f5": 0.762792
+          },
+          "fully_covered_spans": 135,
+          "gold_spans": 316,
+          "full_span_coverage": 0.427215,
+          "false_positive_documents": 0
+        },
+        "IP_ADDRESS": {
+          "n": 2006,
+          "exact": {
+            "tp": 6,
+            "fp": 16,
+            "fn": 16,
+            "precision": 0.272727,
+            "recall": 0.272727,
+            "f1": 0.272727,
+            "f5": 0.272727
+          },
+          "characters": {
+            "tp": 278,
+            "fp": 30,
+            "fn": 0,
+            "precision": 0.902597,
+            "recall": 1.0,
+            "f1": 0.948805,
+            "f5": 0.995867
+          },
+          "fully_covered_spans": 22,
+          "gold_spans": 22,
+          "full_span_coverage": 1.0,
+          "false_positive_documents": 0
+        },
+        "DOB": {
+          "n": 2006,
+          "exact": {
+            "tp": 17,
+            "fp": 160,
+            "fn": 123,
+            "precision": 0.096045,
+            "recall": 0.121429,
+            "f1": 0.107256,
+            "f5": 0.120207
+          },
+          "characters": {
+            "tp": 1406,
+            "fp": 522,
+            "fn": 98,
+            "precision": 0.729253,
+            "recall": 0.93484,
+            "f1": 0.819347,
+            "f5": 0.924813
+          },
+          "fully_covered_spans": 124,
+          "gold_spans": 140,
+          "full_span_coverage": 0.885714,
+          "false_positive_documents": 0
+        }
+      },
+      "by_layer": {
+        "L1": {
+          "n": 458,
+          "exact": {
+            "tp": 201,
+            "fp": 908,
+            "fn": 738,
+            "precision": 0.181244,
+            "recall": 0.214058,
+            "f1": 0.196289,
+            "f5": 0.212577
+          },
+          "characters": {
+            "tp": 8116,
+            "fp": 2343,
+            "fn": 1831,
+            "precision": 0.775982,
+            "recall": 0.815924,
+            "f1": 0.795452,
+            "f5": 0.814312
+          },
+          "fully_covered_spans": 602,
+          "gold_spans": 939,
+          "full_span_coverage": 0.641108,
+          "false_positive_documents": 1
+        },
+        "L1b": {
+          "n": 1548,
+          "exact": {
+            "tp": 189,
+            "fp": 750,
+            "fn": 750,
+            "precision": 0.201278,
+            "recall": 0.201278,
+            "f1": 0.201278,
+            "f5": 0.201278
+          },
+          "characters": {
+            "tp": 8088,
+            "fp": 1899,
+            "fn": 1859,
+            "precision": 0.809853,
+            "recall": 0.813109,
+            "f1": 0.811478,
+            "f5": 0.812984
+          },
+          "fully_covered_spans": 596,
+          "gold_spans": 939,
+          "full_span_coverage": 0.634718,
+          "false_positive_documents": 0
+        }
+      },
+      "run": {
+        "model": [
+          "fastino/gliner2-privacy-filter-PII-multi",
+          "c153999da5f4c509df4322b0c6a1baf3d2c284d7"
+        ],
+        "threshold": 0.5,
+        "device": "mps",
+        "platform": "macOS-15.7.3-arm64-arm-64bit",
+        "torch": "2.14.0",
+        "batch_size": 4,
+        "load_sec": 5.106032,
+        "new_records": 2586,
+        "new_chunks": 3179,
+        "inference_sec": 60.712028,
+        "latency_seconds": [
+          0.1153,
+          0.090909,
+          0.186118,
+          0.118755,
+          0.023478,
+          0.039893,
+          0.027177,
+          0.023243,
+          0.056977,
+          0.026634,
+          0.022566,
+          0.067664,
+          0.10726,
+          0.115868,
+          0.026596,
+          0.023907,
+          0.172194,
+          0.031799,
+          0.06831,
+          0.029934,
+          0.037236,
+          0.044979,
+          0.060635,
+          0.115601,
+          0.196375,
+          0.040484,
+          0.025864,
+          0.025624,
+          0.028055,
+          0.031739,
+          0.026,
+          0.022876
+        ],
+        "labels": {
+          "PERSON_NAME": "person",
+          "PHONE_NUM": "phone_number",
+          "EMAIL": "email",
+          "ADDRESS": "address",
+          "ACCOUNT_NUM": "account_number",
+          "CARD_NUM": "card_number",
+          "GOV_ID": "national_id_number",
+          "PASSPORT_NUM": "passport_number",
+          "DRIVER_LICENSE_NUM": "drivers_license_number",
+          "BIZ_REG_NUM": "tax_id",
+          "USER_ID": "username",
+          "IP_ADDRESS": "ip_address",
+          "DOB": "date_of_birth"
+        },
+        "window_chars": 180,
+        "overlap_chars": 48,
+        "data_hashes": {
+          "test_kdpii.jsonl": "2bde2d83474a2d43aef33eef0b606b0acf3ac9270e6e67bc56e13b19c17ca379",
+          "test.jsonl": "2ca9f92cee0c2ce1cd15fee9993584d927c6e533ba66f941d8b1d72ff800c87c"
+        }
+      },
+      "latency_median_ms": 38.564646,
+      "latency_p95_ms": 186.117709
+    }
+  },
+  "boundary_audit": {
+    "gold_not_in_any_window": [],
+    "common_gold_counts": {
+      "CARD_NUM": 156,
+      "PHONE_NUM": 248,
+      "PERSON_NAME": 354,
+      "EMAIL": 162,
+      "DOB": 140,
+      "USER_ID": 316,
+      "ADDRESS": 202,
+      "ACCOUNT_NUM": 154,
+      "DRIVER_LICENSE_NUM": 34,
+      "GOV_ID": 54,
+      "IP_ADDRESS": 22,
+      "PASSPORT_NUM": 36
+    },
+    "not_representable_by_default_word_boundaries": {
+      "nvidia": {
+        "CARD_NUM": 94,
+        "PERSON_NAME": 244,
+        "EMAIL": 112,
+        "DOB": 120,
+        "PHONE_NUM": 188,
+        "ADDRESS": 98,
+        "USER_ID": 222,
+        "ACCOUNT_NUM": 116,
+        "DRIVER_LICENSE_NUM": 20,
+        "GOV_ID": 40,
+        "IP_ADDRESS": 16,
+        "PASSPORT_NUM": 22
+      },
+      "fastino": {
+        "CARD_NUM": 94,
+        "PERSON_NAME": 244,
+        "DOB": 120,
+        "PHONE_NUM": 188,
+        "ADDRESS": 98,
+        "USER_ID": 222,
+        "ACCOUNT_NUM": 116,
+        "DRIVER_LICENSE_NUM": 20,
+        "GOV_ID": 40,
+        "IP_ADDRESS": 16,
+        "PASSPORT_NUM": 22
+      }
+    }
+  },
+  "script_sha256": {
+    "compare.py": "9cff5bb7148160b09d6508e38652a727c335859c60a06b86b8a948d8c02121fb",
+    "score.py": "1865d58d2af76d7f04b12b1a4e026aa0706b062c57216b3eb3fcdf5c8590ba5a",
+    "audit.py": "c225e2a9da862176ef76975e66348ad65b90b9bcda6873d1a7395def0ccbbb97"
+  },
+  "publication_note": "Aggregate results measured 2026-09-15. Original script hashes are retained; public scripts have portable data defaults. Per-record predictions and timing sample IDs are not included. Floating-point values are rounded to six decimal places; integer counts are unchanged.",
+  "public_dataset": {
+    "repo_id": "seongyeon1/ko-pii-ner-100k",
+    "revision": "660e03a454f7934261be41390744796565550ce2",
+    "verified_against_recorded_hashes": true
+  }
+}

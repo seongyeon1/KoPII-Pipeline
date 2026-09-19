@@ -2106,7 +2106,7 @@ def _typo_edits(doc: Document, rate: float, rng: random.Random) -> list[Edit]:
 def _space_insertion_edits(doc: Document, rate: float, rng: random.Random) -> list[Edit]:
     """전화번호 하이픈 주위에 공백을 넣는 편집을 만듭니다.
 
-    "010-1234-5678"이 "010 - 1234 - 5678"처럼 쓰이는 실제 표기를 재현한다.
+    "010-0000-0000"이 "010 - 0000 - 0000"처럼 쓰이는 공백 패턴을 재현한다.
     span 안쪽 편집이므로 폭과 surface가 함께 갱신된다.
     """
     edits: list[Edit] = []

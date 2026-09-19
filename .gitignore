@@ -35,3 +35,8 @@ output/
 .DS_Store
 .idea/
 .vscode/
+
+# Local customer/internal documents; public documentation lives in docs/public/.
+docs/customer/
+docs/confluence/
+docs/benchmarks/
