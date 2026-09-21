@@ -1,8 +1,8 @@
 # KoPII-Pipeline
 
-**한국어 개인정보 탐지·조직정보 기반 범주화·재현 가능한 평가를 위한 Python 패키지입니다.**
+**개인정보 탐지·마스킹·외부 속성 조회·메타데이터 검색을 조합하는 Python 패키지입니다. 한국어 모델과 연구 예제를 함께 제공합니다.**
 
-한국어 이름·연락처·식별번호를 탐지하고, 이름을 허용된 부서명이나 가명으로 바꿔 문서 요약과 검색에 활용하는 흐름을 다룹니다. 한국어 PII 데이터셋과 RoBERTa 모델을 별도로 공개했으며, 이 저장소에는 **로컬 처리 라이브러리·CLI, 모델 어댑터, 연구 실행 도구와 논문 초안**을 제공합니다. 공개 패키지는 특정 서비스나 인사 DB에 의존하지 않습니다.
+한국어 이름·연락처·식별번호를 탐지하고, 이름을 허용된 부서명이나 가명으로 바꿔 문서 요약과 검색에 활용하는 흐름을 다룹니다. 한국어 PII 데이터셋과 RoBERTa 모델을 별도로 공개했으며, 이 저장소에는 **로컬 처리·검색 라이브러리와 CLI, 모델·임베딩 어댑터, 연구 실행 도구와 논문 초안**을 제공합니다. 공개 패키지는 특정 서비스나 인사 DB에 의존하지 않습니다. 0.2.0에서는 조직 계층을 고정하지 않고 임의의 속성·문서·검색기를 연결할 수 있습니다. 인터페이스 확장은 다국어 모델 정확도 검증을 뜻하지 않습니다.
 
 [프로젝트 개요](docs/public/overview.md) · [모델](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) · [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k) · [비교 결과](docs/public/benchmark-results.md) · [과거 비교 실행 방법](benchmarks/pii_compare/README.md) · [라이브러리 사용법](docs/public/library.md) · [새 실험 결과](research/RESULTS.md) · [연구 계획](research/PLAN.md) · [논문 초안](paper/manuscript.md)
 
@@ -40,13 +40,31 @@ kopii process --config configs/roberta.json --input examples/document.txt --docu
 
 첫 실행에는 모델 다운로드가 필요합니다. 기본 장치는 CPU이며 설정에서 MPS/CUDA를 선택할 수 있습니다. 패키지는 아직 PyPI에 게시하지 않았습니다.
 
+## 일반 문서에 메타데이터 검색 적용
+
+부서명 등을 본문에 표시하는 대신, **본문은 마스킹하고 속성은 비공개 인덱스에 저장**할 수 있습니다. `business_unit`, `region` 등의 필드와 조회 열은 설정으로 지정합니다.
+
+```bash
+kopii prepare --config configs/context-demo.json \
+  --input examples/search/documents.jsonl --output output/search-demo/index.jsonl
+kopii search --index output/search-demo/index.jsonl --query '배포 일정' \
+  --scope examples/search/scope.json --filters examples/search/filters.json
+kopii evaluate-search --index output/search-demo/index.jsonl \
+  --queries examples/search/queries.jsonl --limit 5
+```
+
+예제는 가상 자료입니다. 기본 검색은 BM25이고, 임베딩 설정 또는 Python `Ranker`를 연결해 교체합니다. 접근 가능한 문서 ID는 애플리케이션에서 계산해 명시하며, 검색 결과는 기본적으로 ID·마스킹된 본문·점수만 반환합니다. 인덱스의 메타데이터는 비공개 자료로 취급합니다. [API·데이터 계약·임베딩 연결](docs/public/context-search.md)을 참고하세요.
+
 ## 현재 제공 범위
 
 | 항목 | 상태와 위치 |
 | --- | --- |
 | 문서 처리 라이브러리·CLI | 구현 · `src/kopii`, [사용법](docs/public/library.md) |
 | 모델 어댑터 | Hugging Face BIO, GLiNER, GLiNER2, 제한된 규칙 탐지 |
-| 조직정보 연계 | 교체 가능한 Resolver + 가상 CSV 예제 |
+| 외부 속성 연계 | 임의 CSV 열·모호성 판정 열을 지정하는 AttributeResolver + 외부 Resolver 계약 |
+| 문서·검색 API | ContextPipeline, SearchIndex, 문서 범위·속성 필터, BM25와 교체 가능한 Ranker |
+| 임베딩 연결 | 로컬 Embedder 계약·HTTP 어댑터·cosine 검색. 실제 NPU 검증은 미실시 |
+| 사용자 검색 평가 | JSONL 문서·질의·정답으로 Recall@k, Precision@k, MRR@k 측정 |
 | 처리 정책 | 마스킹·문서 단위 가명·조직 범주화, 탐지 오류 전파 |
 | 새 연구 실행기 | 실험 식별·이어쓰기 검증·탐지 지표·그룹 부트스트랩 |
 | 새 합성·학습 기준선 | 작은 fixture 합성기 + CE 학습; 기존 100k/배포 모델의 재현 코드는 아님 |
@@ -55,7 +73,7 @@ kopii process --config configs/roberta.json --input examples/document.txt --docu
 | 한국어 설정 탐색 | 두 후보 각각 30개 개발 설정, 기존 테스트 재평가 · [결과](research/RESULTS.md) |
 | 범주화 효과 | 가상 조직 3개·720문서에서 검색·개인 추정 위험 측정 · [결과](research/RESULTS.md) |
 | 논문 | [영문 작업 초안](paper/manuscript.md) · E2/E3 측정 반영, 외부 검증·E1 미완료 |
-| 서비스 통합 | 문서 파서·HTTP 서버·실제 HR 연결·검색 엔진은 배포 범위에서 제외 |
+| 서비스 통합 | 문서 파서·HTTP 서버·실제 HR 연결·인증·영속 벡터 DB·운영 배포는 별도 통합 |
 
 기본 정책은 **탐지된 모든 유형을 마스킹**합니다. 기존 운영 사례의 선택적 치환 정책과 다릅니다. API 마커는 `[PERSON_NAME:조직명]` 형식이며 위 서비스 적용 예시의 화면용 한글 마커와 구분합니다. 초기 설계의 복원 저장소와 조사 교정은 제공하지 않습니다.
 
@@ -67,6 +85,10 @@ src/kopii/
   resolvers/     # 이름 → 외부 조직정보
   policies.py    # 마스킹·가명·조직 범주화
   pipeline.py    # 처리 흐름과 실패 계약
+  context.py     # 탐지 본문 마스킹 + 임의 속성 조회
+  retrieval.py   # 문서 범위·필터·검색기 계약과 BM25
+  embeddings.py  # 임베딩 공급자 계약·HTTP·cosine
+  documents.py   # 사용자 JSONL 입출력
   rendering.py   # 겹침 구간과 출력 위치
   research/      # 데이터 검사·합성·학습·평가
 configs/         # 고정 revision과 명시적 실행 설정

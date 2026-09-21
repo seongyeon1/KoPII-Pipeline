@@ -53,3 +53,94 @@ def test_cli_keeps_model_progress_off_json_stdout(
     captured = capsys.readouterr()
     assert json.loads(captured.out)["text"] == "[EMAIL]"
     assert "external model progress" in captured.err
+
+
+def test_cli_prepares_and_searches_custom_fields_without_exposing_private_metadata(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    output = tmp_path / "private-index.jsonl"
+    assert (
+        main(
+            [
+                "prepare",
+                "--config",
+                "configs/context-demo.json",
+                "--input",
+                "examples/search/documents.jsonl",
+                "--output",
+                str(output),
+            ]
+        )
+        == 0
+    )
+    assert json.loads(capsys.readouterr().out)["documents"] == 3
+    rows = [json.loads(line) for line in output.read_text().splitlines()]
+    assert rows[0]["metadata"] == {"business_unit": ["product"], "region": ["west"]}
+    assert "김하늘" not in output.read_text() and "alpha@example.invalid" not in output.read_text()
+    assert output.stat().st_mode & 0o777 == 0o600
+    command = [
+        "search",
+        "--index",
+        str(output),
+        "--query",
+        "배포 일정",
+        "--scope",
+        "examples/search/scope.json",
+        "--filters",
+        "examples/search/filters.json",
+    ]
+    assert main(command) == 0
+    hits = json.loads(capsys.readouterr().out)["hits"]
+    assert [hit["id"] for hit in hits] == ["record-a"]
+    assert "metadata" not in hits[0]
+    assert main([*command, "--include-metadata"]) == 0
+    assert json.loads(capsys.readouterr().out)["hits"][0]["metadata"]["region"] == ["west"]
+    original = output.read_bytes()
+    assert (
+        main(
+            [
+                "prepare",
+                "--config",
+                "configs/context-demo.json",
+                "--input",
+                "examples/search/documents.jsonl",
+                "--output",
+                str(output),
+            ]
+        )
+        == 1
+    )
+    captured = capsys.readouterr()
+    assert captured.out == "" and output.read_bytes() == original
+
+
+def test_cli_rejects_raw_metadata_injection_and_invalid_search_scope(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    raw, output = tmp_path / "raw.jsonl", tmp_path / "index.jsonl"
+    raw.write_text(
+        json.dumps({"id": "d", "text": "sensitive fixture", "metadata": {"role": ["admin"]}})
+    )
+    assert (
+        main(
+            [
+                "prepare",
+                "--config",
+                "configs/context-demo.json",
+                "--input",
+                str(raw),
+                "--output",
+                str(output),
+            ]
+        )
+        == 1
+    )
+    assert not output.exists()
+    captured = capsys.readouterr()
+    assert captured.out == "" and "sensitive fixture" not in captured.err
+    scope = tmp_path / "scope.json"
+    scope.write_text('"d"')
+    assert main(["search", "--index", str(raw), "--query", "fixture", "--scope", str(scope)]) == 1
+    assert capsys.readouterr().out == ""

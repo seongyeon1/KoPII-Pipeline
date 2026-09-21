@@ -1,0 +1,25 @@
+{
+  "detector": {
+    "kind": "combined",
+    "detectors": [
+      {"kind": "dictionary", "names": ["김하늘", "이가온", "박가람"]},
+      {"kind": "rules"}
+    ]
+  },
+  "fields": {
+    "business_unit": {
+      "entity_label": "PERSON_NAME",
+      "resolver": {
+        "kind": "csv_attributes", "path": "../examples/search/directory.csv",
+        "key": "display_name", "value": "unit_code", "ambiguity_fields": ["unit_code"]
+      }
+    },
+    "region": {
+      "entity_label": "PERSON_NAME",
+      "resolver": {
+        "kind": "csv_attributes", "path": "../examples/search/directory.csv",
+        "key": "display_name", "value": "territory", "ambiguity_fields": ["unit_code"]
+      }
+    }
+  }
+}

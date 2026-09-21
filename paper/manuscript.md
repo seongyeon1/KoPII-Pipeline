@@ -184,4 +184,6 @@ The package, pinned checkpoint configurations, E2/E3 protocols and runners, aggr
 
 The submission remains incomplete pending independent business-document data, same-data adaptation/data-composition comparisons, operational retrieval and stronger-attack validation, and a fuller literature review. The current measurements support the bounded findings above rather than deployment-wide privacy or accuracy guarantees. [Research plan](../research/PLAN.md) tracks these requirements. Bibliographic metadata is provided in [references.bib](references.bib).
 
+The 0.2.0 software extension adds configurable categorical lookup, separate masked-text/private-metadata preparation, explicit document scopes, interchangeable lexical/vector ranking, and user-supplied retrieval judgments. These are implementation extensions, not additional empirical findings. The historical policy runner retains its original global-corpus BM25 definition; the new application baseline computes BM25 statistics only over eligible candidates.
+
 A venue-specific outline and remaining external inputs are tracked in [submission preparation](SUBMISSION.md). No arXiv upload or conference submission has been made.

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "kopii-pipeline"
-version = "0.1.0"
+version = "0.2.0"
 description = "Composable Korean PII detection, organization-aware generalization, and evaluation"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -39,6 +39,7 @@ include = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "--import-mode=importlib"
 
 [tool.ruff]
 target-version = "py311"

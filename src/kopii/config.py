@@ -3,7 +3,7 @@
 import json
 import os
 from pathlib import Path
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from kopii.detectors import CombinedDetector
 from kopii.detectors.rules import DictionaryDetector, RuleDetector
@@ -11,6 +11,10 @@ from kopii.pipeline import Pipeline
 from kopii.policies import Policy
 from kopii.resolvers.csv import CsvResolver
 from kopii.schemas import Detector
+
+if TYPE_CHECKING:
+    from kopii.context import ContextPipeline
+    from kopii.embeddings import HttpEmbedder
 
 
 def check_keys(config: dict[str, Any], allowed: set[str]) -> None:
@@ -73,3 +77,58 @@ def create_pipeline(config: dict[str, Any], base: Path) -> Pipeline:
             raise ValueError("Built-in resolver kind must be csv")
         resolver = CsvResolver(base / resolver_config["path"], resolver_config.get("level", "team"))
     return Pipeline(create_detector(config["detector"]), policy, resolver)
+
+
+def create_context_pipeline(config: dict[str, Any], base: Path) -> "ContextPipeline":
+    """Build configurable private fields; no organization column names are implicit."""
+    from kopii.context import ContextField, ContextPipeline
+    from kopii.resolvers.attributes import AttributeResolver
+
+    check_keys(config, {"detector", "fields"})
+    fields = {}
+    for field, definition in config.get("fields", {}).items():
+        check_keys(definition, {"entity_label", "resolver"})
+        resolver = definition["resolver"]
+        check_keys(resolver, {"kind", "path", "key", "value", "ambiguity_fields"})
+        if resolver["kind"] != "csv_attributes":
+            raise ValueError("Context configuration supports csv_attributes resolvers")
+        fields[field] = ContextField(
+            AttributeResolver.from_csv(
+                base / resolver["path"],
+                key=resolver["key"],
+                value=resolver["value"],
+                ambiguity_fields=resolver.get("ambiguity_fields", []),
+            ),
+            definition.get("entity_label", "PERSON_NAME"),
+        )
+    return ContextPipeline(create_detector(config["detector"]), fields)
+
+
+def create_embedder(config: dict[str, Any]) -> "HttpEmbedder":
+    """Read service settings explicitly, keeping endpoint and key values out of JSON."""
+    from kopii.embeddings import HttpEmbedder
+
+    check_keys(
+        config,
+        {
+            "endpoint_env",
+            "api_key_env",
+            "model",
+            "deployment_revision",
+            "document_prefix",
+            "query_prefix",
+            "batch_size",
+            "timeout_seconds",
+        },
+    )
+    if not config.get("model") or config["model"].startswith("REPLACE_"):
+        raise ValueError("Configure an actual deployed embedding model")
+    return HttpEmbedder(
+        os.environ[config["endpoint_env"]],
+        config["model"],
+        api_key=os.environ[config["api_key_env"]] if config.get("api_key_env") else None,
+        document_prefix=config.get("document_prefix", ""),
+        query_prefix=config.get("query_prefix", ""),
+        batch_size=config.get("batch_size", 32),
+        timeout=config.get("timeout_seconds", 60),
+    )

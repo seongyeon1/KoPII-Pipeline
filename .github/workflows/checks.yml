@@ -31,6 +31,9 @@ jobs:
           python -m venv /tmp/kopii-wheel
           /tmp/kopii-wheel/bin/pip install --no-deps dist/*.whl
           /tmp/kopii-wheel/bin/kopii process --config configs/demo.json --input examples/document.txt
+          /tmp/kopii-wheel/bin/kopii prepare --config configs/context-demo.json --input examples/search/documents.jsonl --output output/ci-context/index.jsonl
+          /tmp/kopii-wheel/bin/kopii search --index output/ci-context/index.jsonl --query '배포 일정' --scope examples/search/scope.json --filters examples/search/filters.json
+          /tmp/kopii-wheel/bin/kopii evaluate-search --index output/ci-context/index.jsonl --queries examples/search/queries.jsonl
       - name: Research smoke workflow
         run: |
           kopii synthesize --output output/ci-data --per-template 2

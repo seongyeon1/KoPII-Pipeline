@@ -1,0 +1,2 @@
+{"id":"query-a","text":"배포 일정","allowed_ids":["record-a","record-b"],"relevant_ids":["record-a"],"filters":{"business_unit":["product"]}}
+{"id":"query-b","text":"비용 정산","allowed_ids":["record-a","record-b"],"relevant_ids":["record-b"],"filters":{"region":["east"]}}

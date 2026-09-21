@@ -7,7 +7,7 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from typing import Any, Optional
 
-from kopii.config import create_pipeline, load_config
+from kopii.config import create_context_pipeline, create_embedder, create_pipeline, load_config
 
 
 def main(argv: Optional[list[str]] = None) -> int:
@@ -19,6 +19,31 @@ def main(argv: Optional[list[str]] = None) -> int:
     process.add_argument("--input", type=Path)
     process.add_argument("--document-id", default="")
     process.add_argument("--output", type=Path)
+    prepare = commands.add_parser(
+        "prepare", help="Mask JSONL documents into a private search index"
+    )
+    prepare.add_argument("--config", type=Path, required=True)
+    prepare.add_argument("--input", type=Path, required=True)
+    prepare.add_argument("--output", type=Path, required=True)
+    search = commands.add_parser("search", help="Search released text with explicit document scope")
+    search.add_argument("--index", type=Path, required=True)
+    search.add_argument("--query", required=True)
+    search.add_argument(
+        "--scope", type=Path, required=True, help="JSON array of authorized document IDs"
+    )
+    search.add_argument("--filters", type=Path, help="JSON object mapping fields to allowed values")
+    search.add_argument("--embedding-config", type=Path)
+    search.add_argument("--limit", type=int, default=5)
+    search.add_argument(
+        "--include-metadata", action="store_true", help="Explicitly expose result attributes"
+    )
+    retrieval_eval = commands.add_parser(
+        "evaluate-search", help="Evaluate explicit retrieval judgments"
+    )
+    retrieval_eval.add_argument("--index", type=Path, required=True)
+    retrieval_eval.add_argument("--queries", type=Path, required=True)
+    retrieval_eval.add_argument("--embedding-config", type=Path)
+    retrieval_eval.add_argument("--limit", type=int, default=5)
     evaluate = commands.add_parser("evaluate", help="Run a versioned detection experiment")
     evaluate.add_argument("--config", type=Path, required=True)
     evaluate.add_argument("--data", type=Path, required=True)
@@ -46,6 +71,49 @@ def main(argv: Optional[list[str]] = None) -> int:
             with redirect_stdout(sys.stderr):
                 pipeline = create_pipeline(load_config(args.config), args.config.resolve().parent)
                 result = pipeline.process(text, args.document_id).to_dict()
+        elif args.command == "prepare":
+            from kopii.documents import prepare_index
+
+            with redirect_stdout(sys.stderr):
+                processor = create_context_pipeline(
+                    load_config(args.config), args.config.resolve().parent
+                )
+                result = prepare_index(processor, args.input, args.output)
+        elif args.command in {"search", "evaluate-search"}:
+            from kopii.documents import read_records
+            from kopii.embeddings import VectorRanker
+            from kopii.retrieval import SearchIndex
+
+            with redirect_stdout(sys.stderr):
+                ranker = (
+                    VectorRanker(create_embedder(load_config(args.embedding_config)))
+                    if args.embedding_config
+                    else None
+                )
+                index = SearchIndex(read_records(args.index, allow_metadata=True), ranker)
+                if args.command == "evaluate-search":
+                    from kopii.research.data import file_hash
+                    from kopii.research.search import evaluate_search
+
+                    result = evaluate_search(index, args.queries, args.limit)
+                    result["index_sha256"] = file_hash(args.index)
+                    result["ranker"] = "http_cosine" if args.embedding_config else "bm25"
+                    result["embedding_config_sha256"] = (
+                        file_hash(args.embedding_config) if args.embedding_config else None
+                    )
+                else:
+                    scope = json.loads(args.scope.read_text(encoding="utf-8"))
+                    if not isinstance(scope, list):
+                        raise ValueError("Document scope must be a JSON array")
+                    filters = load_config(args.filters) if args.filters else None
+                    hits = index.search(
+                        args.query, allowed_ids=scope, filters=filters, k=args.limit
+                    )
+                    result = {
+                        "hits": [
+                            hit.to_dict(include_metadata=args.include_metadata) for hit in hits
+                        ]
+                    }
         elif args.command == "evaluate":
             from kopii.research.experiment import run_experiment
 
