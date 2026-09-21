@@ -1,0 +1,2370 @@
+{
+  "gold": {
+    "raw": {
+      "team_mrr": {
+        "mean": 0.191723,
+        "min": 0.185067,
+        "max": 0.195552
+      },
+      "team_recall_at_5": {
+        "mean": 0.154176,
+        "min": 0.133885,
+        "max": 0.170486
+      },
+      "team_hit_at_5": {
+        "mean": 0.273778,
+        "min": 0.260417,
+        "max": 0.287234
+      },
+      "division_mrr": {
+        "mean": 0.400092,
+        "min": 0.380522,
+        "max": 0.414581
+      },
+      "division_recall_at_5": {
+        "mean": 0.166615,
+        "min": 0.163126,
+        "max": 0.172793
+      },
+      "division_hit_at_5": {
+        "mean": 0.583333,
+        "min": 0.5,
+        "max": 0.6875
+      },
+      "center_mrr": {
+        "mean": 0.601157,
+        "min": 0.579092,
+        "max": 0.618998
+      },
+      "center_recall_at_5": {
+        "mean": 0.171651,
+        "min": 0.163202,
+        "max": 0.18342
+      },
+      "center_hit_at_5": {
+        "mean": 0.729167,
+        "min": 0.625,
+        "max": 0.8125
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 1.033333,
+        "min": 1.033333,
+        "max": 1.033333
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "directory_realized_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "directory_candidate_count": {
+        "mean": 1.033333,
+        "min": 1.033333,
+        "max": 1.033333
+      },
+      "directory_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "qa_center_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "name_surface_remaining": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "mask": {
+      "team_mrr": {
+        "mean": 0.214544,
+        "min": 0.207154,
+        "max": 0.218869
+      },
+      "team_recall_at_5": {
+        "mean": 0.16728,
+        "min": 0.139499,
+        "max": 0.187847
+      },
+      "team_hit_at_5": {
+        "mean": 0.298379,
+        "min": 0.28125,
+        "max": 0.319149
+      },
+      "division_mrr": {
+        "mean": 0.400092,
+        "min": 0.380522,
+        "max": 0.414581
+      },
+      "division_recall_at_5": {
+        "mean": 0.166615,
+        "min": 0.163126,
+        "max": 0.172793
+      },
+      "division_hit_at_5": {
+        "mean": 0.583333,
+        "min": 0.5,
+        "max": 0.6875
+      },
+      "center_mrr": {
+        "mean": 0.601157,
+        "min": 0.579092,
+        "max": 0.618998
+      },
+      "center_recall_at_5": {
+        "mean": 0.171651,
+        "min": 0.163202,
+        "max": 0.18342
+      },
+      "center_hit_at_5": {
+        "mean": 0.729167,
+        "min": 0.625,
+        "max": 0.8125
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "directory_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.263889,
+        "min": 0.258333,
+        "max": 0.266667
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.263889,
+        "min": 0.258333,
+        "max": 0.266667
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 4.622222,
+        "min": 4.383333,
+        "max": 4.833333
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "qa_center_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "pseudonym": {
+      "team_mrr": {
+        "mean": 0.214544,
+        "min": 0.207154,
+        "max": 0.218869
+      },
+      "team_recall_at_5": {
+        "mean": 0.16728,
+        "min": 0.139499,
+        "max": 0.187847
+      },
+      "team_hit_at_5": {
+        "mean": 0.298379,
+        "min": 0.28125,
+        "max": 0.319149
+      },
+      "division_mrr": {
+        "mean": 0.400092,
+        "min": 0.380522,
+        "max": 0.414581
+      },
+      "division_recall_at_5": {
+        "mean": 0.166615,
+        "min": 0.163126,
+        "max": 0.172793
+      },
+      "division_hit_at_5": {
+        "mean": 0.583333,
+        "min": 0.5,
+        "max": 0.6875
+      },
+      "center_mrr": {
+        "mean": 0.601157,
+        "min": 0.579092,
+        "max": 0.618998
+      },
+      "center_recall_at_5": {
+        "mean": 0.171651,
+        "min": 0.163202,
+        "max": 0.18342
+      },
+      "center_hit_at_5": {
+        "mean": 0.729167,
+        "min": 0.625,
+        "max": 0.8125
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "directory_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.263889,
+        "min": 0.258333,
+        "max": 0.266667
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.263889,
+        "min": 0.258333,
+        "max": 0.266667
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 4.622222,
+        "min": 4.383333,
+        "max": 4.833333
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.572222,
+        "min": 0.5375,
+        "max": 0.6
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.572222,
+        "min": 0.5375,
+        "max": 0.6
+      },
+      "qa_center_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_source_top1": {
+        "mean": 0.572222,
+        "min": 0.5375,
+        "max": 0.6
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "team": {
+      "team_mrr": {
+        "mean": 0.876428,
+        "min": 0.838349,
+        "max": 0.938131
+      },
+      "team_recall_at_5": {
+        "mean": 0.813024,
+        "min": 0.789757,
+        "max": 0.855155
+      },
+      "team_hit_at_5": {
+        "mean": 0.933515,
+        "min": 0.894737,
+        "max": 0.978723
+      },
+      "division_mrr": {
+        "mean": 0.430015,
+        "min": 0.390466,
+        "max": 0.452033
+      },
+      "division_recall_at_5": {
+        "mean": 0.109327,
+        "min": 0.094209,
+        "max": 0.123079
+      },
+      "division_hit_at_5": {
+        "mean": 0.541667,
+        "min": 0.5,
+        "max": 0.5625
+      },
+      "center_mrr": {
+        "mean": 0.470915,
+        "min": 0.423917,
+        "max": 0.525458
+      },
+      "center_recall_at_5": {
+        "mean": 0.056039,
+        "min": 0.053021,
+        "max": 0.058265
+      },
+      "center_hit_at_5": {
+        "mean": 0.458333,
+        "min": 0.4375,
+        "max": 0.5
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.11191,
+        "min": 0.11191,
+        "max": 0.11191
+      },
+      "directory_realized_top1": {
+        "mean": 0.097222,
+        "min": 0.091667,
+        "max": 0.108333
+      },
+      "directory_candidate_count": {
+        "mean": 23.716667,
+        "min": 23.716667,
+        "max": 23.716667
+      },
+      "directory_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.732116,
+        "min": 0.720357,
+        "max": 0.742083
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.738889,
+        "min": 0.716667,
+        "max": 0.75
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 1.688889,
+        "min": 1.575,
+        "max": 1.783333
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.047222,
+        "min": 0.041667,
+        "max": 0.05
+      },
+      "qa_team_accuracy": {
+        "mean": 0.741667,
+        "min": 0.7125,
+        "max": 0.7625
+      },
+      "qa_team_answered": {
+        "mean": 0.880556,
+        "min": 0.866667,
+        "max": 0.891667
+      },
+      "qa_team_source_top1": {
+        "mean": 0.861111,
+        "min": 0.833333,
+        "max": 0.891667
+      },
+      "qa_division_accuracy": {
+        "mean": 0.7625,
+        "min": 0.733333,
+        "max": 0.783333
+      },
+      "qa_division_answered": {
+        "mean": 0.880556,
+        "min": 0.866667,
+        "max": 0.891667
+      },
+      "qa_division_source_top1": {
+        "mean": 0.861111,
+        "min": 0.833333,
+        "max": 0.891667
+      },
+      "qa_center_accuracy": {
+        "mean": 0.786111,
+        "min": 0.775,
+        "max": 0.8
+      },
+      "qa_center_answered": {
+        "mean": 0.880556,
+        "min": 0.866667,
+        "max": 0.891667
+      },
+      "qa_center_source_top1": {
+        "mean": 0.861111,
+        "min": 0.833333,
+        "max": 0.891667
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.833333,
+        "min": 0.833333,
+        "max": 0.833333
+      },
+      "wrong_team_marker": {
+        "mean": 0.05,
+        "min": 0.05,
+        "max": 0.05
+      }
+    },
+    "division": {
+      "team_mrr": {
+        "mean": 0.219464,
+        "min": 0.212876,
+        "max": 0.225533
+      },
+      "team_recall_at_5": {
+        "mean": 0.192021,
+        "min": 0.168246,
+        "max": 0.22066
+      },
+      "team_hit_at_5": {
+        "mean": 0.322683,
+        "min": 0.308511,
+        "max": 0.34375
+      },
+      "division_mrr": {
+        "mean": 0.92994,
+        "min": 0.919792,
+        "max": 0.940341
+      },
+      "division_recall_at_5": {
+        "mean": 0.586726,
+        "min": 0.562245,
+        "max": 0.605722
+      },
+      "division_hit_at_5": {
+        "mean": 0.979167,
+        "min": 0.96875,
+        "max": 1.0
+      },
+      "center_mrr": {
+        "mean": 0.671875,
+        "min": 0.655208,
+        "max": 0.691667
+      },
+      "center_recall_at_5": {
+        "mean": 0.173201,
+        "min": 0.166174,
+        "max": 0.181278
+      },
+      "center_hit_at_5": {
+        "mean": 0.979167,
+        "min": 0.9375,
+        "max": 1.0
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.02875,
+        "min": 0.02875,
+        "max": 0.02875
+      },
+      "directory_realized_top1": {
+        "mean": 0.025,
+        "min": 0.025,
+        "max": 0.025
+      },
+      "directory_candidate_count": {
+        "mean": 40.5,
+        "min": 40.5,
+        "max": 40.5
+      },
+      "directory_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.598783,
+        "min": 0.577302,
+        "max": 0.617242
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.605556,
+        "min": 0.583333,
+        "max": 0.625
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 2.127778,
+        "min": 1.975,
+        "max": 2.225
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.022222,
+        "min": 0.016667,
+        "max": 0.025
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.859722,
+        "min": 0.829167,
+        "max": 0.891667
+      },
+      "qa_division_accuracy": {
+        "mean": 0.763889,
+        "min": 0.725,
+        "max": 0.7875
+      },
+      "qa_division_answered": {
+        "mean": 0.880556,
+        "min": 0.866667,
+        "max": 0.891667
+      },
+      "qa_division_source_top1": {
+        "mean": 0.859722,
+        "min": 0.829167,
+        "max": 0.891667
+      },
+      "qa_center_accuracy": {
+        "mean": 0.786111,
+        "min": 0.7625,
+        "max": 0.804167
+      },
+      "qa_center_answered": {
+        "mean": 0.880556,
+        "min": 0.866667,
+        "max": 0.891667
+      },
+      "qa_center_source_top1": {
+        "mean": 0.859722,
+        "min": 0.829167,
+        "max": 0.891667
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "center": {
+      "team_mrr": {
+        "mean": 0.201232,
+        "min": 0.19028,
+        "max": 0.207509
+      },
+      "team_recall_at_5": {
+        "mean": 0.153017,
+        "min": 0.126516,
+        "max": 0.172049
+      },
+      "team_hit_at_5": {
+        "mean": 0.280722,
+        "min": 0.270833,
+        "max": 0.294737
+      },
+      "division_mrr": {
+        "mean": 0.410488,
+        "min": 0.399879,
+        "max": 0.419818
+      },
+      "division_recall_at_5": {
+        "mean": 0.167507,
+        "min": 0.163269,
+        "max": 0.175657
+      },
+      "division_hit_at_5": {
+        "mean": 0.635417,
+        "min": 0.5625,
+        "max": 0.75
+      },
+      "center_mrr": {
+        "mean": 0.923611,
+        "min": 0.90625,
+        "max": 0.9375
+      },
+      "center_recall_at_5": {
+        "mean": 0.324019,
+        "min": 0.315078,
+        "max": 0.332818
+      },
+      "center_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.014861,
+        "min": 0.014861,
+        "max": 0.014861
+      },
+      "directory_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_candidate_count": {
+        "mean": 67.0,
+        "min": 67.0,
+        "max": 67.0
+      },
+      "directory_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.414478,
+        "min": 0.383413,
+        "max": 0.441409
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.422222,
+        "min": 0.383333,
+        "max": 0.45
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 2.944444,
+        "min": 2.841667,
+        "max": 3.033333
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.002778,
+        "min": 0.0,
+        "max": 0.008333
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.861111,
+        "min": 0.833333,
+        "max": 0.891667
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.861111,
+        "min": 0.833333,
+        "max": 0.891667
+      },
+      "qa_center_accuracy": {
+        "mean": 0.786111,
+        "min": 0.775,
+        "max": 0.8
+      },
+      "qa_center_answered": {
+        "mean": 0.880556,
+        "min": 0.866667,
+        "max": 0.891667
+      },
+      "qa_center_source_top1": {
+        "mean": 0.861111,
+        "min": 0.833333,
+        "max": 0.891667
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  "roberta": {
+    "raw": {
+      "team_mrr": {
+        "mean": 0.191723,
+        "min": 0.185067,
+        "max": 0.195552
+      },
+      "team_recall_at_5": {
+        "mean": 0.154176,
+        "min": 0.133885,
+        "max": 0.170486
+      },
+      "team_hit_at_5": {
+        "mean": 0.273778,
+        "min": 0.260417,
+        "max": 0.287234
+      },
+      "division_mrr": {
+        "mean": 0.400092,
+        "min": 0.380522,
+        "max": 0.414581
+      },
+      "division_recall_at_5": {
+        "mean": 0.166615,
+        "min": 0.163126,
+        "max": 0.172793
+      },
+      "division_hit_at_5": {
+        "mean": 0.583333,
+        "min": 0.5,
+        "max": 0.6875
+      },
+      "center_mrr": {
+        "mean": 0.601157,
+        "min": 0.579092,
+        "max": 0.618998
+      },
+      "center_recall_at_5": {
+        "mean": 0.171651,
+        "min": 0.163202,
+        "max": 0.18342
+      },
+      "center_hit_at_5": {
+        "mean": 0.729167,
+        "min": 0.625,
+        "max": 0.8125
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 1.033333,
+        "min": 1.033333,
+        "max": 1.033333
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "directory_realized_top1": {
+        "mean": 0.983333,
+        "min": 0.983333,
+        "max": 0.983333
+      },
+      "directory_candidate_count": {
+        "mean": 1.033333,
+        "min": 1.033333,
+        "max": 1.033333
+      },
+      "directory_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "qa_center_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_source_top1": {
+        "mean": 0.901389,
+        "min": 0.870833,
+        "max": 0.925
+      },
+      "name_surface_remaining": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "mask": {
+      "team_mrr": {
+        "mean": 0.220205,
+        "min": 0.214931,
+        "max": 0.229519
+      },
+      "team_recall_at_5": {
+        "mean": 0.159882,
+        "min": 0.131003,
+        "max": 0.182812
+      },
+      "team_hit_at_5": {
+        "mean": 0.329849,
+        "min": 0.315789,
+        "max": 0.340426
+      },
+      "division_mrr": {
+        "mean": 0.438675,
+        "min": 0.437661,
+        "max": 0.440275
+      },
+      "division_recall_at_5": {
+        "mean": 0.166644,
+        "min": 0.159475,
+        "max": 0.177071
+      },
+      "division_hit_at_5": {
+        "mean": 0.6875,
+        "min": 0.65625,
+        "max": 0.75
+      },
+      "center_mrr": {
+        "mean": 0.664122,
+        "min": 0.651637,
+        "max": 0.672991
+      },
+      "center_recall_at_5": {
+        "mean": 0.169334,
+        "min": 0.162099,
+        "max": 0.17974
+      },
+      "center_hit_at_5": {
+        "mean": 0.854167,
+        "min": 0.8125,
+        "max": 0.875
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "directory_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.087616,
+        "min": 0.083989,
+        "max": 0.091136
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.090278,
+        "min": 0.0875,
+        "max": 0.095833
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 28.479167,
+        "min": 28.029167,
+        "max": 28.870833
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.120833,
+        "min": 0.079167,
+        "max": 0.145833
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.120833,
+        "min": 0.079167,
+        "max": 0.145833
+      },
+      "qa_center_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_source_top1": {
+        "mean": 0.120833,
+        "min": 0.079167,
+        "max": 0.145833
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "pseudonym": {
+      "team_mrr": {
+        "mean": 0.220327,
+        "min": 0.215111,
+        "max": 0.229602
+      },
+      "team_recall_at_5": {
+        "mean": 0.159882,
+        "min": 0.131003,
+        "max": 0.182812
+      },
+      "team_hit_at_5": {
+        "mean": 0.329849,
+        "min": 0.315789,
+        "max": 0.340426
+      },
+      "division_mrr": {
+        "mean": 0.438444,
+        "min": 0.437661,
+        "max": 0.439582
+      },
+      "division_recall_at_5": {
+        "mean": 0.166644,
+        "min": 0.159475,
+        "max": 0.177071
+      },
+      "division_hit_at_5": {
+        "mean": 0.6875,
+        "min": 0.65625,
+        "max": 0.75
+      },
+      "center_mrr": {
+        "mean": 0.663889,
+        "min": 0.651637,
+        "max": 0.672991
+      },
+      "center_recall_at_5": {
+        "mean": 0.169334,
+        "min": 0.162099,
+        "max": 0.17974
+      },
+      "center_hit_at_5": {
+        "mean": 0.854167,
+        "min": 0.8125,
+        "max": 0.875
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "directory_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.087616,
+        "min": 0.083989,
+        "max": 0.091136
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.090278,
+        "min": 0.0875,
+        "max": 0.095833
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 28.479167,
+        "min": 28.029167,
+        "max": 28.870833
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.097222,
+        "min": 0.0625,
+        "max": 0.116667
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.097222,
+        "min": 0.0625,
+        "max": 0.116667
+      },
+      "qa_center_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_center_source_top1": {
+        "mean": 0.097222,
+        "min": 0.0625,
+        "max": 0.116667
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "team": {
+      "team_mrr": {
+        "mean": 0.873024,
+        "min": 0.837142,
+        "max": 0.909823
+      },
+      "team_recall_at_5": {
+        "mean": 0.804504,
+        "min": 0.786817,
+        "max": 0.827216
+      },
+      "team_hit_at_5": {
+        "mean": 0.936949,
+        "min": 0.905263,
+        "max": 0.968085
+      },
+      "division_mrr": {
+        "mean": 0.435958,
+        "min": 0.416269,
+        "max": 0.458595
+      },
+      "division_recall_at_5": {
+        "mean": 0.097753,
+        "min": 0.091545,
+        "max": 0.1033
+      },
+      "division_hit_at_5": {
+        "mean": 0.510417,
+        "min": 0.46875,
+        "max": 0.53125
+      },
+      "center_mrr": {
+        "mean": 0.466326,
+        "min": 0.408598,
+        "max": 0.527043
+      },
+      "center_recall_at_5": {
+        "mean": 0.056039,
+        "min": 0.053021,
+        "max": 0.058265
+      },
+      "center_hit_at_5": {
+        "mean": 0.458333,
+        "min": 0.4375,
+        "max": 0.5
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.11191,
+        "min": 0.11191,
+        "max": 0.11191
+      },
+      "directory_realized_top1": {
+        "mean": 0.097222,
+        "min": 0.091667,
+        "max": 0.108333
+      },
+      "directory_candidate_count": {
+        "mean": 23.716667,
+        "min": 23.716667,
+        "max": 23.716667
+      },
+      "directory_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.490116,
+        "min": 0.485703,
+        "max": 0.496125
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.484722,
+        "min": 0.483333,
+        "max": 0.4875
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 5.456944,
+        "min": 5.179167,
+        "max": 5.666667
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.029167,
+        "min": 0.020833,
+        "max": 0.033333
+      },
+      "qa_team_accuracy": {
+        "mean": 0.341667,
+        "min": 0.270833,
+        "max": 0.379167
+      },
+      "qa_team_answered": {
+        "mean": 0.7,
+        "min": 0.658333,
+        "max": 0.7375
+      },
+      "qa_team_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "qa_division_accuracy": {
+        "mean": 0.488889,
+        "min": 0.466667,
+        "max": 0.516667
+      },
+      "qa_division_answered": {
+        "mean": 0.7,
+        "min": 0.658333,
+        "max": 0.7375
+      },
+      "qa_division_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "qa_center_accuracy": {
+        "mean": 0.554167,
+        "min": 0.529167,
+        "max": 0.591667
+      },
+      "qa_center_answered": {
+        "mean": 0.7,
+        "min": 0.658333,
+        "max": 0.7375
+      },
+      "qa_center_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.833333,
+        "min": 0.833333,
+        "max": 0.833333
+      },
+      "wrong_team_marker": {
+        "mean": 0.05,
+        "min": 0.05,
+        "max": 0.05
+      }
+    },
+    "division": {
+      "team_mrr": {
+        "mean": 0.218158,
+        "min": 0.204721,
+        "max": 0.239379
+      },
+      "team_recall_at_5": {
+        "mean": 0.17115,
+        "min": 0.151078,
+        "max": 0.189108
+      },
+      "team_hit_at_5": {
+        "mean": 0.333432,
+        "min": 0.322917,
+        "max": 0.351064
+      },
+      "division_mrr": {
+        "mean": 0.932465,
+        "min": 0.927083,
+        "max": 0.940625
+      },
+      "division_recall_at_5": {
+        "mean": 0.588619,
+        "min": 0.56945,
+        "max": 0.603155
+      },
+      "division_hit_at_5": {
+        "mean": 0.989583,
+        "min": 0.96875,
+        "max": 1.0
+      },
+      "center_mrr": {
+        "mean": 0.683333,
+        "min": 0.671875,
+        "max": 0.692708
+      },
+      "center_recall_at_5": {
+        "mean": 0.172565,
+        "min": 0.165592,
+        "max": 0.180959
+      },
+      "center_hit_at_5": {
+        "mean": 0.916667,
+        "min": 0.875,
+        "max": 0.9375
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.02875,
+        "min": 0.02875,
+        "max": 0.02875
+      },
+      "directory_realized_top1": {
+        "mean": 0.025,
+        "min": 0.025,
+        "max": 0.025
+      },
+      "directory_candidate_count": {
+        "mean": 40.5,
+        "min": 40.5,
+        "max": 40.5
+      },
+      "directory_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.247623,
+        "min": 0.233257,
+        "max": 0.257209
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.244444,
+        "min": 0.229167,
+        "max": 0.266667
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 9.372222,
+        "min": 9.079167,
+        "max": 9.554167
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.006944,
+        "min": 0.004167,
+        "max": 0.008333
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "qa_division_accuracy": {
+        "mean": 0.494444,
+        "min": 0.483333,
+        "max": 0.516667
+      },
+      "qa_division_answered": {
+        "mean": 0.704167,
+        "min": 0.670833,
+        "max": 0.7375
+      },
+      "qa_division_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "qa_center_accuracy": {
+        "mean": 0.559722,
+        "min": 0.529167,
+        "max": 0.591667
+      },
+      "qa_center_answered": {
+        "mean": 0.704167,
+        "min": 0.670833,
+        "max": 0.7375
+      },
+      "qa_center_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "center": {
+      "team_mrr": {
+        "mean": 0.206427,
+        "min": 0.192843,
+        "max": 0.218505
+      },
+      "team_recall_at_5": {
+        "mean": 0.141879,
+        "min": 0.11188,
+        "max": 0.164062
+      },
+      "team_hit_at_5": {
+        "mean": 0.298268,
+        "min": 0.284211,
+        "max": 0.308511
+      },
+      "division_mrr": {
+        "mean": 0.445462,
+        "min": 0.441523,
+        "max": 0.447582
+      },
+      "division_recall_at_5": {
+        "mean": 0.167607,
+        "min": 0.15764,
+        "max": 0.180804
+      },
+      "division_hit_at_5": {
+        "mean": 0.697917,
+        "min": 0.625,
+        "max": 0.78125
+      },
+      "center_mrr": {
+        "mean": 0.942708,
+        "min": 0.90625,
+        "max": 0.96875
+      },
+      "center_recall_at_5": {
+        "mean": 0.325245,
+        "min": 0.318754,
+        "max": 0.332818
+      },
+      "center_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_mrr": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "topic_control_recall_at_5": {
+        "mean": 0.171314,
+        "min": 0.169676,
+        "max": 0.173516
+      },
+      "topic_control_hit_at_5": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_expected_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "identity_list_only_candidate_count": {
+        "mean": 120.0,
+        "min": 120.0,
+        "max": 120.0
+      },
+      "identity_list_only_target_in_candidates": {
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "identity_list_only_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_expected_top1": {
+        "mean": 0.014861,
+        "min": 0.014861,
+        "max": 0.014861
+      },
+      "directory_realized_top1": {
+        "mean": 0.008333,
+        "min": 0.008333,
+        "max": 0.008333
+      },
+      "directory_candidate_count": {
+        "mean": 67.0,
+        "min": 67.0,
+        "max": 67.0
+      },
+      "directory_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "directory_role_project_expected_top1": {
+        "mean": 0.141191,
+        "min": 0.133575,
+        "max": 0.145675
+      },
+      "directory_role_project_realized_top1": {
+        "mean": 0.145833,
+        "min": 0.1375,
+        "max": 0.154167
+      },
+      "directory_role_project_candidate_count": {
+        "mean": 15.65,
+        "min": 15.3,
+        "max": 15.929167
+      },
+      "directory_role_project_target_in_candidates": {
+        "mean": 0.95,
+        "min": 0.95,
+        "max": 0.95
+      },
+      "directory_role_project_abstention": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_team_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "qa_division_accuracy": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_answered": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "qa_division_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "qa_center_accuracy": {
+        "mean": 0.555556,
+        "min": 0.529167,
+        "max": 0.579167
+      },
+      "qa_center_answered": {
+        "mean": 0.704167,
+        "min": 0.670833,
+        "max": 0.7375
+      },
+      "qa_center_source_top1": {
+        "mean": 0.113889,
+        "min": 0.066667,
+        "max": 0.141667
+      },
+      "name_surface_remaining": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "correct_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "wrong_team_marker": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  }
+}

@@ -66,6 +66,54 @@ kopii train --config configs/train-baseline.json \
 
 학습 후 모델·토크나이저를 저장하고 dev 전체를 추론해 점수를 기록합니다. manifest에는 train/dev 해시와 실행 설정, 결과에는 저장된 모델 파일들의 집계 해시를 남깁니다. 이 검증 결과는 최종 테스트 점수가 아닙니다. 기기별 완전한 비트 단위 재현성을 보장하지 않으며 복수 시드 실험은 별도로 수행해야 합니다.
 
-## 아직 수행하지 않은 연구
+## E2/E3 측정 실험 재현
 
-한국어 임계값·라벨 최적화, GLiNER 경계 처리 변경, 동일 자료 재학습 비교, 새 업무 평가셋, 조직 범주화의 검색·질의응답/개인 추정 위험 측정은 [계획](PLAN.md)에 명시했습니다. fixture 실행 성공을 해당 연구 결과로 인용하지 않습니다.
+[완료된 실험 보고서](RESULTS.md)와 [검토 노트북](01-Study-Results.ipynb)을 제공합니다. E2는 기존 테스트의 재평가, E3는 가상 조직의 통제 실험입니다. 운영 GPU/HTTP 서버는 변경하지 않습니다.
+
+별도 신경망 환경에 과거 비교와 같은 고정 의존성을 설치합니다. 아래 예시는 저장소 루트에서 실행하며, 공개 모델 캐시와 데이터 약 수 GB를 사용합니다.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r benchmarks/pii_compare/requirements.lock.txt
+python -m pip install --no-deps -e .
+python - <<'PYCODE'
+from huggingface_hub import hf_hub_download, snapshot_download
+import json
+revision = "660e03a454f7934261be41390744796565550ce2"
+for filename in ("train.jsonl", "valid.jsonl", "test.jsonl", "test_kdpii.jsonl"):
+    hf_hub_download("seongyeon1/ko-pii-ner-100k", repo_type="dataset",
+                    filename=filename, revision=revision, local_dir="data/ko_pii")
+for name in ("nvidia", "fastino", "roberta"):
+    config = json.load(open(f"configs/eval-{name}.json"))["detector"]
+    snapshot_download(config["model"], revision=config["revision"])
+PYCODE
+TOKENIZERS_PARALLELISM=false python research/run_korean_study.py
+python research/audit_study_splits.py
+TOKENIZERS_PARALLELISM=false python research/run_organization_study.py
+```
+
+공개 실행 설정은 Apple Silicon **MPS**입니다. E2의 장치를 바꾸려면 `studies/korean-settings.json`의 `device`를 수정하고 새 output 경로를 지정합니다. E3는 `--device cpu` 또는 `--device cuda`를 지원합니다. 장치와 소스·데이터·설정이 달라지면 동일 출력의 이어쓰기를 거부합니다. `local_files_only=True`이므로 먼저 위 다운로드를 완료해야 합니다. 기기별 비트 단위 동일 결과는 보장하지 않습니다.
+
+실행기 하나당 하나의 프로세스만 사용합니다. 원문과 문서별 예측은 공개할 목적이 아니며 `output/`은 Git에서 제외합니다. 완료된 실행은 캐시된 예측을 재사용하지만 개발 임계값 동등성 검사는 다시 수행합니다. E2의 모델별 선택 파일은 테스트 추론 전에 저장합니다. E3는 정책을 튜닝하지 않습니다.
+
+```bash
+python -m pip install -r research/requirements-report.txt
+python research/report_studies.py
+python - <<'PYCODE'
+from pathlib import Path
+import nbformat
+from nbclient import NotebookClient
+path = Path("research/01-Study-Results.ipynb")
+notebook = nbformat.read(path, as_version=4)
+NotebookClient(notebook, timeout=120, kernel_name="python3",
+               resources={"metadata": {"path": str(Path.cwd())}}).execute()
+nbformat.write(notebook, path)
+PYCODE
+```
+
+그림 생성기는 두 실험 모두 `complete: true`일 때만 집계 JSON·선택된 평가 설정·그림·노트북을 만듭니다. 이름/본문/문서별 예측은 복사하지 않습니다. 공개 비율 값은 소수점 6자리로 반올림하고 원래 정밀도는 로컬 실행 결과에 남깁니다. SVG는 접근 가능한 텍스트 레이블을 유지합니다. 생성된 `configs/eval-*-ko-tuned.json`은 이번 개발셋에서 선택한 범위 내 설정이며, 배포 기본값을 변경하지 않습니다.
+
+E3의 이름 외 탐지 유형별 수와 업무참조 오인은 사후 진단입니다. 이름만 gold인 조건과 실제 NER의 모든 유형 치환 조건 차이를 이름 탐지 오류로 혼동하지 않습니다. E1 합성 데이터 학습 효과, 같은 자료 재학습 비교, 미사용 실제 업무셋, 운영 검색·LLM QA·강한 재식별 공격 검증은 [남은 연구](PLAN.md)입니다.
+
+이번 공개 집계는 Fastino 위치 복원 수정 전후의 완료된 모델 실행을 연결합니다. `manifest.component_runs`에 원래 실행 ID·소스 해시가 있고, `studies/snapshots/`에는 수정 전 NVIDIA 실행의 소스가 있습니다. 중단된 Fastino 예측은 사용하지 않았습니다. 새 환경에서는 기본 명령으로 세 모델을 모두 수정 후 코드에서 실행하면 됩니다. 과거 두 실행을 그대로 결합할 때만 `research/combine_korean_runs.py`와 `report_studies.py --korean-results output/korean-settings-combined/results.json`을 사용합니다.

@@ -4,7 +4,7 @@
 
 한국어 이름·연락처·식별번호를 탐지하고, 이름을 허용된 부서명이나 가명으로 바꿔 문서 요약과 검색에 활용하는 흐름을 다룹니다. 한국어 PII 데이터셋과 RoBERTa 모델을 별도로 공개했으며, 이 저장소에는 **로컬 처리 라이브러리·CLI, 모델 어댑터, 연구 실행 도구와 논문 초안**을 제공합니다. 공개 패키지는 특정 서비스나 인사 DB에 의존하지 않습니다.
 
-[프로젝트 개요](docs/public/overview.md) · [모델](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) · [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k) · [비교 결과](docs/public/benchmark-results.md) · [과거 비교 실행 방법](benchmarks/pii_compare/README.md) · [라이브러리 사용법](docs/public/library.md) · [연구 계획](research/PLAN.md) · [논문 초안](paper/manuscript.md)
+[프로젝트 개요](docs/public/overview.md) · [모델](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) · [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k) · [비교 결과](docs/public/benchmark-results.md) · [과거 비교 실행 방법](benchmarks/pii_compare/README.md) · [라이브러리 사용법](docs/public/library.md) · [새 실험 결과](research/RESULTS.md) · [연구 계획](research/PLAN.md) · [논문 초안](paper/manuscript.md)
 
 ## 무엇을 해결하나요?
 
@@ -52,7 +52,9 @@ kopii process --config configs/roberta.json --input examples/document.txt --docu
 | 새 합성·학습 기준선 | 작은 fixture 합성기 + CE 학습; 기존 100k/배포 모델의 재현 코드는 아님 |
 | 한국어 데이터셋·모델 | 별도 [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k)·[체크포인트](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) |
 | 기존 모델 비교 | 2026-09-15 코드·결과 보존; 새 패키지 결과와 구분 |
-| 논문 | [영문 작업 초안](paper/manuscript.md) · 추가 연구 결과 미측정 |
+| 한국어 설정 탐색 | 두 후보 각각 30개 개발 설정, 기존 테스트 재평가 · [결과](research/RESULTS.md) |
+| 범주화 효과 | 가상 조직 3개·720문서에서 검색·개인 추정 위험 측정 · [결과](research/RESULTS.md) |
+| 논문 | [영문 작업 초안](paper/manuscript.md) · E2/E3 측정 반영, 외부 검증·E1 미완료 |
 | 서비스 통합 | 문서 파서·HTTP 서버·실제 HR 연결·검색 엔진은 배포 범위에서 제외 |
 
 기본 정책은 **탐지된 모든 유형을 마스킹**합니다. 기존 운영 사례의 선택적 치환 정책과 다릅니다. API 마커는 `[PERSON_NAME:조직명]` 형식이며 위 서비스 적용 예시의 화면용 한글 마커와 구분합니다. 초기 설계의 복원 저장소와 조사 교정은 제공하지 않습니다.
@@ -69,7 +71,7 @@ src/kopii/
   research/      # 데이터 검사·합성·학습·평가
 configs/         # 고정 revision과 명시적 실행 설정
 examples/        # 가상 조직·문서
-research/        # 재현 방법과 미완료 실험 계획
+research/        # 실험 코드·고정 설정·집계·그림·검토 노트북
 paper/           # 논문 초안·참고문헌
 ```
 
@@ -126,7 +128,36 @@ kopii evaluate --config configs/eval-rules.json \
   --data output/fixture-data/test.jsonl --output output/rules-fixture
 ```
 
-fixture 점수는 실행 검증용입니다. 실제 연구의 데이터 분할·신경망 평가·학습 명령과 실험 이어쓰기 조건은 [연구 실행 안내](research/README.md)를 참고하세요. 한국어 설정 최적화, 범주화 이후 검색 품질, 개인 추정 위험 비교는 아직 수행하지 않았습니다.
+fixture 점수는 실행 검증용입니다. 실제 연구의 데이터 분할·신경망 평가·학습 명령과 실험 이어쓰기 조건은 [연구 실행 안내](research/README.md)를 참고하세요. 한국어 설정 탐색과 가상 조직의 검색·개인 추정 실험은 [9월 21일 연구 결과](research/RESULTS.md)에 정리했습니다. 실행한 [노트북](research/01-Study-Results.ipynb)과 [선택 설정](configs/)도 제공합니다.
+
+## 한국어 설정과 범주화 실험
+
+두 GLiNER 후보의 **라벨 표현 3종 × 경계 2종 × 임계값 5개**를 개발 자료 612건에서 선택했습니다. 평가는 기존 KDPII 2,006건과 음성 문서 580건의 재평가이며, 미사용 외부 테스트에서 확인한 성능이 아닙니다.
+
+| 모델 | 기존 설정 F1 | 개발 선택 설정 F1 |
+|---|---:|---:|
+| nvidia | 8.71% | 34.44% |
+| fastino | 19.45% | 48.93% |
+
+같은 실행의 한국어 RoBERTa 기준값은 **91.65%**입니다. F1 선택은 개인정보 누락 최소화와 같은 목표가 아니므로 문자 재현율·오탐도 [상세 결과](research/RESULTS.md)에서 함께 확인합니다.
+
+
+**전체 F1 개선이 이름 보호 개선을 뜻하지는 않았습니다.** Fastino의 선택 설정은 이름 재현율이 18.08% → 6.21%로 낮아졌고, 두 후보 모두 문자 재현율이 감소했습니다. 선택 파일은 평가용이며 운영 기본값을 바꾸지 않았습니다.
+
+가상 조직 3개·720문서에서는 **팀 검색이 좋아지는 만큼 개인 추정도 쉬워질 수 있음**을 측정했습니다. 정답 이름 구간 조건에서 다음과 같았습니다.
+
+| 정책 | 팀 질의 Recall@5 | 개인 추정 기대 성공률¹ |
+|---|---:|---:|
+| 마스킹 | 16.73% | 26.39% |
+| 팀 범주화 | 81.30% | 73.21% |
+| 본부 범주화 | 19.20% | 59.88% |
+| 센터 범주화 | 15.30% | 41.45% |
+
+¹ 현재 조직 명부와 직급·과제를 아는 후보 필터링 공격자, 동점 후보 균등 선택. 세 가상 세계의 평균이며 실제 직원 위험률이 아닙니다. 검색은 고정 문자 BM25로 측정했으며 운영 NPU 임베딩이나 생성형 QA 평가는 아닙니다. 실제 NER 조건에서는 업무참조 번호 오인에 따른 검색 손실도 확인했습니다.
+
+![가상 조직 검색·개인 추정 비교](research/results/figures/utility-risk.png)
+
+자세한 설정, 집계, 유형별 결과, 명부 오류 및 해석 한계는 [실험 보고서](research/RESULTS.md)를 참고하세요. E1 합성 학습 효과와 같은 자료로 재학습한 모델 비교는 아직 수행하지 않았습니다.
 
 ## 개발 검증
 

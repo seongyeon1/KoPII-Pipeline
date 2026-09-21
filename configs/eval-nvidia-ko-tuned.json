@@ -1,0 +1,50 @@
+{
+  "labels": [
+    "PERSON_NAME",
+    "PHONE_NUM",
+    "EMAIL",
+    "ADDRESS",
+    "ACCOUNT_NUM",
+    "CARD_NUM",
+    "GOV_ID",
+    "PASSPORT_NUM",
+    "DRIVER_LICENSE_NUM",
+    "BIZ_REG_NUM",
+    "USER_ID",
+    "IP_ADDRESS",
+    "DOB"
+  ],
+  "label_map": {
+    "RRN": "GOV_ID",
+    "FOREIGNER_REG_NUM": "GOV_ID"
+  },
+  "bootstrap_samples": 0,
+  "seed": 42,
+  "detector": {
+    "kind": "gliner",
+    "model": "nvidia/gliner-PII",
+    "revision": "bd23e8ef4425fd04e34c5204ab49ffaa706eae79",
+    "version": 1,
+    "labels": {
+      "사람 이름": "PERSON_NAME",
+      "전화번호": "PHONE_NUM",
+      "이메일 주소": "EMAIL",
+      "주소": "ADDRESS",
+      "은행 계좌번호": "ACCOUNT_NUM",
+      "신용카드 번호": "CARD_NUM",
+      "주민등록번호 또는 외국인등록번호": "GOV_ID",
+      "여권번호": "PASSPORT_NUM",
+      "운전면허번호": "DRIVER_LICENSE_NUM",
+      "사업자등록번호": "BIZ_REG_NUM",
+      "사용자 아이디": "USER_ID",
+      "IP 주소": "IP_ADDRESS",
+      "생년월일": "DOB"
+    },
+    "threshold": 0.9,
+    "device": "cpu",
+    "window_chars": 180,
+    "overlap_chars": 48,
+    "batch_size": 4,
+    "boundary": "ko_syllable"
+  }
+}

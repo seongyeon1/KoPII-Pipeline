@@ -13,6 +13,8 @@
 from __future__ import annotations
 
 import fnmatch
+import hashlib
+import json
 import re
 import sys
 from pathlib import Path
@@ -68,10 +70,36 @@ def valid_bizno(digits: str) -> bool:
     return (10 - total % 10) % 10 == int(digits[9])
 
 
+def redact_verified_source_digest(line: str) -> str:
+    """Exclude only a digest verified against a local Python source file.
+
+    A random digit run inside a SHA-256 is not a published identifier. Keep
+    filenames and every unverified value in the scan; never whitelist an entire
+    result file or trust a value merely because it looks like a hash.
+    """
+    try:
+        entry = json.loads("{" + line.strip().rstrip(",") + "}")
+        if len(entry) != 1:
+            return line
+        name, digest = next(iter(entry.items()))
+        if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+            return line
+        path = Path(name)
+        if path.is_absolute() or path.suffix != ".py":
+            return line
+        path.resolve().relative_to(Path.cwd().resolve())
+        if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            return line
+        return line.replace('"' + digest + '"', '"verified-source-digest"')
+    except (ValueError, OSError):
+        return line
+
+
 def scan_text(text: str) -> list[tuple[int, str, str]]:
     """(줄번호, 타입, 마스킹된 값) 목록을 돌려준다."""
     hits: list[tuple[int, str, str]] = []
     for lineno, line in enumerate(text.splitlines(), start=1):
+        line = redact_verified_source_digest(line)
         for m in RRN_RE.finditer(line):
             digits = m.group(1) + m.group(2)
             if valid_rrn(digits):

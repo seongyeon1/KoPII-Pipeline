@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "seeds": [20260921, 20260922, 20260923],
+  "team_sizes": [2, 4, 8, 16, 2, 4, 8, 16, 2, 4, 8, 16, 2, 4, 8, 16],
+  "documents_per_person": 2,
+  "policies": ["raw", "mask", "pseudonym", "team", "division", "center"],
+  "span_conditions": ["gold", "roberta"],
+  "retriever": {"type": "BM25", "features": "Korean/Latin/digit character bigrams after removing whitespace and punctuation", "k1": 1.2, "b": 0.75, "k": 5},
+  "queries": ["team_topic_period", "division_topic_period", "center_topic_period", "topic_period_control"],
+  "answering": "Fixed extractive reader: ticket query without organization in query; read only organization markers from top-1 retrieved text; public organization hierarchy allowed, identity-to-organization directory unavailable",
+  "attackers": ["identity_list_only", "directory", "directory_role_project"],
+  "attack": "Closed-world candidate filtering from released text only; names and organization markers, optionally role/project; deterministic random tie order fixed by seed. Report realized top-1 and expected uniform-tie success, including empty/wrong candidate sets as failures.",
+  "directory_stress": "Cross-team and same-team homonyms; missing entry every 17th identity; stale team every 19th; multiple teams every 23rd, with priority homonym > missing > stale > multi > current",
+  "uncertainty": "Three prespecified synthetic worlds: mean and min/max; these are not population confidence intervals",
+  "scope": "Entirely fictional Korean documents and directories; names only gold PII. No claim about production NPU embeddings, LLM QA, real employees, or formal anonymity. No trained attacker or policy tuning."
+}

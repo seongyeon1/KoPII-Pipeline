@@ -1,0 +1,27 @@
+{
+  "dataset_revision": "660e03a454f7934261be41390744796565550ce2",
+  "file_sha256": {
+    "train.jsonl": "8fe50b53fa8516b1d858999dfadf599024c9e96b50a2e956205667c19a74d0f9",
+    "valid.jsonl": "6bc60d71ae47b44fb54b3a91d35483cba7b55eabd69ca9083e3bbb69d18fdaf6",
+    "test_kdpii.jsonl": "2bde2d83474a2d43aef33eef0b606b0acf3ac9270e6e67bc56e13b19c17ca379",
+    "test.jsonl": "2ca9f92cee0c2ce1cd15fee9993584d927c6e533ba66f941d8b1d72ff800c87c"
+  },
+  "train_records": 78963,
+  "selected_development_records": 612,
+  "train_vs_selected_development": {
+    "exact_text_overlap_unique": 0,
+    "overlapping_rows_in_second": 0,
+    "conversation_groups_overlap": 0
+  },
+  "train_vs_historical_test": {
+    "exact_text_overlap_unique": 0,
+    "overlapping_rows_in_second": 0,
+    "conversation_groups_overlap": 0
+  },
+  "selected_development_vs_historical_test": {
+    "exact_text_overlap_unique": 0,
+    "overlapping_rows_in_second": 0,
+    "conversation_groups_overlap": 0
+  },
+  "scope": "Exact text and explicit conversation metadata only; no semantic near-duplicate or template-family independence certification."
+}
