@@ -1,0 +1,11 @@
+{
+  "detector": {
+    "kind": "combined",
+    "detectors": [
+      {"kind": "rules"},
+      {"kind": "dictionary", "names": ["김하늘", "이바다", "박가람"]}
+    ]
+  },
+  "policy": {"actions": {"PERSON_NAME": "organization"}},
+  "resolver": {"kind": "csv", "path": "../examples/organizations.csv", "level": "team"}
+}

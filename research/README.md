@@ -1,0 +1,71 @@
+# 재현 가능한 연구 실행
+
+새 프레임워크의 실험과 2026-09-15의 도입 검토 벤치마크를 분리합니다. 기존 `benchmarks/pii_compare/` 코드·공개 결과는 보존했습니다. 아래 명령은 새 실행 경로이며 기존 숫자를 재현한다고 주장하지 않습니다.
+
+## 데이터 계약
+
+UTF-8 JSONL의 각 행에는 `id`, `text`, `spans`가 필요합니다. 각 span에는 `start`, `end`, `label`이 필요하며 위치는 정규화하지 않은 Python 문자열의 반개구간입니다. 음성 문서도 `spans: []`를 명시합니다. 중복 ID, 범위 오류, 중복 정답, 제공된 표면 문자열과 위치 불일치는 거부합니다.
+
+`group_id`는 같은 원본 대화·문서에서 파생된 자료의 공통 ID입니다. 행 ID를 기계적으로 복사해 그룹 독립성을 가장해서는 안 됩니다. 새 학습과 그룹 부트스트랩에는 모든 행의 그룹 ID가 필요합니다. 기존 공개 데이터의 그룹은 원천 대응 관계를 확인해 변환해야 하며, 평가기가 임의 추정하지 않습니다.
+
+## 가상 자료로 실행 확인
+
+```bash
+kopii synthesize --output output/fixture-data --seed 42 --per-template 12
+kopii audit-splits \
+  --train output/fixture-data/train.jsonl \
+  --dev output/fixture-data/dev.jsonl \
+  --test output/fixture-data/test.jsonl
+kopii evaluate --config configs/eval-rules.json \
+  --data output/fixture-data/test.jsonl --output output/rules-fixture
+```
+
+합성기는 6개 고정 템플릿을 4/1/1로 나누고, 이름·예약 도메인 이메일·음성 문장을 만듭니다. 동일 시드에서 동일 파일을 생성하며 템플릿 가족과 그룹을 분리합니다. **기존 100,851건 생성기의 재구현이 아니고 실제 업무 성능 평가셋도 아닙니다.** 출력 디렉터리가 비어 있지 않으면 덮어쓰지 않습니다. 데이터 확장은 [연구 계획](PLAN.md)의 별도 과제입니다.
+
+`audit-splits`는 ID·그룹·정확한 원문 중복을 보고하며 중복이 있으면 종료 코드 1을 반환합니다. 그룹 ID 누락은 수량으로 보고합니다. 의미적 유사문장, 공유 템플릿, 사전학습 데이터 오염까지 검출하는 도구는 아닙니다.
+
+## 신경망 모델 평가
+
+```bash
+python -m pip install -e '.[hf,gliner]'
+kopii evaluate --config configs/eval-roberta.json \
+  --data output/fixture-data/test.jsonl --output output/roberta-fixture
+```
+
+후보 모델은 `configs/eval-nvidia.json`, `configs/eval-fastino.json`을 사용합니다. 기본 장치는 CPU이며 필요에 따라 JSON의 `device`를 변경합니다. 두 모델의 초기 임계값은 과거 도입 검토 설정에서 가져왔으며 최적화 결과가 아닙니다. 세 신경망 설정의 비교 범주는 13개이며 주민·외국인등록번호를 `GOV_ID`로 합칩니다. 음성 문서 오탐은 선택 범주에 한정됩니다.
+
+실제 연구 평가 파일에는 각 모델의 동일한 자료를 입력합니다. 새 HF 경로는 문서 전체의 토큰 창을 사용하고 GLiNER 경로는 문자 창을 사용하므로, 길이 처리 차이도 시스템 비교 조건의 일부입니다. 경계 방식만의 영향을 분리하는 공통 분할 실험은 추가 과제입니다.
+
+## 결과와 이어쓰기
+
+출력 디렉터리에는 다음 파일을 만듭니다.
+
+- `manifest.json`: 데이터·패키지 소스 해시, 모델 revision, 명시적 설정, 주요 의존성 버전, Python·OS 정보
+- `predictions.json`: 원문을 복제하지 않은 문서 ID별 예측 위치와 점수
+- `metrics.json`: 완료 여부, 유형별 exact 점수, 문자 단위 지표, 전체 span 보호율, 음성 문서 오탐
+
+데이터·설정·패키지 소스·기록된 환경이 달라지면 동일 디렉터리의 이어쓰기를 거부합니다. 변경하지 않은 실행은 완료된 문서를 재추론하지 않습니다. 체크포인트는 임시 파일을 완성한 뒤 원자적으로 교체합니다. 동시 쓰기는 `.run.lock`으로 거부하며, 비정상 종료 후에는 활성 프로세스가 없는지 확인한 다음 남은 잠금 파일만 수동으로 제거합니다.
+
+실험 모델에는 Hub의 전체 40자리 commit SHA를 요구합니다. 가변 로컬 가중치는 이 실행기의 입력으로 허용하지 않습니다. 모델을 학습한 뒤 로컬 검증은 `train`이 수행하며, 후속 독립 실험은 모델 게시 revision을 고정한 다음 실행합니다. 모델 게시 자체는 자동 수행하지 않습니다.
+
+`bootstrap_samples`를 양수로 설정하면 원본 그룹을 통째로 재표집하는 F1 구간을 계산합니다. 예제 신경망 설정은 기존 데이터의 그룹 정보를 임의로 가정하지 않도록 0으로 설정했습니다. 극소량 fixture의 구간은 실질적인 통계 근거가 아닙니다. 실행 중 문서별 시간은 워밍업·동기화·부하 통제를 갖춘 서비스 지연시간 벤치마크가 아닙니다.
+
+## 새 학습 기준선
+
+```bash
+python -m pip install -e '.[train]'
+kopii train --config configs/train-baseline.json \
+  --train output/fixture-data/train.jsonl \
+  --dev output/fixture-data/dev.jsonl \
+  --output output/training-baseline
+```
+
+기반 모델과 토크나이저 revision을 고정하고, BIO 5클래스(예제의 이름·이메일 두 유형)를 학습합니다. 실제 20유형 학습에는 완전한 라벨 목록과 정제된 데이터를 별도 설정해야 합니다. train/dev의 그룹 ID 누락이나 중복이 있으면 학습 전에 거부합니다. 특수 토큰은 손실에서 제외하며 초과 입력도 겹치는 토큰 창으로 사용합니다.
+
+**이번 학습기는 cross-entropy와 고정 epoch를 사용하는 새 기준선입니다.** 기존 배포 모델의 Focal loss·F5 체크포인트 선택·256토큰 절단 학습과 다릅니다. 자동 best checkpoint 선택과 학습 재개는 제공하지 않습니다. 이미 사용한 출력 디렉터리를 덮어쓰지 않습니다.
+
+학습 후 모델·토크나이저를 저장하고 dev 전체를 추론해 점수를 기록합니다. manifest에는 train/dev 해시와 실행 설정, 결과에는 저장된 모델 파일들의 집계 해시를 남깁니다. 이 검증 결과는 최종 테스트 점수가 아닙니다. 기기별 완전한 비트 단위 재현성을 보장하지 않으며 복수 시드 실험은 별도로 수행해야 합니다.
+
+## 아직 수행하지 않은 연구
+
+한국어 임계값·라벨 최적화, GLiNER 경계 처리 변경, 동일 자료 재학습 비교, 새 업무 평가셋, 조직 범주화의 검색·질의응답/개인 추정 위험 측정은 [계획](PLAN.md)에 명시했습니다. fixture 실행 성공을 해당 연구 결과로 인용하지 않습니다.

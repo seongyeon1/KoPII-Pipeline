@@ -1,0 +1,12 @@
+{
+  "model": "klue/roberta-base",
+  "revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "labels": ["PERSON_NAME", "EMAIL"],
+  "seed": 42,
+  "epochs": 1,
+  "batch_size": 8,
+  "learning_rate": 0.00002,
+  "max_length": 256,
+  "stride": 32,
+  "device": "cpu"
+}

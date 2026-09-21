@@ -6,6 +6,8 @@
 
 [저장소 소개](../../README.md) · [비교 결과](benchmark-results.md) · [모델](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) · [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k)
 
+> 이 페이지는 기존 모델 구축·서비스 통합 사례를 설명합니다. 새 범용 패키지의 기본 정책과 실행 범위는 [라이브러리 사용법](library.md)을 참고하세요. 기존 성능 수치는 새 패키지로 재측정한 값이 아닙니다.
+
 ## 목적
 
 문서의 이름과 연락처 등을 보호하면서 담당 조직과 업무 내용은 활용할 수 있도록 탐지와 치환을 분리했습니다. 모델은 개인정보의 유형과 위치를 찾고, 서비스 정책이 어떤 정보를 어느 수준으로 바꿀지 결정합니다.

@@ -1,0 +1,6 @@
+{
+  "detector": {"kind": "rules"},
+  "labels": ["PERSON_NAME", "EMAIL"],
+  "bootstrap_samples": 200,
+  "seed": 42
+}

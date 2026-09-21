@@ -1,10 +1,10 @@
 # KoPII-Pipeline
 
-**한국어 개인정보 탐지 모델과, 업무 문맥을 남기는 범주화 적용을 정리한 프로젝트입니다.**
+**한국어 개인정보 탐지·조직정보 기반 범주화·재현 가능한 평가를 위한 Python 패키지입니다.**
 
-한국어 이름·연락처·식별번호를 탐지하고, 이름을 허용된 부서명이나 가명으로 바꿔 문서 요약과 검색에 활용하는 흐름을 다룹니다. 한국어 PII 데이터셋과 RoBERTa 모델을 별도로 공개했으며, 이 저장소에는 **설계 문서, 서비스 적용 설명, 모델 비교 코드와 결과**를 제공합니다.
+한국어 이름·연락처·식별번호를 탐지하고, 이름을 허용된 부서명이나 가명으로 바꿔 문서 요약과 검색에 활용하는 흐름을 다룹니다. 한국어 PII 데이터셋과 RoBERTa 모델을 별도로 공개했으며, 이 저장소에는 **로컬 처리 라이브러리·CLI, 모델 어댑터, 연구 실행 도구와 논문 초안**을 제공합니다. 공개 패키지는 특정 서비스나 인사 DB에 의존하지 않습니다.
 
-[프로젝트 개요](docs/public/overview.md) · [모델](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) · [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k) · [비교 결과](docs/public/benchmark-results.md) · [비교 실행 방법](benchmarks/pii_compare/README.md)
+[프로젝트 개요](docs/public/overview.md) · [모델](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) · [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k) · [비교 결과](docs/public/benchmark-results.md) · [과거 비교 실행 방법](benchmarks/pii_compare/README.md) · [라이브러리 사용법](docs/public/library.md) · [연구 계획](research/PLAN.md) · [논문 초안](paper/manuscript.md)
 
 ## 무엇을 해결하나요?
 
@@ -20,20 +20,68 @@
 
 범주화는 업무 문맥을 남기기 위한 선택입니다. 부서명과 주변 정보가 결합되면 개인을 유추할 수 있으므로 완전한 익명성이나 검색·요약 품질을 보장하지 않습니다.
 
+## 빠른 시작
+
+Python 3.11 이상에서 저장소를 내려받은 뒤 실행합니다. 기본 설치는 외부 런타임 의존성이나 GPU가 필요하지 않습니다.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+kopii process --config configs/demo.json --input examples/document.txt --document-id demo-1
+```
+
+데모는 가상 조직 CSV와 이름 사전을 사용합니다. 모델 정확도 시연이나 직원 명부 학습이 아닙니다. 실제 한국어 NER는 선택 의존성을 설치해 사용합니다.
+
+```bash
+python -m pip install -e '.[hf]'
+kopii process --config configs/roberta.json --input examples/document.txt --document-id demo-1
+```
+
+첫 실행에는 모델 다운로드가 필요합니다. 기본 장치는 CPU이며 설정에서 MPS/CUDA를 선택할 수 있습니다. 패키지는 아직 PyPI에 게시하지 않았습니다.
+
 ## 현재 제공 범위
 
 | 항목 | 상태와 위치 |
 | --- | --- |
-| 한국어 PII 데이터셋 | 공개 완료 · [Hugging Face](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k) |
-| 한국어 RoBERTa NER 모델 | 별도 학습 프로젝트에서 파인튜닝 후 공개 · [Hugging Face](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) |
-| 모델 비교 | 실행·채점·경계 감사 코드와 [평가 결과](docs/public/benchmark-results.md) 제공 |
-| 문서 처리 적용 | 탐지 → 소속 조회 → 범주화 → 검수 → 검색의 [통합 방식](docs/public/overview.md) 설명 |
-| 데이터 합성·학습 코드 | 이 저장소의 배포 범위에 포함하지 않음 |
-| 운영 서비스 코드·인사 DB 연결 | 이 저장소의 배포 범위에 포함하지 않음 |
+| 문서 처리 라이브러리·CLI | 구현 · `src/kopii`, [사용법](docs/public/library.md) |
+| 모델 어댑터 | Hugging Face BIO, GLiNER, GLiNER2, 제한된 규칙 탐지 |
+| 조직정보 연계 | 교체 가능한 Resolver + 가상 CSV 예제 |
+| 처리 정책 | 마스킹·문서 단위 가명·조직 범주화, 탐지 오류 전파 |
+| 새 연구 실행기 | 실험 식별·이어쓰기 검증·탐지 지표·그룹 부트스트랩 |
+| 새 합성·학습 기준선 | 작은 fixture 합성기 + CE 학습; 기존 100k/배포 모델의 재현 코드는 아님 |
+| 한국어 데이터셋·모델 | 별도 [데이터셋](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k)·[체크포인트](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base) |
+| 기존 모델 비교 | 2026-09-15 코드·결과 보존; 새 패키지 결과와 구분 |
+| 논문 | [영문 작업 초안](paper/manuscript.md) · 추가 연구 결과 미측정 |
+| 서비스 통합 | 문서 파서·HTTP 서버·실제 HR 연결·검색 엔진은 배포 범위에서 제외 |
 
-이 저장소만 설치해 전체 문서 처리 서비스를 실행할 수 있는 상태는 아닙니다. 초기 설계의 복원 저장소, 조사 교정, 합성 CLI 등도 여기서 실행 가능한 기능으로 제공하지 않습니다.
+기본 정책은 **탐지된 모든 유형을 마스킹**합니다. 기존 운영 사례의 선택적 치환 정책과 다릅니다. API 마커는 `[PERSON_NAME:조직명]` 형식이며 위 서비스 적용 예시의 화면용 한글 마커와 구분합니다. 초기 설계의 복원 저장소와 조사 교정은 제공하지 않습니다.
 
-## 데이터와 모델
+## 구조
+
+```text
+src/kopii/
+  detectors/     # 모델·규칙 → 원문 문자 위치
+  resolvers/     # 이름 → 외부 조직정보
+  policies.py    # 마스킹·가명·조직 범주화
+  pipeline.py    # 처리 흐름과 실패 계약
+  rendering.py   # 겹침 구간과 출력 위치
+  research/      # 데이터 검사·합성·학습·평가
+configs/         # 고정 revision과 명시적 실행 설정
+examples/        # 가상 조직·문서
+research/        # 재현 방법과 미완료 실험 계획
+paper/           # 논문 초안·참고문헌
+```
+
+```mermaid
+flowchart LR
+  T[입력 텍스트] --> D[교체 가능한 탐지기]
+  D --> P[치환 정책]
+  R[선택적 조직정보 조회] --> P
+  P --> O[처리된 본문과 치환 위치]
+```
+
+## 기존 공개 데이터와 모델
 
 [ko-pii-ner-100k](https://huggingface.co/datasets/seongyeon1/ko-pii-ner-100k)는 공개 한국어 자료와 템플릿 기반 업무 문서 합성을 결합한 **100,851건**의 데이터셋입니다. 공개 원문의 개인정보 값을 유지한 구간도 있어, 전체가 새로 만든 가상 정보는 아닙니다.
 
@@ -49,7 +97,9 @@
 
 [ko-pii-ner-roberta-base](https://huggingface.co/seongyeon1/ko-pii-ner-roberta-base)는 [klue/roberta-base](https://huggingface.co/klue/roberta-base)를 **20개 유형, BIO 41개 클래스**의 토큰 분류 과제에 맞춰 파인튜닝한 모델입니다. 학습한 유형과 서비스에서 실제 치환하는 유형은 구분하며, 업무 목적에 맞게 처리 정책을 선택합니다.
 
-## 모델 비교
+## 기존 도입 검토 모델 비교
+
+NVIDIA와 Fastino 모델은 초기에 도입을 검토했던 후보입니다. 다음 수치는 과거 비교 스크립트로 측정했으며, 새 패키지로 다시 산출한 결과가 아닙니다.
 
 2026년 9월 15일, **KDPII 기반 2,006건 + 비개인정보 합성 문서 580건**을 세 모델에 동일하게 적용했습니다. F1은 공통 13개 범주의 문자 시작·끝과 유형이 모두 맞아야 정답으로 처리한 결과입니다.
 
@@ -67,6 +117,30 @@
 - 평가 장치는 Apple M4 Pro, PyTorch MPS입니다. 서빙에 사용한 동일 revision을 로컬에서 평가했으며 운영 서버 HTTP 출력·지연시간이나 인사정보 매칭 정확도를 측정한 결과는 아닙니다.
 
 유형별 점수, 문자 보호율, 실행 조건과 한계는 [상세 비교 결과](docs/public/benchmark-results.md)에 정리했습니다. 각 모델의 최적 성능이나 다른 언어에서의 우열을 뜻하지 않습니다.
+
+## 새 연구 실행
+
+```bash
+kopii synthesize --output output/fixture-data --per-template 12
+kopii evaluate --config configs/eval-rules.json \
+  --data output/fixture-data/test.jsonl --output output/rules-fixture
+```
+
+fixture 점수는 실행 검증용입니다. 실제 연구의 데이터 분할·신경망 평가·학습 명령과 실험 이어쓰기 조건은 [연구 실행 안내](research/README.md)를 참고하세요. 한국어 설정 최적화, 범주화 이후 검색 품질, 개인 추정 위험 비교는 아직 수행하지 않았습니다.
+
+## 개발 검증
+
+```bash
+python -m pip install -r requirements-dev.lock.txt
+python -m pip install --no-deps -e .
+pytest -q
+ruff check src tests
+ruff format --check src tests
+mypy src/kopii
+python -m build
+```
+
+CI는 모델 다운로드 없이 패키지·오프라인 예제·연구 fixture를 확인합니다. 신경망 어댑터의 실제 가중치 검증은 별도 실행입니다. [검증 기록](docs/public/verification.md)에 범위를 남깁니다.
 
 ## 문서와 재현
 

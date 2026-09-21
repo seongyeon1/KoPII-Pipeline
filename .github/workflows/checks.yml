@@ -1,0 +1,45 @@
+name: package-checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install -r requirements-dev.lock.txt
+      - run: python -m pip install --no-deps -e .
+      - run: ruff check src tests
+      - run: ruff format --check src tests
+      - run: mypy src/kopii
+      - run: pytest -q
+      - run: python -m build
+      - run: python scripts/check_distribution.py
+      - name: Wheel-only installation and offline demo
+        run: |
+          python -m venv /tmp/kopii-wheel
+          /tmp/kopii-wheel/bin/pip install --no-deps dist/*.whl
+          /tmp/kopii-wheel/bin/kopii process --config configs/demo.json --input examples/document.txt
+      - name: Research smoke workflow
+        run: |
+          kopii synthesize --output output/ci-data --per-template 2
+          kopii audit-splits --train output/ci-data/train.jsonl --dev output/ci-data/dev.jsonl --test output/ci-data/test.jsonl
+          kopii evaluate --config configs/eval-rules.json --data output/ci-data/test.jsonl --output output/ci-run
+      - name: Scan tracked text files
+        run: |
+          python - <<'PY'
+          import subprocess, sys
+          paths = subprocess.check_output(["git", "ls-files", "-z"]).decode().split("\0")
+          subprocess.run([sys.executable, "scripts/pii_scan.py", *filter(None, paths)], check=True)
+          PY

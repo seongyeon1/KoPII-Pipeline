@@ -1,0 +1,13 @@
+{
+  "detector": {
+    "kind": "huggingface",
+    "model": "seongyeon1/ko-pii-ner-roberta-base",
+    "revision": "95a3af685dccf4bb3f7fff6fc81146fed71500bb",
+    "device": "cpu",
+    "max_length": 256,
+    "stride": 32,
+    "batch_size": 4
+  },
+  "policy": {"actions": {"PERSON_NAME": "organization"}},
+  "resolver": {"kind": "csv", "path": "../examples/organizations.csv", "level": "team"}
+}

@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kopii-pipeline"
+version = "0.1.0"
+description = "Composable Korean PII detection, organization-aware generalization, and evaluation"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = []
+
+[project.optional-dependencies]
+hf = ["torch>=2.2,<3", "transformers>=4.57,<5", "tokenizers>=0.22,<0.23"]
+gliner = ["gliner==0.2.29", "gliner2==2.0.0"]
+train = ["torch>=2.2,<3", "transformers>=4.57,<5", "accelerate>=1,<2"]
+dev = ["pytest>=8,<9", "ruff>=0.11,<1", "mypy>=1.15,<2", "build>=1,<2"]
+
+[project.scripts]
+kopii = "kopii.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kopii"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src", "/tests", "/configs", "/examples", "/research", "/paper",
+  "/docs/public", "/docs/design", "/docs/plans", "/scripts",
+  "/README.md", "/LICENSE", "/pyproject.toml", "/requirements-dev.lock.txt",
+  "/data/README.md",
+  "/benchmarks/pii_compare/README.md",
+  "/benchmarks/pii_compare/compare.py",
+  "/benchmarks/pii_compare/score.py",
+  "/benchmarks/pii_compare/audit.py",
+  "/benchmarks/pii_compare/prepare.py",
+  "/benchmarks/pii_compare/requirements.lock.txt",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+include = ["src/**/*.py", "tests/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src/kopii"]
+strict = true
+ignore_missing_imports = true

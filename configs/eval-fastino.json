@@ -1,0 +1,49 @@
+{
+  "labels": [
+    "PERSON_NAME",
+    "PHONE_NUM",
+    "EMAIL",
+    "ADDRESS",
+    "ACCOUNT_NUM",
+    "CARD_NUM",
+    "GOV_ID",
+    "PASSPORT_NUM",
+    "DRIVER_LICENSE_NUM",
+    "BIZ_REG_NUM",
+    "USER_ID",
+    "IP_ADDRESS",
+    "DOB"
+  ],
+  "label_map": {
+    "RRN": "GOV_ID",
+    "FOREIGNER_REG_NUM": "GOV_ID"
+  },
+  "bootstrap_samples": 0,
+  "seed": 42,
+  "detector": {
+    "kind": "gliner",
+    "model": "fastino/gliner2-privacy-filter-PII-multi",
+    "revision": "c153999da5f4c509df4322b0c6a1baf3d2c284d7",
+    "version": 2,
+    "labels": {
+      "person": "PERSON_NAME",
+      "phone_number": "PHONE_NUM",
+      "email": "EMAIL",
+      "address": "ADDRESS",
+      "account_number": "ACCOUNT_NUM",
+      "card_number": "CARD_NUM",
+      "national_id_number": "GOV_ID",
+      "passport_number": "PASSPORT_NUM",
+      "drivers_license_number": "DRIVER_LICENSE_NUM",
+      "tax_id": "BIZ_REG_NUM",
+      "username": "USER_ID",
+      "ip_address": "IP_ADDRESS",
+      "date_of_birth": "DOB"
+    },
+    "threshold": 0.5,
+    "device": "cpu",
+    "window_chars": 180,
+    "overlap_chars": 48,
+    "batch_size": 4
+  }
+}
