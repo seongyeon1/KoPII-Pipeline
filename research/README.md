@@ -117,3 +117,7 @@ PYCODE
 E3의 이름 외 탐지 유형별 수와 업무참조 오인은 사후 진단입니다. 이름만 gold인 조건과 실제 NER의 모든 유형 치환 조건 차이를 이름 탐지 오류로 혼동하지 않습니다. E1 합성 데이터 학습 효과, 같은 자료 재학습 비교, 미사용 실제 업무셋, 운영 검색·LLM QA·강한 재식별 공격 검증은 [남은 연구](PLAN.md)입니다.
 
 이번 공개 집계는 Fastino 위치 복원 수정 전후의 완료된 모델 실행을 연결합니다. `manifest.component_runs`에 원래 실행 ID·소스 해시가 있고, `studies/snapshots/`에는 수정 전 NVIDIA 실행의 소스가 있습니다. 중단된 Fastino 예측은 사용하지 않았습니다. 새 환경에서는 기본 명령으로 세 모델을 모두 수정 후 코드에서 실행하면 됩니다. 과거 두 실행을 그대로 결합할 때만 `research/combine_korean_runs.py`와 `report_studies.py --korean-results output/korean-settings-combined/results.json`을 사용합니다.
+
+## 메타데이터 검색 후속 비교
+
+[실행 안내](METADATA_STUDY.md)와 [측정 결과](results/metadata-tables.md)를 제공합니다. 같은 가상 문서에서 본문 조직 치환과 별도 메타데이터 필터를 비교하고, 본문만 보는 공격자와 검색 필터를 아는 공격자의 위험을 분리했습니다. 운영 임베딩용 HTTP·cosine 실행 경로도 제공하지만 실제 NPU 결과는 아직 없습니다.

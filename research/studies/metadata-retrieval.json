@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "study": "post-hoc metadata baseline extension of E3",
+  "seeds": [20260921, 20260922, 20260923],
+  "team_sizes": [2, 4, 8, 16, 2, 4, 8, 16, 2, 4, 8, 16, 2, 4, 8, 16],
+  "span_conditions": ["gold", "roberta"],
+  "levels": ["team", "division", "center"],
+  "policies": ["mask", "inline", "metadata_filter"],
+  "retrieval": "Same full query text; fixed character-bigram BM25 or exact cosine from an explicitly identified embedding service; category filter BEFORE top-5. No filter fallback for unresolved metadata. All categories authorized in utility experiment; denied scopes tested separately.",
+  "metadata": "Parse only successfully resolved replacement markers from the same processing pipeline, using service directory and detected spans; never use gold person organization. One metadata level per condition.",
+  "attacks": ["released_text_only", "known_filter_membership"],
+  "attacker_knowledge": "directory_role_project",
+  "membership": "Stratified observation model: attacker knows one category filter matching the document. Score only documents having exactly one resolved category, disclose exposure fraction. This is a visibility-conditioned risk estimate, not the empirical frequency of top-5 exposure. No claim about hidden metadata or query logs remaining secret.",
+  "qa": "Not measured in this extension; authorized metadata QA is a separate task and can disclose organization.",
+  "uncertainty": "Mean and range across the same three fictional worlds; no population confidence intervals or policy selection.",
+  "scope": "Synthetic follow-up, not untouched real-world validation, NPU measurement, or production access-control assurance. Embedding execution is incomplete until actual vectors are supplied."
+}

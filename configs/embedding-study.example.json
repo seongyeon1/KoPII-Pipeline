@@ -1,0 +1,10 @@
+{
+  "endpoint_env": "KOPII_EMBEDDING_ENDPOINT",
+  "api_key_env": "KOPII_EMBEDDING_API_KEY",
+  "model": "REPLACE_WITH_DEPLOYED_MODEL_ID",
+  "deployment_revision": "REPLACE_WITH_CHECKPOINT_AND_SERVING_VERSION",
+  "document_prefix": "",
+  "query_prefix": "",
+  "batch_size": 32,
+  "timeout_seconds": 60
+}

@@ -1,0 +1,1738 @@
+{
+  "complete": true,
+  "manifest": {
+    "schema_version": 1,
+    "config": {
+      "protocol": {
+        "schema_version": 1,
+        "study": "post-hoc metadata baseline extension of E3",
+        "seeds": [
+          20260921,
+          20260922,
+          20260923
+        ],
+        "team_sizes": [
+          2,
+          4,
+          8,
+          16,
+          2,
+          4,
+          8,
+          16,
+          2,
+          4,
+          8,
+          16,
+          2,
+          4,
+          8,
+          16
+        ],
+        "span_conditions": [
+          "gold",
+          "roberta"
+        ],
+        "levels": [
+          "team",
+          "division",
+          "center"
+        ],
+        "policies": [
+          "mask",
+          "inline",
+          "metadata_filter"
+        ],
+        "retrieval": "Same full query text; fixed character-bigram BM25 or exact cosine from an explicitly identified embedding service; category filter BEFORE top-5. No filter fallback for unresolved metadata. All categories authorized in utility experiment; denied scopes tested separately.",
+        "metadata": "Parse only successfully resolved replacement markers from the same processing pipeline, using service directory and detected spans; never use gold person organization. One metadata level per condition.",
+        "attacks": [
+          "released_text_only",
+          "known_filter_membership"
+        ],
+        "attacker_knowledge": "directory_role_project",
+        "membership": "Stratified observation model: attacker knows one category filter matching the document. Score only documents having exactly one resolved category, disclose exposure fraction. This is a visibility-conditioned risk estimate, not the empirical frequency of top-5 exposure. No claim about hidden metadata or query logs remaining secret.",
+        "qa": "Not measured in this extension; authorized metadata QA is a separate task and can disclose organization.",
+        "uncertainty": "Mean and range across the same three fictional worlds; no population confidence intervals or policy selection.",
+        "scope": "Synthetic follow-up, not untouched real-world validation, NPU measurement, or production access-control assurance. Embedding execution is incomplete until actual vectors are supplied."
+      },
+      "archive": {
+        "run_id": "dd9fcc8e4b8a9990e52866fcc1de572b0fa1360be81cc30cfecd0708ef11b97b",
+        "files": {
+          "results.json": "a48485f817a863cae7ae0f926c72eef463da157568a52f850fbd737c622f5f9f",
+          "manifest.json": "9d390258010da7402314b7fbcc74f98768baeb0ca850200486d03d6c1f9dc76a",
+          "predictions-20260921.json": "5aa8d7e0b2c0ecaf4ba16eb256b7f784d5ef85d91b6197dcf69d0af6ef1b95e5",
+          "predictions-20260922.json": "d70a7007214c7e471bf85bf85b4ff69171b4ab7464fd7ee0a4bbe0ddec8e5297",
+          "predictions-20260923.json": "4f389b4ced3c8489cfae00037f38f8abc8ed670e9d60ffeee0fb65f2fedc824c"
+        }
+      },
+      "embedding_sha256": null
+    },
+    "data_sha256": "c3767bca02fbc470303e38f08dc722d370a9dc74952277c19494e6348889082b",
+    "source_sha256": "3a173122ce797a2b494af39060f5e24cdfbd17d0b7d3d0e4966b1e5a3e278290",
+    "dependencies": {
+      "kopii-pipeline": "0.1.0"
+    },
+    "python": "3.11.13",
+    "platform": "macOS-15.7.3-arm64-arm-64bit",
+    "run_id": "0ba226098bd2682fd86ecc9d54f50af3c603e5571c1f97e31b28da294c1ad7d5",
+    "runner_sha256": "719e61dc6bbd6dcfba166f3e9aa1138360eb773286904692a7399ed16208ea2c",
+    "input_sha256": "b32acf92a3795ffce3c34e2678d450afc6893ef7d7b5110d1478845e1f926bf8"
+  },
+  "retriever": "BM25",
+  "embedding_provenance": null,
+  "worlds": [
+    {
+      "seed": 20260921,
+      "documents": 240,
+      "generated_sha256": "ff421e8aec3ef694f50e2fbea9c6fad87657be2505819f8de0422d67ee3f47b6",
+      "conditions": {
+        "gold": {
+          "team": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.187847,
+                "hit_at_5": 0.28125,
+                "mrr": 0.218869,
+                "empty_result": 0.0
+              },
+              "query_count": 96,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.383333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.268396,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.415094,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.789757,
+                "hit_at_5": 0.927083,
+                "mrr": 0.852803,
+                "empty_result": 0.0
+              },
+              "query_count": 96,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.742083,
+                "realized_top1": 0.75,
+                "candidate_count": 1.575,
+                "target_in_candidates": 0.95,
+                "abstention": 0.05
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.806604,
+                "realized_top1": 0.811321,
+                "candidate_count": 1.235849,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.056604
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.771875,
+                "hit_at_5": 0.90625,
+                "mrr": 0.823264,
+                "empty_result": 0.0
+              },
+              "query_count": 96,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.383333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.268396,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.415094,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.806604,
+                "realized_top1": 0.811321,
+                "candidate_count": 1.235849,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.056604
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "division": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.172793,
+                "hit_at_5": 0.5,
+                "mrr": 0.380522,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.383333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.268396,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.415094,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.562245,
+                "hit_at_5": 0.96875,
+                "mrr": 0.919792,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.601806,
+                "realized_top1": 0.608333,
+                "candidate_count": 1.975,
+                "target_in_candidates": 0.95,
+                "abstention": 0.025
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.647799,
+                "realized_top1": 0.650943,
+                "candidate_count": 1.688679,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.028302
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.562245,
+                "hit_at_5": 0.96875,
+                "mrr": 0.919792,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.383333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.268396,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.415094,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.647799,
+                "realized_top1": 0.650943,
+                "candidate_count": 1.688679,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.028302
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "center": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.18342,
+                "hit_at_5": 0.625,
+                "mrr": 0.579092,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.383333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.268396,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.415094,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.315078,
+                "hit_at_5": 1.0,
+                "mrr": 0.927083,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.418611,
+                "realized_top1": 0.433333,
+                "candidate_count": 2.841667,
+                "target_in_candidates": 0.95,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.440409,
+                "realized_top1": 0.45283,
+                "candidate_count": 2.669811,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.315078,
+                "hit_at_5": 1.0,
+                "mrr": 0.927083,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.383333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.268396,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.415094,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.440409,
+                "realized_top1": 0.45283,
+                "candidate_count": 2.669811,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          }
+        },
+        "roberta": {
+          "team": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.182812,
+                "hit_at_5": 0.333333,
+                "mrr": 0.214931,
+                "empty_result": 0.0
+              },
+              "query_count": 96,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.091136,
+                "realized_top1": 0.095833,
+                "candidate_count": 28.870833,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090424,
+                "realized_top1": 0.080189,
+                "candidate_count": 29.858491,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.799479,
+                "hit_at_5": 0.9375,
+                "mrr": 0.872106,
+                "empty_result": 0.0
+              },
+              "query_count": 96,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.488519,
+                "realized_top1": 0.483333,
+                "candidate_count": 5.666667,
+                "target_in_candidates": 0.95,
+                "abstention": 0.033333
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.540291,
+                "realized_top1": 0.518868,
+                "candidate_count": 3.589623,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.037736
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.780382,
+                "hit_at_5": 0.927083,
+                "mrr": 0.830208,
+                "empty_result": 0.0
+              },
+              "query_count": 96,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.091136,
+                "realized_top1": 0.095833,
+                "candidate_count": 28.870833,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090424,
+                "realized_top1": 0.080189,
+                "candidate_count": 29.858491,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.540291,
+                "realized_top1": 0.518868,
+                "candidate_count": 3.589623,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.037736
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "division": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.177071,
+                "hit_at_5": 0.65625,
+                "mrr": 0.440275,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.091136,
+                "realized_top1": 0.095833,
+                "candidate_count": 28.870833,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090424,
+                "realized_top1": 0.080189,
+                "candidate_count": 29.858491,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.56945,
+                "hit_at_5": 1.0,
+                "mrr": 0.927083,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.257209,
+                "realized_top1": 0.266667,
+                "candidate_count": 9.483333,
+                "target_in_candidates": 0.95,
+                "abstention": 0.008333
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.278431,
+                "realized_top1": 0.273585,
+                "candidate_count": 7.910377,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.009434
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.560335,
+                "hit_at_5": 1.0,
+                "mrr": 0.927083,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.091136,
+                "realized_top1": 0.095833,
+                "candidate_count": 28.870833,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090424,
+                "realized_top1": 0.080189,
+                "candidate_count": 29.858491,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.278431,
+                "realized_top1": 0.273585,
+                "candidate_count": 7.910377,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.009434
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "center": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.17974,
+                "hit_at_5": 0.875,
+                "mrr": 0.667739,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.091136,
+                "realized_top1": 0.095833,
+                "candidate_count": 28.870833,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090424,
+                "realized_top1": 0.080189,
+                "candidate_count": 29.858491,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.318754,
+                "hit_at_5": 1.0,
+                "mrr": 0.953125,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.144323,
+                "realized_top1": 0.154167,
+                "candidate_count": 15.929167,
+                "target_in_candidates": 0.95,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.150635,
+                "realized_top1": 0.146226,
+                "candidate_count": 15.207547,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.313072,
+                "hit_at_5": 1.0,
+                "mrr": 0.953125,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.091136,
+                "realized_top1": 0.095833,
+                "candidate_count": 28.870833,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090424,
+                "realized_top1": 0.080189,
+                "candidate_count": 29.858491,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.150635,
+                "realized_top1": 0.146226,
+                "candidate_count": 15.207547,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 20260922,
+      "documents": 240,
+      "generated_sha256": "0a419cdab7da372adbaf9da736e1a127f3f57bb994f200548a14fe8005adbb62",
+      "conditions": {
+        "gold": {
+          "team": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.174493,
+                "hit_at_5": 0.319149,
+                "mrr": 0.217608,
+                "empty_result": 0.0
+              },
+              "query_count": 94,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.258333,
+                "realized_top1": 0.258333,
+                "candidate_count": 4.833333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.256828,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.877358,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.855155,
+                "hit_at_5": 0.978723,
+                "mrr": 0.938131,
+                "empty_result": 0.0
+              },
+              "query_count": 94,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.720357,
+                "realized_top1": 0.716667,
+                "candidate_count": 1.708333,
+                "target_in_candidates": 0.95,
+                "abstention": 0.05
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.779874,
+                "realized_top1": 0.783019,
+                "candidate_count": 1.339623,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.056604
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.847176,
+                "hit_at_5": 0.968085,
+                "mrr": 0.904255,
+                "empty_result": 0.0
+              },
+              "query_count": 94,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.258333,
+                "realized_top1": 0.258333,
+                "candidate_count": 4.833333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.256828,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.877358,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.779874,
+                "realized_top1": 0.783019,
+                "candidate_count": 1.339623,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.056604
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "division": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.163926,
+                "hit_at_5": 0.5625,
+                "mrr": 0.405171,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.258333,
+                "realized_top1": 0.258333,
+                "candidate_count": 4.833333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.256828,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.877358,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.605722,
+                "hit_at_5": 1.0,
+                "mrr": 0.929688,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.577302,
+                "realized_top1": 0.583333,
+                "candidate_count": 2.225,
+                "target_in_candidates": 0.95,
+                "abstention": 0.025
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.617925,
+                "realized_top1": 0.632075,
+                "candidate_count": 1.924528,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.028302
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.605722,
+                "hit_at_5": 1.0,
+                "mrr": 0.929688,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.258333,
+                "realized_top1": 0.258333,
+                "candidate_count": 4.833333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.256828,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.877358,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.617925,
+                "realized_top1": 0.632075,
+                "candidate_count": 1.924528,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.028302
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "center": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.16833,
+                "hit_at_5": 0.75,
+                "mrr": 0.605382,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.258333,
+                "realized_top1": 0.258333,
+                "candidate_count": 4.833333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.256828,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.877358,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.332818,
+                "hit_at_5": 1.0,
+                "mrr": 0.90625,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.383413,
+                "realized_top1": 0.383333,
+                "candidate_count": 3.033333,
+                "target_in_candidates": 0.95,
+                "abstention": 0.008333
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.398428,
+                "realized_top1": 0.40566,
+                "candidate_count": 2.839623,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.009434
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.332818,
+                "hit_at_5": 1.0,
+                "mrr": 0.90625,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.258333,
+                "realized_top1": 0.258333,
+                "candidate_count": 4.833333,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.256828,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.877358,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.398428,
+                "realized_top1": 0.40566,
+                "candidate_count": 2.839623,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.009434
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          }
+        },
+        "roberta": {
+          "team": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.165831,
+                "hit_at_5": 0.340426,
+                "mrr": 0.229519,
+                "empty_result": 0.0
+              },
+              "query_count": 94,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.083989,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.029167,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.07931,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.193396,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.827216,
+                "hit_at_5": 0.968085,
+                "mrr": 0.909823,
+                "empty_result": 0.0
+              },
+              "query_count": 94,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.485703,
+                "realized_top1": 0.483333,
+                "candidate_count": 5.179167,
+                "target_in_candidates": 0.95,
+                "abstention": 0.033333
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.53408,
+                "realized_top1": 0.537736,
+                "candidate_count": 3.325472,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.037736
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.849835,
+                "hit_at_5": 0.978723,
+                "mrr": 0.897518,
+                "empty_result": 0.0
+              },
+              "query_count": 94,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.083989,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.029167,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.07931,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.193396,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.53408,
+                "realized_top1": 0.537736,
+                "candidate_count": 3.325472,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.037736
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "division": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.159475,
+                "hit_at_5": 0.65625,
+                "mrr": 0.438088,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.083989,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.029167,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.07931,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.193396,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.603155,
+                "hit_at_5": 1.0,
+                "mrr": 0.929688,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.233257,
+                "realized_top1": 0.2375,
+                "candidate_count": 9.079167,
+                "target_in_candidates": 0.95,
+                "abstention": 0.008333
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.248293,
+                "realized_top1": 0.259434,
+                "candidate_count": 7.740566,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.009434
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.603937,
+                "hit_at_5": 1.0,
+                "mrr": 0.929688,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.083989,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.029167,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.07931,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.193396,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.248293,
+                "realized_top1": 0.259434,
+                "candidate_count": 7.740566,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.009434
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "center": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.166164,
+                "hit_at_5": 0.8125,
+                "mrr": 0.672991,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.083989,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.029167,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.07931,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.193396,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.332818,
+                "hit_at_5": 1.0,
+                "mrr": 0.90625,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.133575,
+                "realized_top1": 0.1375,
+                "candidate_count": 15.3,
+                "target_in_candidates": 0.95,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.135445,
+                "realized_top1": 0.146226,
+                "candidate_count": 14.783019,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.332818,
+                "hit_at_5": 1.0,
+                "mrr": 0.90625,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.083989,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.029167,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.07931,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.193396,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.135445,
+                "realized_top1": 0.146226,
+                "candidate_count": 14.783019,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "seed": 20260923,
+      "documents": 240,
+      "generated_sha256": "0d232222c48198006e126ea829d9571ddc388d88c80defa8120cae197b90f4c9",
+      "conditions": {
+        "gold": {
+          "team": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.139499,
+                "hit_at_5": 0.294737,
+                "mrr": 0.207154,
+                "empty_result": 0.0
+              },
+              "query_count": 95,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.65,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.274506,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.509434,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.79416,
+                "hit_at_5": 0.894737,
+                "mrr": 0.838349,
+                "empty_result": 0.0
+              },
+              "query_count": 95,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.733909,
+                "realized_top1": 0.75,
+                "candidate_count": 1.783333,
+                "target_in_candidates": 0.95,
+                "abstention": 0.041667
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.803459,
+                "realized_top1": 0.811321,
+                "candidate_count": 1.264151,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.04717
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.792406,
+                "hit_at_5": 0.894737,
+                "mrr": 0.814135,
+                "empty_result": 0.0
+              },
+              "query_count": 95,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.65,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.274506,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.509434,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.803459,
+                "realized_top1": 0.811321,
+                "candidate_count": 1.264151,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.04717
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "division": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.163126,
+                "hit_at_5": 0.6875,
+                "mrr": 0.414581,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.65,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.274506,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.509434,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.592209,
+                "hit_at_5": 0.96875,
+                "mrr": 0.940341,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.617242,
+                "realized_top1": 0.625,
+                "candidate_count": 2.183333,
+                "target_in_candidates": 0.95,
+                "abstention": 0.016667
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.671384,
+                "realized_top1": 0.669811,
+                "candidate_count": 1.716981,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.018868
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.592209,
+                "hit_at_5": 0.96875,
+                "mrr": 0.940341,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.65,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.274506,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.509434,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.671384,
+                "realized_top1": 0.669811,
+                "candidate_count": 1.716981,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.018868
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "center": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.163202,
+                "hit_at_5": 0.8125,
+                "mrr": 0.618998,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.65,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.274506,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.509434,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.324163,
+                "hit_at_5": 1.0,
+                "mrr": 0.9375,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.441409,
+                "realized_top1": 0.45,
+                "candidate_count": 2.958333,
+                "target_in_candidates": 0.95,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.472327,
+                "realized_top1": 0.471698,
+                "candidate_count": 2.59434,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.324163,
+                "hit_at_5": 1.0,
+                "mrr": 0.9375,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.266667,
+                "realized_top1": 0.266667,
+                "candidate_count": 4.65,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.274506,
+                "realized_top1": 0.264151,
+                "candidate_count": 4.509434,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.472327,
+                "realized_top1": 0.471698,
+                "candidate_count": 2.59434,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          }
+        },
+        "roberta": {
+          "team": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.131003,
+                "hit_at_5": 0.315789,
+                "mrr": 0.216166,
+                "empty_result": 0.0
+              },
+              "query_count": 95,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.087722,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.5375,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090938,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.235849,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.786817,
+                "hit_at_5": 0.905263,
+                "mrr": 0.837142,
+                "empty_result": 0.0
+              },
+              "query_count": 95,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.496125,
+                "realized_top1": 0.4875,
+                "candidate_count": 5.525,
+                "target_in_candidates": 0.95,
+                "abstention": 0.020833
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.553282,
+                "realized_top1": 0.542453,
+                "candidate_count": 3.183962,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.023585
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.792406,
+                "hit_at_5": 0.894737,
+                "mrr": 0.807118,
+                "empty_result": 0.0
+              },
+              "query_count": 95,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.087722,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.5375,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090938,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.235849,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.553282,
+                "realized_top1": 0.542453,
+                "candidate_count": 3.183962,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.023585
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "division": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.163386,
+                "hit_at_5": 0.75,
+                "mrr": 0.437661,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.087722,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.5375,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090938,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.235849,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.593251,
+                "hit_at_5": 0.96875,
+                "mrr": 0.940625,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.252403,
+                "realized_top1": 0.229167,
+                "candidate_count": 9.554167,
+                "target_in_candidates": 0.95,
+                "abstention": 0.004167
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.27737,
+                "realized_top1": 0.25,
+                "candidate_count": 7.745283,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.004717
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.593251,
+                "hit_at_5": 0.96875,
+                "mrr": 0.940341,
+                "empty_result": 0.0
+              },
+              "query_count": 32,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.087722,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.5375,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090938,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.235849,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.27737,
+                "realized_top1": 0.25,
+                "candidate_count": 7.745283,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.004717
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          },
+          "center": {
+            "mask": {
+              "retrieval": {
+                "recall_at_5": 0.162099,
+                "hit_at_5": 0.875,
+                "mrr": 0.651637,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.087722,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.5375,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090938,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.235849,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              }
+            },
+            "inline": {
+              "retrieval": {
+                "recall_at_5": 0.324163,
+                "hit_at_5": 1.0,
+                "mrr": 0.96875,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.145675,
+                "realized_top1": 0.145833,
+                "candidate_count": 15.720833,
+                "target_in_candidates": 0.95,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.156546,
+                "realized_top1": 0.15566,
+                "candidate_count": 14.726415,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              }
+            },
+            "metadata_filter": {
+              "retrieval": {
+                "recall_at_5": 0.324163,
+                "hit_at_5": 1.0,
+                "mrr": 0.96875,
+                "empty_result": 0.0
+              },
+              "query_count": 16,
+              "released_text_only": {
+                "documents": 240,
+                "expected_top1": 0.087722,
+                "realized_top1": 0.0875,
+                "candidate_count": 28.5375,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "released_text_only_resolved_subset": {
+                "documents": 212,
+                "expected_top1": 0.090938,
+                "realized_top1": 0.089623,
+                "candidate_count": 29.235849,
+                "target_in_candidates": 1.0,
+                "abstention": 0.0
+              },
+              "known_filter_membership": {
+                "documents": 212,
+                "expected_top1": 0.156546,
+                "realized_top1": 0.15566,
+                "candidate_count": 14.726415,
+                "target_in_candidates": 0.943396,
+                "abstention": 0.0
+              },
+              "metadata": {
+                "coverage": 0.883333,
+                "wrong_category_fraction_all_documents": 0.05,
+                "wrong_category_fraction_resolved": 0.056604
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

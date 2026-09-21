@@ -1,0 +1,426 @@
+{
+  "gold": {
+    "team": {
+      "mask": {
+        "recall_at_5": {
+          "mean": 0.16728,
+          "min": 0.139499,
+          "max": 0.187847
+        },
+        "text_attack": {
+          "mean": 0.263889,
+          "min": 0.258333,
+          "max": 0.266667
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "inline": {
+        "recall_at_5": {
+          "mean": 0.813024,
+          "min": 0.789757,
+          "max": 0.855155
+        },
+        "text_attack": {
+          "mean": 0.732116,
+          "min": 0.720357,
+          "max": 0.742083
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "metadata_filter": {
+        "recall_at_5": {
+          "mean": 0.803819,
+          "min": 0.771875,
+          "max": 0.847176
+        },
+        "text_attack": {
+          "mean": 0.263889,
+          "min": 0.258333,
+          "max": 0.266667
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "matched_subset": {
+        "inline": {
+          "mean": 0.796646,
+          "min": 0.779874,
+          "max": 0.806604
+        },
+        "metadata_text_only": {
+          "mean": 0.266577,
+          "min": 0.256828,
+          "max": 0.274506
+        },
+        "metadata_filter_known": {
+          "mean": 0.796646,
+          "min": 0.779874,
+          "max": 0.806604
+        }
+      }
+    },
+    "division": {
+      "mask": {
+        "recall_at_5": {
+          "mean": 0.166615,
+          "min": 0.163126,
+          "max": 0.172793
+        },
+        "text_attack": {
+          "mean": 0.263889,
+          "min": 0.258333,
+          "max": 0.266667
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "inline": {
+        "recall_at_5": {
+          "mean": 0.586726,
+          "min": 0.562245,
+          "max": 0.605722
+        },
+        "text_attack": {
+          "mean": 0.598783,
+          "min": 0.577302,
+          "max": 0.617242
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "metadata_filter": {
+        "recall_at_5": {
+          "mean": 0.586726,
+          "min": 0.562245,
+          "max": 0.605722
+        },
+        "text_attack": {
+          "mean": 0.263889,
+          "min": 0.258333,
+          "max": 0.266667
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "matched_subset": {
+        "inline": {
+          "mean": 0.645702,
+          "min": 0.617925,
+          "max": 0.671384
+        },
+        "metadata_text_only": {
+          "mean": 0.266577,
+          "min": 0.256828,
+          "max": 0.274506
+        },
+        "metadata_filter_known": {
+          "mean": 0.645702,
+          "min": 0.617925,
+          "max": 0.671384
+        }
+      }
+    },
+    "center": {
+      "mask": {
+        "recall_at_5": {
+          "mean": 0.171651,
+          "min": 0.163202,
+          "max": 0.18342
+        },
+        "text_attack": {
+          "mean": 0.263889,
+          "min": 0.258333,
+          "max": 0.266667
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "inline": {
+        "recall_at_5": {
+          "mean": 0.324019,
+          "min": 0.315078,
+          "max": 0.332818
+        },
+        "text_attack": {
+          "mean": 0.414478,
+          "min": 0.383413,
+          "max": 0.441409
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "metadata_filter": {
+        "recall_at_5": {
+          "mean": 0.324019,
+          "min": 0.315078,
+          "max": 0.332818
+        },
+        "text_attack": {
+          "mean": 0.263889,
+          "min": 0.258333,
+          "max": 0.266667
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "matched_subset": {
+        "inline": {
+          "mean": 0.437055,
+          "min": 0.398428,
+          "max": 0.472327
+        },
+        "metadata_text_only": {
+          "mean": 0.266577,
+          "min": 0.256828,
+          "max": 0.274506
+        },
+        "metadata_filter_known": {
+          "mean": 0.437055,
+          "min": 0.398428,
+          "max": 0.472327
+        }
+      }
+    }
+  },
+  "roberta": {
+    "team": {
+      "mask": {
+        "recall_at_5": {
+          "mean": 0.159882,
+          "min": 0.131003,
+          "max": 0.182812
+        },
+        "text_attack": {
+          "mean": 0.087616,
+          "min": 0.083989,
+          "max": 0.091136
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "inline": {
+        "recall_at_5": {
+          "mean": 0.804504,
+          "min": 0.786817,
+          "max": 0.827216
+        },
+        "text_attack": {
+          "mean": 0.490116,
+          "min": 0.485703,
+          "max": 0.496125
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "metadata_filter": {
+        "recall_at_5": {
+          "mean": 0.807541,
+          "min": 0.780382,
+          "max": 0.849835
+        },
+        "text_attack": {
+          "mean": 0.087616,
+          "min": 0.083989,
+          "max": 0.091136
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "matched_subset": {
+        "inline": {
+          "mean": 0.542551,
+          "min": 0.53408,
+          "max": 0.553282
+        },
+        "metadata_text_only": {
+          "mean": 0.086891,
+          "min": 0.07931,
+          "max": 0.090938
+        },
+        "metadata_filter_known": {
+          "mean": 0.542551,
+          "min": 0.53408,
+          "max": 0.553282
+        }
+      }
+    },
+    "division": {
+      "mask": {
+        "recall_at_5": {
+          "mean": 0.166644,
+          "min": 0.159475,
+          "max": 0.177071
+        },
+        "text_attack": {
+          "mean": 0.087616,
+          "min": 0.083989,
+          "max": 0.091136
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "inline": {
+        "recall_at_5": {
+          "mean": 0.588619,
+          "min": 0.56945,
+          "max": 0.603155
+        },
+        "text_attack": {
+          "mean": 0.247623,
+          "min": 0.233257,
+          "max": 0.257209
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "metadata_filter": {
+        "recall_at_5": {
+          "mean": 0.585841,
+          "min": 0.560335,
+          "max": 0.603937
+        },
+        "text_attack": {
+          "mean": 0.087616,
+          "min": 0.083989,
+          "max": 0.091136
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "matched_subset": {
+        "inline": {
+          "mean": 0.268031,
+          "min": 0.248293,
+          "max": 0.278431
+        },
+        "metadata_text_only": {
+          "mean": 0.086891,
+          "min": 0.07931,
+          "max": 0.090938
+        },
+        "metadata_filter_known": {
+          "mean": 0.268031,
+          "min": 0.248293,
+          "max": 0.278431
+        }
+      }
+    },
+    "center": {
+      "mask": {
+        "recall_at_5": {
+          "mean": 0.169334,
+          "min": 0.162099,
+          "max": 0.17974
+        },
+        "text_attack": {
+          "mean": 0.087616,
+          "min": 0.083989,
+          "max": 0.091136
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "inline": {
+        "recall_at_5": {
+          "mean": 0.325245,
+          "min": 0.318754,
+          "max": 0.332818
+        },
+        "text_attack": {
+          "mean": 0.141191,
+          "min": 0.133575,
+          "max": 0.145675
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "metadata_filter": {
+        "recall_at_5": {
+          "mean": 0.323351,
+          "min": 0.313072,
+          "max": 0.332818
+        },
+        "text_attack": {
+          "mean": 0.087616,
+          "min": 0.083989,
+          "max": 0.091136
+        },
+        "empty_result": {
+          "mean": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "matched_subset": {
+        "inline": {
+          "mean": 0.147542,
+          "min": 0.135445,
+          "max": 0.156546
+        },
+        "metadata_text_only": {
+          "mean": 0.086891,
+          "min": 0.07931,
+          "max": 0.090938
+        },
+        "metadata_filter_known": {
+          "mean": 0.147542,
+          "min": 0.135445,
+          "max": 0.156546
+        }
+      }
+    }
+  }
+}
