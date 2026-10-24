@@ -1,0 +1,46 @@
+name: sonar
+
+# SonarCloud CI 분석.
+#
+# Automatic Analysis 대신 CI에서 스캐너를 돌린다. 그래야 레포의
+# sonar-project.properties 에 적어 둔 규칙 제외와 그 근거가 실제로 적용된다
+# (Automatic Analysis 는 sonar.issue.ignore.* 를 읽지 않는다).
+#
+# 필요 설정 두 가지:
+#   1. 레포 Secret 에 SONAR_TOKEN 등록
+#   2. SonarCloud 프로젝트 설정에서 Automatic Analysis 를 끈다
+#      (켜져 있으면 CI 분석이 거부된다)
+# SONAR_TOKEN 이 없으면 이 잡은 조용히 건너뛴다.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # PR 분석에는 전체 히스토리가 필요하다 (new code 판정).
+          fetch-depth: 0
+
+      - name: SONAR_TOKEN 등록 여부 확인
+        id: token
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          if [ -n "$SONAR_TOKEN" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "SONAR_TOKEN 이 없어 분석을 건너뜁니다." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: SonarCloud 스캔
+        if: steps.token.outputs.present == 'true'
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io

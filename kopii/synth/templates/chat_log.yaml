@@ -1,0 +1,9 @@
+id: chat_log_v1
+genre: chat_log
+persons: [2, 2]
+lines:
+  - text: "[{doc.date}]"
+  - text: "{person0.name}: 배포 언제 나가나요?"
+  - text: "{person1.name}: 오후에 나갑니다"
+  - text: "{person0.name}: 확인 부탁드려요 {person1.nickname}"
+    requires: [nickname]

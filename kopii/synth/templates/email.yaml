@@ -1,0 +1,15 @@
+id: email_v1
+genre: email
+persons: [2, 2]
+lines:
+  - text: "받는 사람: {person1.email}"
+  - text: "제목: {doc.date} 협업 요청"
+  - text: ""
+  - text: "{person1.name} {person1.title}님, 안녕하세요."
+  - text: "{person0.team}의 {person0.name}입니다."
+  - text: "말씀 주신 건은 이번 주 내로 회신드리겠습니다."
+  - text: ""
+  - text: "--"
+  - text: "{person0.division} {person0.team} {person0.title} {person0.name}"
+  - text: "{person0.phone} / {person0.email}"
+  - text: "{person0.address}"

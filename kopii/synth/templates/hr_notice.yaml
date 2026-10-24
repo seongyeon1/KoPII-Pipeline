@@ -1,0 +1,12 @@
+id: hr_notice_v1
+genre: hr_notice
+persons: [2, 4]
+lines:
+  - text: "[인사 공지] {doc.date}자 조직 개편"
+  - text: ""
+  - text: "- {person.name}({person.employee_id}) → {person.division} {person.team} {person.title}"
+    repeat: person
+  - text: ""
+  - text: "신원 확인용 주민등록번호(대상자 1): {person0.rrn}"
+  - text: ""
+  - text: "문의: 인사팀 {person0.email}"

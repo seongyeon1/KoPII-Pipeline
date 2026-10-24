@@ -1,0 +1,16 @@
+id: meeting_note_v1
+genre: meeting_note
+persons: [2, 5]
+lines:
+  - text: "# {doc.date} 주간 회의"
+  - text: ""
+  - text: "## 참석자"
+  - text: "- {person.name}님({person.nickname}) · {person.employee_id}"
+    repeat: person
+    requires: [nickname]
+  - text: "- {person.name}님 · {person.employee_id}"
+    repeat: person
+  - text: ""
+  - text: "## 논의"
+  - text: "{person0.name} {person0.title}이 {person0.team} 진행 상황을 공유했습니다."
+  - text: "후속 확인은 {person1.name} {person1.title}이 맡기로 했습니다."

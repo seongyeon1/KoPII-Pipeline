@@ -1170,6 +1170,13 @@ git commit -m "feat(synth): 가상 조직과 구성원 생성 (Stage 1)
   - `kopii.synth.document.TemplateLine` — pydantic 모델: `text: str`, `repeat: str | None = None`, `requires: list[str] = []`
   - `kopii.synth.document.generate_documents(population: Population, templates: list[DocumentTemplate], count: int, genre_weights: dict[str, float], seed: int) -> list[Document]`
 
+> **실행 중 개정** — 템플릿의 `persons` 범위는 그 템플릿이 실제로 참조하는 `personN`
+> 슬롯 개수와 일치해야 한다. 어긋나면 (a) 참조보다 적게 뽑힐 때 렌더링이 예외로 죽고,
+> (b) 많이 뽑힐 때 본문에 등장하지 않는 사람이 `person_ids`에 실려 메타가 사실과
+> 달라진다. `repeat: person` 줄이 있는 템플릿은 모든 actor가 등장하므로 상한이 자유롭다.
+> 위 YAML은 개정된 값이며, `test_every_template_renders_at_min_and_max_persons`가
+> 이 규칙을 강제한다.
+
 **핵심:** 렌더러는 슬롯을 치환하는 **그 순간에** 오프셋을 기록한다. 다 만들고 나서 텍스트를 되짚어 찾지 않는다 — 같은 이름이 두 번 나오면 되짚기는 틀린 위치를 잡는다.
 
 - [ ] **Step 1: 실패하는 테스트를 쓴다**
@@ -1266,8 +1273,12 @@ def test_unknown_slot_raises() -> None:
         render_document("d_0", template, [pop.people[0]], {"date": "2026-01-02"})
 
 
-def test_shipped_templates_load_and_render() -> None:
-    """레포에 포함된 템플릿 6종이 전부 로드·렌더링돼야 한다."""
+def test_shipped_templates_load_with_expected_genres() -> None:
+    """레포에 포함된 템플릿 6종이 전부 로드되고 장르가 맞아야 한다.
+
+    렌더링 검증은 test_generate_documents_roundtrip_and_reproducible가
+    전 템플릿에 대해 수행한다.
+    """
     templates = load_templates()
     assert len(templates) == 6
     genres = {t.genre for t in templates}
@@ -1368,7 +1379,7 @@ lines:
 ```yaml
 id: approval_doc_v1
 genre: approval_doc
-persons: [1, 2]
+persons: [1, 1]
 lines:
   - text: "결재 문서 번호: 2026-{doc.serial}"
   - text: "기안일: {doc.date}"
@@ -1389,7 +1400,7 @@ lines:
 ```yaml
 id: chat_log_v1
 genre: chat_log
-persons: [2, 3]
+persons: [2, 2]
 lines:
   - text: "[{doc.date}]"
   - text: "{person0.name}: 배포 언제 나가나요?"
@@ -1406,7 +1417,7 @@ lines:
 ```yaml
 id: issue_ticket_v1
 genre: issue_ticket
-persons: [1, 2]
+persons: [2, 2]
 lines:
   - text: "## ISSUE-{doc.serial}"
   - text: "보고자: {person0.name} ({person0.email})"
@@ -2106,7 +2117,8 @@ def _typo_edits(doc: Document, rate: float, rng: random.Random) -> list[Edit]:
 def _space_insertion_edits(doc: Document, rate: float, rng: random.Random) -> list[Edit]:
     """전화번호 하이픈 주위에 공백을 넣는 편집을 만듭니다.
 
-    "010-1234-5678"이 "010 - 1234 - 5678"처럼 쓰이는 실제 표기를 재현한다.
+    "010-0000-0000"이 "010 - 0000 - 0000"처럼 쓰이는 실제 표기를 재현한다.
+    (문서의 예시는 자리표시 값을 쓴다 — scripts/pii_scan.py가 그럴듯한 번호를 반려한다.)
     span 안쪽 편집이므로 폭과 surface가 함께 갱신된다.
     """
     edits: list[Edit] = []

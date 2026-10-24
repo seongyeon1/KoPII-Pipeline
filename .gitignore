@@ -6,6 +6,10 @@ configs/knowledge.yaml
 configs/knowledge.*.yaml
 !configs/knowledge.synthetic.yaml
 
+# ── 에이전트 작업공간 (계획 실행 중 생성되는 스크래치) ─────────────
+# 레포에 들어가면 안 된다 — 검증용 합성 PII 픽스처가 섞일 수 있다.
+.superpowers/
+
 # ── 시크릿 ────────────────────────────────────────────────────────
 .env
 .env.*

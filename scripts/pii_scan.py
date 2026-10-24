@@ -19,14 +19,26 @@ from pathlib import Path
 
 IGNORE_FILE = Path(".piiscanignore")
 BINARY_SUFFIXES = {
-    ".png", ".jpg", ".jpeg", ".gif", ".pdf", ".zip", ".gz", ".whl",
-    ".ico", ".woff", ".woff2", ".so", ".dylib", ".pyc",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".pdf",
+    ".zip",
+    ".gz",
+    ".whl",
+    ".ico",
+    ".woff",
+    ".woff2",
+    ".so",
+    ".dylib",
+    ".pyc",
 }
 
-RRN_RE = re.compile(r"(?<![0-9])(\d{6})[-\s]?([1-4]\d{6})(?![0-9])")
-PHONE_RE = re.compile(r"(?<![0-9])(01[016789])[-\s.]?(\d{3,4})[-\s.]?(\d{4})(?![0-9])")
-CARD_RE = re.compile(r"(?<![0-9])(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})(?![0-9])")
-BIZNO_RE = re.compile(r"(?<![0-9])(\d{3})-?(\d{2})-?(\d{5})(?![0-9])")
+RRN_RE = re.compile(r"(?<!\d)(\d{6})[-\s]?([1-4]\d{6})(?!\d)")
+PHONE_RE = re.compile(r"(?<!\d)(01[016789])[-\s.]?(\d{3,4})[-\s.]?(\d{4})(?!\d)")
+CARD_RE = re.compile(r"(?<!\d)(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})[-\s]?(\d{4})(?!\d)")
+BIZNO_RE = re.compile(r"(?<!\d)(\d{3})-?(\d{2})-?(\d{5})(?!\d)")
 
 
 def _is_placeholder(digits: str) -> bool:
@@ -39,7 +51,7 @@ def valid_rrn(digits: str) -> bool:
     if len(digits) != 13 or _is_placeholder(digits):
         return False
     weights = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5]
-    total = sum(int(d) * w for d, w in zip(digits[:12], weights))
+    total = sum(int(d) * w for d, w in zip(digits[:12], weights, strict=True))
     return (11 - total % 11) % 10 == int(digits[12])
 
 
@@ -63,7 +75,7 @@ def valid_bizno(digits: str) -> bool:
     if len(digits) != 10 or _is_placeholder(digits):
         return False
     weights = [1, 3, 7, 1, 3, 7, 1, 3, 5]
-    total = sum(int(d) * w for d, w in zip(digits[:9], weights))
+    total = sum(int(d) * w for d, w in zip(digits[:9], weights, strict=True))
     total += (int(digits[8]) * 5) // 10
     return (10 - total % 10) % 10 == int(digits[9])
 
@@ -106,7 +118,11 @@ def iter_files(targets: list[str], ignore: list[str]):
         path = Path(target)
         if not path.exists():
             continue
-        candidates = sorted(p for p in path.rglob("*") if p.is_file()) if path.is_dir() else [path]
+        candidates = (
+            sorted(p for p in path.rglob("*") if p.is_file())
+            if path.is_dir()
+            else [path]
+        )
         for p in candidates:
             posix = p.as_posix()
             if ".git/" in posix or p.suffix.lower() in BINARY_SUFFIXES:
